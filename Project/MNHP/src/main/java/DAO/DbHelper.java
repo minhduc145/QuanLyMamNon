@@ -48,7 +48,7 @@ public class DbHelper {
     public boolean DangNhap(String usn, String psw) {
         try {
             Connection cn = (DbHelper.getInstance()).getConnection();
-            String SQL = "SELECT * FROM TaiKhoan where TenDN = ? and MatKhau = ?";
+            String SQL = "SELECT * FROM TaiKhoan where idCBNV = ? and MatKhau = ?";
             PreparedStatement stmt = cn.prepareStatement(SQL);
             stmt.setString(1, usn);
             stmt.setString(2, psw);

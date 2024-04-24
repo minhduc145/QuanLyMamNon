@@ -17,7 +17,7 @@
    <children>
       <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane fx:id="login_form" layoutX="48.0" layoutY="75.0" prefHeight="550.0" prefWidth="330.0" styleClass="white-bg" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="login_form" layoutX="48.0" layoutY="75.0" prefHeight="550.0" prefWidth="330.0" styleClass="white-bg" stylesheets="@PageDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
 
                   <Label layoutX="116.0" layoutY="30.0" text="Đăng nhập" textFill="#188ba7">
@@ -25,25 +25,25 @@
                         <Font name="Tahoma" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="login_username" layoutX="39.0" layoutY="239.0" prefHeight="30.0" prefWidth="250.0" promptText="Username" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css">
+                  <TextField fx:id="login_username" layoutX="39.0" layoutY="239.0" prefHeight="30.0" prefWidth="250.0" promptText="Username"  >
                      <styleClass>
                         <String fx:value="textfield-1" />
                         <String fx:value="white-bg" />
                      </styleClass>
                   </TextField>
-                  <PasswordField fx:id="login_password" layoutX="39.0" layoutY="328.0" prefHeight="30.0" prefWidth="250.0" promptText="Password" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css">
+                  <PasswordField fx:id="login_password" layoutX="39.0" layoutY="328.0" prefHeight="30.0" prefWidth="250.0" promptText="Password"  >
                      <styleClass>
                         <String fx:value="textfield-1" />
                         <String fx:value="white-bg" />
                      </styleClass>
                   </PasswordField>
-                  <TextField fx:id="login_showPassword" layoutX="39.0" layoutY="213.0" prefHeight="30.0" prefWidth="250.0" promptText="Password" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css" visible="false">
+                  <TextField fx:id="login_showPassword" layoutX="39.0" layoutY="213.0" prefHeight="30.0" prefWidth="250.0" promptText="Password"   visible="false">
                      <styleClass>
                         <String fx:value="textfield-1" />
                         <String fx:value="white-bg" />
                      </styleClass>
                   </TextField>
-                  <Button fx:id="login_loginBtn" layoutX="39.0" layoutY="442.0" mnemonicParsing="false" onAction="#onClick" prefHeight="40.0" prefWidth="250.0" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css" text="Đăng nhập">
+                  <Button fx:id="login_loginBtn" layoutX="39.0" layoutY="442.0" mnemonicParsing="false" onAction="#onClick" prefHeight="40.0" prefWidth="250.0"   text="Đăng nhập">
                      <styleClass>
                         <String fx:value="btn-1" />
                         <String fx:value="radius" />
@@ -53,12 +53,12 @@
                   <Label layoutX="40.0" layoutY="302.0" text="Mật khẩu:" />
                   <ImageView fitHeight="118.0" fitWidth="149.0" layoutX="105.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../Users/MyHP/Downloads/icons8-android-os-100.png" />
+                        <Image url="@UI/management.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="register_form" layoutX="10.0" layoutY="10.0" prefHeight="550.0" prefWidth="330.0" styleClass="white-bg" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="register_form" layoutX="10.0" layoutY="10.0" prefHeight="550.0" prefWidth="330.0" styleClass="white-bg"   visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="90.0" layoutY="99.0" text="Register Account" textFill="#188ba7">
                      <font>
@@ -66,32 +66,32 @@
                      </font>
                   </Label>
                   <Label layoutX="130.0" layoutY="125.0" text="Admin Portal" />
-                  <TextField fx:id="register_email" layoutX="39.0" layoutY="190.0" prefHeight="30.0" prefWidth="250.0" promptText="Email Address" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css">
+                  <TextField fx:id="register_email" layoutX="39.0" layoutY="190.0" prefHeight="30.0" prefWidth="250.0" promptText="Email Address"  >
                      <styleClass>
                         <String fx:value="textfield-1" />
                         <String fx:value="white-bg" />
                      </styleClass>
                   </TextField>
-                  <TextField fx:id="register_username" layoutX="40.0" layoutY="227.0" prefHeight="30.0" prefWidth="250.0" promptText="Username" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css">
+                  <TextField fx:id="register_username" layoutX="40.0" layoutY="227.0" prefHeight="30.0" prefWidth="250.0" promptText="Username"  >
                      <styleClass>
                         <String fx:value="textfield-1" />
                         <String fx:value="white-bg" />
                      </styleClass>
                   </TextField>
-                  <PasswordField fx:id="register_password" layoutX="40.0" layoutY="263.0" prefHeight="30.0" prefWidth="250.0" promptText="Password" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css">
+                  <PasswordField fx:id="register_password" layoutX="40.0" layoutY="263.0" prefHeight="30.0" prefWidth="250.0" promptText="Password"  >
                      <styleClass>
                         <String fx:value="textfield-1" />
                         <String fx:value="white-bg" />
                      </styleClass>
                   </PasswordField>
-                  <TextField fx:id="register_showPassword" layoutX="40.0" layoutY="263.0" prefHeight="30.0" prefWidth="250.0" promptText="Password" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css" visible="false">
+                  <TextField fx:id="register_showPassword" layoutX="40.0" layoutY="263.0" prefHeight="30.0" prefWidth="250.0" promptText="Password"   visible="false">
                      <styleClass>
                         <String fx:value="textfield-1" />
                         <String fx:value="white-bg" />
                      </styleClass>
                   </TextField>
                   <CheckBox fx:id="register_checkBox" layoutX="40.0" layoutY="299.0" mnemonicParsing="false" text="Show Password" />
-                  <Button fx:id="register_signupBtn" layoutX="41.0" layoutY="325.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0" stylesheets="@../../../../../../../../Users/MyHP/Downloads/HospitalManagementSystem-main/HospitalManagementSystem/src/design/PageDesign.css" text="Sign Up">
+                  <Button fx:id="register_signupBtn" layoutX="41.0" layoutY="325.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="250.0"   text="Sign Up">
                      <styleClass>
                         <String fx:value="btn-1" />
                         <String fx:value="radius" />
