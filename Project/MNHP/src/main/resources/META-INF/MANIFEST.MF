@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: hp.mnhp.run
+Class-Path: mssql-jdbc-12.6.1.jre11.jar javafx-graphics-21.jar javafx-ba
+ se-21-win.jar javafx-controls-21.jar javafx-base-21.jar javafx-fxml-21.
+ jar javafx-graphics-21-win.jar atlantafx-base-2.0.1.jar javafx-fxml-21-
+ win.jar javafx-controls-21-win.jar
+

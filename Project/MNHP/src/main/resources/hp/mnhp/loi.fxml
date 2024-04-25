@@ -9,7 +9,7 @@
 <AnchorPane fx:id="eStage" prefHeight="130.0" prefWidth="261.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.Loi">
    <children>
       <Button fx:id="okbtn" layoutX="99.0" layoutY="83.0" mnemonicParsing="false" onAction="#closestg" text="OK" />
-      <Text fill="#ff0404" layoutX="73.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lỗi đăng nhập">
+      <Text fill="#ff0404" layoutX="73.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lỗi">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

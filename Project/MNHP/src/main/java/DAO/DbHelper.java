@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -54,7 +55,7 @@ public class DbHelper {
             stmt.setString(2, psw);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-
+                getUserInfo(usn);
                 System.out.println(rs.getString(1));
                 return true;
             }
@@ -63,5 +64,24 @@ public class DbHelper {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void getUserInfo(String usn) {
+        try {
+            Connection cn = (DbHelper.getInstance()).getConnection();
+            String SQL = "SELECT idCBNV, idQuyen FROM TaiKhoan where idCBNV = ?";
+            PreparedStatement stmt = cn.prepareStatement(SQL);
+            stmt.setString(1, usn);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User.idCBNV = rs.getString(1);
+                User.idQuyen = rs.getString(2);
+            }
+
+            System.out.println("q" + User.idQuyen);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
