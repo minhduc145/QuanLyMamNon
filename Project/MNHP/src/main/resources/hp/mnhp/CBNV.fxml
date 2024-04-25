@@ -32,10 +32,16 @@
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
-                              <MenuItem fx:id="logout" mnemonicParsing="false" text="Đăng xuất" />
-                          <MenuItem fx:id="exit" mnemonicParsing="false" text="Thoát" />
+                              <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#onClicklogout" text="Đăng xuất" />
+                          <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#onClickexit" text="Thoát" />
                         </items>
                       </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                           <items>
+                              <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Bảng chấm công" />
+                              <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Bảng lương" />
+                           </items>
+                        </Menu>
                       <Menu mnemonicParsing="false" text="Help">
                         <items>
                           <MenuItem mnemonicParsing="false" text="About" />
@@ -101,11 +107,6 @@
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <Text layoutX="33.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quê quán: ">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Text>
                                                 <Text layoutX="27.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ thường trú: ">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
@@ -129,40 +130,34 @@
                                                 <DatePicker fx:id="date" editable="false" layoutX="161.0" layoutY="328.0" prefHeight="36.0" prefWidth="352.0" />
                                                 <TextField fx:id="hoten" editable="false" layoutX="161.0" layoutY="34.0" prefHeight="36.0" prefWidth="350.0" />
                                                 <TextField fx:id="noisinh" editable="false" layoutX="161.0" layoutY="79.0" prefHeight="36.0" prefWidth="350.0" />
-                                                <TextField fx:id="quequan" editable="false" layoutX="161.0" layoutY="123.0" prefHeight="36.0" prefWidth="350.0" />
                                                 <TextField fx:id="dc" editable="false" layoutX="161.0" layoutY="180.0" prefHeight="36.0" prefWidth="350.0" />
                                                 <TextField fx:id="sdt" editable="false" layoutX="161.0" layoutY="229.0" prefHeight="36.0" prefWidth="350.0" />
                                                 <TextField fx:id="email" editable="false" layoutX="161.0" layoutY="273.0" prefHeight="36.0" prefWidth="350.0" />
-                                                <Text layoutX="586.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số CCCD:">
+                                                <Text layoutX="586.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số CCCD:">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <Text layoutX="586.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chủ nhiệm lớp:">
+                                                <Text layoutX="586.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chủ nhiệm lớp:">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField fx:id="cccd" editable="false" layoutX="661.0" layoutY="198.0" prefHeight="36.0" prefWidth="259.0" />
-                                                <Text layoutX="584.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giới tính">
+                                                <TextField fx:id="cccd" editable="false" layoutX="709.0" layoutY="159.0" prefHeight="36.0" prefWidth="211.0" />
+                                                <ComboBox fx:id="gt" layoutX="384.0" layoutY="131.0" prefHeight="36.0" prefWidth="126.0" promptText="Nam" />
+                                                <Text layoutX="33.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày sinh:">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <ComboBox fx:id="gt" layoutX="663.0" layoutY="150.0" prefHeight="36.0" prefWidth="126.0" promptText="Nam" />
-                                                <Text layoutX="586.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày sinh:">
+                                                <DatePicker fx:id="bd" editable="false" layoutX="161.0" layoutY="131.0" prefHeight="36.0" prefWidth="192.0" />
+                                                <Text layoutX="586.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trình độ học vấn:">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <DatePicker fx:id="bd" editable="false" layoutX="663.0" layoutY="91.0" prefHeight="36.0" prefWidth="226.0" />
-                                                <Text layoutX="585.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trình độ học vấn:">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Text>
-                                                <TextField fx:id="tdhv" editable="false" layoutX="706.0" layoutY="44.0" prefHeight="36.0" prefWidth="214.0" />
-                                                <ComboBox fx:id="lopcn" layoutX="655.0" layoutY="310.0" prefHeight="36.0" prefWidth="274.0" promptText="Nam" />
+                                                <TextField fx:id="tdhv" editable="false" layoutX="707.0" layoutY="97.0" prefHeight="36.0" prefWidth="214.0" />
+                                                <ComboBox fx:id="lopcn" layoutX="655.0" layoutY="279.0" prefHeight="36.0" prefWidth="274.0" promptText="Nam" />
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -230,12 +225,29 @@
                               <Button fx:id="suaBtn" defaultButton="true" disable="true" layoutX="856.0" layoutY="23.0" mnemonicParsing="false" onAction="#onClicksuaBtn" text="Sửa" AnchorPane.rightAnchor="20.799999999999983" />
                               <Button fx:id="luuBtn" layoutX="940.0" layoutY="68.0" mnemonicParsing="false" onAction="#onClickluuBtn" text="Lưu" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
                               <Button fx:id="huyBtn" cancelButton="true" layoutX="940.0" layoutY="113.0" mnemonicParsing="false" onAction="#onClickhuyBtn" text="Hủy" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
-                              <TextField fx:id="editpw" editable="false" layoutX="690.0" layoutY="102.0" prefHeight="36.0" prefWidth="164.0" text="&lt;bị ẩn&gt;">
+                              <TextField fx:id="editpw" editable="false" layoutX="690.0" layoutY="59.0" prefHeight="36.0" prefWidth="164.0" text="&lt;bị ẩn&gt;">
                                  <font>
                                     <Font name="System Italic" size="12.0" />
                                  </font>
                               </TextField>
-                              <Text layoutX="614.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mật khẩu:">
+                              <Text layoutX="614.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mật khẩu:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="614.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HSL:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="hsl" editable="false" layoutX="690.0" layoutY="102.0" prefHeight="36.0" prefWidth="164.0" />
+                              <Text layoutX="614.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PC Thâm niên:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="tn" editable="false" layoutX="720.0" layoutY="143.0" prefHeight="36.0" prefWidth="81.0" />
+                              <Text layoutX="810.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\%">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>

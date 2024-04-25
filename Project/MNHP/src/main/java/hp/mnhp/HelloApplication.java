@@ -5,13 +5,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
 
-
-
 public class HelloApplication extends Application {
+    void handlerCloserq(WindowEvent event) {
+        System.out.println("AAAAAAAAAAAA");
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
@@ -20,6 +23,9 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setOnCloseRequest(event -> {
+            handlerCloserq(event);
+        });
         stage.show();
     }
 

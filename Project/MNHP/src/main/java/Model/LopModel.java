@@ -1,6 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LopModel {
+    private List<TreModel> dstre = new ArrayList<>();
     private String id;
     private String TenLop;
 

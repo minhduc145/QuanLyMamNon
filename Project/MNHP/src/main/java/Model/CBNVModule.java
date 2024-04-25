@@ -11,11 +11,13 @@ import java.util.Locale;
 @Setter
 @Builder
 public class CBNVModule {
+    private double hsl = 0.0;
+    private double pctn = 0.0;
+
     private String idCBNV;
     private String Hoten;
     private String idChucVu;
     private String NoiSinh;
-    private String QueQuan;
     private String DiaChiTT;
     private String SDT = "null";
     private String Email = "null";
@@ -29,20 +31,13 @@ public class CBNVModule {
     private String idQuyen;
     private String TDHV = "null";
 
-    public String getTDHV() {
-        return TDHV;
-    }
-
-    public void setTDHV(String TDHV) {
-        this.TDHV = TDHV;
-    }
-
-    public CBNVModule(String idCBNV, String hoten, String idChucVu, String noiSinh, String queQuan, String diaChiTT, String SDT, String email, LocalDate ngayVaoLam, LocalDate ngaySinh, String soCCCD, String idTinhTrang, boolean GTNam, String idLop, String matKhau, String idQuyen, String TDHV) {
+    public CBNVModule(double hsl, double pctn, String idCBNV, String hoten, String idChucVu, String noiSinh, String diaChiTT, String SDT, String email, LocalDate ngayVaoLam, LocalDate ngaySinh, String soCCCD, String idTinhTrang, boolean GTNam, String idLop, String matKhau, String idQuyen, String TDHV) {
+        this.hsl = hsl;
+        this.pctn = pctn;
         this.idCBNV = idCBNV;
         Hoten = hoten;
         this.idChucVu = idChucVu;
         NoiSinh = noiSinh;
-        QueQuan = queQuan;
         DiaChiTT = diaChiTT;
         this.SDT = SDT;
         Email = email;
@@ -54,6 +49,30 @@ public class CBNVModule {
         this.idLop = idLop;
         MatKhau = matKhau;
         this.idQuyen = idQuyen;
+        this.TDHV = TDHV;
+    }
+
+    public double getPctn() {
+        return pctn;
+    }
+
+    public void setPctn(double pctn) {
+        this.pctn = pctn;
+    }
+
+    public double getHsl() {
+        return hsl;
+    }
+
+    public void setHsl(double hsl) {
+        this.hsl = hsl;
+    }
+
+    public String getTDHV() {
+        return TDHV;
+    }
+
+    public void setTDHV(String TDHV) {
         this.TDHV = TDHV;
     }
 
@@ -95,14 +114,6 @@ public class CBNVModule {
 
     public void setNoiSinh(String noiSinh) {
         NoiSinh = noiSinh;
-    }
-
-    public String getQueQuan() {
-        return QueQuan;
-    }
-
-    public void setQueQuan(String queQuan) {
-        QueQuan = queQuan;
     }
 
     public String getDiaChiTT() {

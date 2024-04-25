@@ -6,6 +6,7 @@ import Model.User;
 import Model.*;
 import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.Styles;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +41,7 @@ public class CBNV implements Initializable {
     @FXML
     Text id;
     @FXML
-    TextField tdhv, search, hoten, noisinh, quequan, dc, sdt, email, cccd, editpw;
+    TextField hsl, tdhv, search, hoten, tn, noisinh, dc, sdt, email, cccd, editpw;
     @FXML
     ComboBox<String> gt;
     @FXML
@@ -60,7 +63,7 @@ public class CBNV implements Initializable {
     void setEditable(boolean i) {
         hoten.setEditable(i);
         noisinh.setEditable(i);
-        quequan.setEditable(i);
+        tn.setEditable(i);
         dc.setEditable(i);
         sdt.setEditable(i);
         email.setEditable(i);
@@ -69,6 +72,7 @@ public class CBNV implements Initializable {
         bd.setEditable(i);
         editpw.setEditable(i);
         tdhv.setEditable(i);
+        hsl.setEditable(i);
     }
 
     @FXML
@@ -80,11 +84,46 @@ public class CBNV implements Initializable {
     }
 
     @FXML
-    void onClickluuBtn() {
+    void onClicklogout() {
+        List<Window> open = Stage.getWindows();
+        try {
+            for (Window w : open) {
+                Stage s = (Stage) w;
+                s.close();
+                for (Window w1 : open) {
+                    Stage s1 = (Stage) w1;
+                    s1.close();
+                }
+            }
+        } catch (Exception e) {
+        }
 
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Hello");
+            stage.setScene(new Scene(root));
+            stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    void onClickexit() {
+//        List<Window> open = (List<Window>) Stage.getWindows().stream();
+//        for (Window w : open) {
+        Platform.exit();
+//        }
+    }
+
+    @FXML
+    void onClickluuBtn() {
         suaBtn.setVisible(true);
         CBNVModule c = list.getSelectionModel().getSelectedItem();
-        boolean i = cbdao.updateCBNV(c.getIdCBNV(), quyen.getSelectionModel().getSelectedItem().getId(), editpw.getText(), hoten.getText(), cv.getSelectionModel().getSelectedItem().getId(), noisinh.getText(), quequan.getText(), dc.getText(), sdt.getText(), email.getText(), date.getValue(), cccd.getText(), tt.getSelectionModel().getSelectedItem().getId(), gt.getSelectionModel().getSelectedItem().toString(), lopcn.getSelectionModel().getSelectedItem().getId(), bd.getValue(), tdhv.getText());
+        boolean i = cbdao.updateCBNV(c.getIdCBNV(), quyen.getSelectionModel().getSelectedItem().getId(), editpw.getText(), hoten.getText(), cv.getSelectionModel().getSelectedItem().getId(), noisinh.getText(), tn.getText(), hsl.getText(), dc.getText(), sdt.getText(), email.getText(), date.getValue(), cccd.getText(), tt.getSelectionModel().getSelectedItem().getId(), gt.getSelectionModel().getSelectedItem().toString(), lopcn.getSelectionModel().getSelectedItem().getId(), bd.getValue(), tdhv.getText());
         if (i) {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("success.fxml"));
@@ -155,9 +194,6 @@ public class CBNV implements Initializable {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 CBNVModule cb = list.getSelectionModel().getSelectedItem();
-                tdhv.setText(cb.getTDHV());
-                date.setValue(cb.getNgayVaoLam());
-                bd.setValue(cb.getNgaySinh());
                 int random = 0 + (int) ((3 - 0 + 1) * Math.random());
                 String url = link.get(random);
                 Image a = new Image(getClass().getResourceAsStream(url));
@@ -210,10 +246,14 @@ public class CBNV implements Initializable {
                         break;
                     }
                 }
+                hsl.setText(Double.toString(cb.getHsl()));
+                tdhv.setText(cb.getTDHV());
+                date.setValue(cb.getNgayVaoLam());
+                bd.setValue(cb.getNgaySinh());
                 id.setText(cb.getIdCBNV());
                 hoten.setText(cb.getHoten());
                 noisinh.setText(cb.getNoiSinh());
-                quequan.setText(cb.getQueQuan());
+                tn.setText(Double.toString(cb.getPctn()));
                 dc.setText(cb.getDiaChiTT());
                 sdt.setText(cb.getSDT());
                 email.setText(cb.getEmail());
