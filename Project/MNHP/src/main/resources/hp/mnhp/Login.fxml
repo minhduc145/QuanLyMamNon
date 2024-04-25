@@ -21,7 +21,7 @@
             <AnchorPane fx:id="login_form" layoutX="48.0" layoutY="75.0" prefHeight="550.0" prefWidth="330.0" styleClass="white-bg" stylesheets="@PageDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
 
-                  <Label layoutX="116.0" layoutY="30.0" text="Đăng nhập" textFill="#188ba7">
+                  <Label layoutX="116.0" layoutY="30.0" text="Đăng nhập" textFill="#10778e">
                      <font>
                         <Font name="Tahoma" size="20.0" />
                      </font>
