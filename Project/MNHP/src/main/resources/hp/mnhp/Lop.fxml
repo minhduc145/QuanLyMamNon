@@ -8,10 +8,14 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.LopChitiet">
     <children>
@@ -57,7 +61,7 @@
                                  <children>
                                     <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="258.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="2.0">
                                        <children>
-                                          <Button fx:id="sBtn" layoutX="212.0" layoutY="-4.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
+                                          <Button fx:id="sBtn" layoutX="212.0" layoutY="-4.0" mnemonicParsing="false" onAction="#search" prefHeight="25.0" prefWidth="25.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
                                           <TextField fx:id="search" layoutX="8.0" layoutY="2.0" prefHeight="20.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="49.599999999999966" />
                                        </children>
                                     </AnchorPane>
@@ -70,16 +74,26 @@
                               </AnchorPane>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="680.0" prefWidth="1009.0" SplitPane.resizableWithParent="false">
                                  <children>
-                                    <TabPane layoutX="19.2" layoutY="238.0" prefHeight="464.0" prefWidth="909.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="196.80000000000007">
+                                    <TabPane fx:id="t" layoutX="19.2" layoutY="167.2" prefHeight="493.0" prefWidth="975.0" style="-fx-border-style: dashed;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="167.0">
                                        <tabs>
                                           <Tab closable="false" text="Danh sách học sinh">
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="909.0" />
                                              </content>
                                           </Tab>
-                                          <Tab text="*Khác">
+                                          <Tab text="GVCN">
                                              <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TableView layoutX="156.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                        <columns>
+                                                          <TableColumn prefWidth="75.0" text="STT" />
+                                                          <TableColumn prefWidth="75.0" text="Họ Tên" />
+                                                            <TableColumn prefWidth="122.13331604003906" text="Tài khoản" />
+                                                            <TableColumn prefWidth="305.86669921875" text="Ghi chú" />
+                                                        </columns>
+                                                      </TableView>
+                                                   </children></AnchorPane>
                                              </content>
                                           </Tab>
                                        </tabs>
@@ -87,6 +101,23 @@
                                     <Button fx:id="suaBtn" defaultButton="true" disable="true" layoutX="856.0" layoutY="23.0" mnemonicParsing="false" text="Sửa" AnchorPane.rightAnchor="20.799999999999983" />
                                     <Button fx:id="luuBtn" layoutX="940.0" layoutY="68.0" mnemonicParsing="false" text="Lưu" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
                                     <Button fx:id="huyBtn" cancelButton="true" layoutX="940.0" layoutY="113.0" mnemonicParsing="false" text="Hủy" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
+                                    <Text fx:id="tenlop" layoutX="469.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="468.79999999999995" AnchorPane.rightAnchor="499.20429687499995" AnchorPane.topAnchor="25.41796875">
+                                       <font>
+                                          <Font name="System Bold Italic" size="20.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="360.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số trẻ:" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="606.14375" AnchorPane.topAnchor="75.892578125">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="531.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số GVCN:" AnchorPane.leftAnchor="531.0" AnchorPane.rightAnchor="414.4496093749999" AnchorPane.topAnchor="77.0">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="sl1" layoutX="433.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="433.0" AnchorPane.rightAnchor="550.173828125" AnchorPane.topAnchor="76.0" />
+                                    <Text fx:id="sl2" layoutX="615.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="614.4" AnchorPane.rightAnchor="367.97382812499995" AnchorPane.topAnchor="77.0" />
                                  </children>
                               </AnchorPane>
                            </items>

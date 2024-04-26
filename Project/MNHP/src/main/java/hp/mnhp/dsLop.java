@@ -61,12 +61,12 @@ public class dsLop implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        table.getStyleClass().add(Styles.INTERACTIVE);
         List<LopModel> ds = ldao.getDSLop();
         sBtn.getStyleClass().addAll(Styles.ROUNDED, Styles.BUTTON_ICON);
         Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
         sBtn.setGraphic(new imgFotBtn().getImg(sBtn, image, 20, 20));
-        search.getStyleClass().addAll(Styles.ROUNDED);
+        search.getStyleClass().addAll(Styles.ROUNDED, Styles.BG_ACCENT_EMPHASIS);
         search.setPromptText("Tìm trong " + ds.size() + " Lớp học");
         setTable(ds);
         sBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {

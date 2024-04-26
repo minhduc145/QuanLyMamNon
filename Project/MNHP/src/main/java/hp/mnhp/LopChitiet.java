@@ -9,18 +9,18 @@ import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.Animations;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.skin.ListViewSkin;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -41,6 +41,10 @@ public class LopChitiet implements Initializable {
     Button suaBtn, luuBtn, huyBtn, sBtn;
     @FXML
     TextField search;
+    @FXML
+    Text tenlop, sl1, sl2;
+    @FXML
+    TabPane t;
 
 
     @FXML
@@ -76,26 +80,23 @@ public class LopChitiet implements Initializable {
         Platform.exit();
     }
 
+    @FXML
+    void search() {
+        if (search.getText() != null || !search.getText().toString().isEmpty()) {
+            List<LopModel> dstk = new ArrayList<>();
+            for (LopModel scb : dslop) {
+                if (scb.getTenLop().toLowerCase().contains(search.getText().trim().toLowerCase())) {
+                    dstk.add(scb);
+                }
+            }
+            list.getItems().setAll(dstk);
+        } else {
+            list.getItems().setAll(dslop);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        search.getStyleClass().addAll(
-                Styles.ROUNDED
-        );
-        Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
-        sBtn.setGraphic(new imgFotBtn().getImg(sBtn, image, 20, 20));
-        sBtn.getStyleClass().addAll(
-                Styles.ROUNDED, Styles.BUTTON_ICON
-        );
-
-
-        search.setPromptText("Tìm trong " + dslop.size() + " Lớp học");
-        huyBtn.getStyleClass().add(Styles.DANGER);
-        luuBtn.getStyleClass().add(Styles.SUCCESS);
-        suaBtn.setVisible(false);
-
-        list.getItems().setAll(dslop);
-
         ap.sceneProperty().addListener((obs, oldScene, newScene) -> {
             Platform.runLater(() -> {
                 Stage stage = (Stage) newScene.getWindow();
@@ -114,6 +115,33 @@ public class LopChitiet implements Initializable {
                 });
             });
         });
+        t.getStyleClass().add(Styles.BORDERED);
+        search.getStyleClass().addAll(
+                Styles.ROUNDED
+        );
+        Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
+        sBtn.setGraphic(new imgFotBtn().getImg(sBtn, image, 20, 20));
+        sBtn.getStyleClass().addAll(
+                Styles.ROUNDED, Styles.BUTTON_ICON
+        );
+        search.setPromptText("Tìm trong " + dslop.size() + " Lớp học");
+        huyBtn.getStyleClass().add(Styles.DANGER);
+        luuBtn.getStyleClass().add(Styles.SUCCESS);
+        suaBtn.setVisible(false);
+        list.getItems().setAll(dslop);
+        list.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+                                   @Override
+                                   public void handle(javafx.scene.input.MouseEvent event) {
+                                       LopModel lop = list.getSelectionModel().getSelectedItem();
+                                       if (lop != null) {
+                                           tenlop.setText(lop.getTenLop());
+                                           sl1.setText(String.valueOf(lop.getSotre()));
+                                           sl2.setText(String.valueOf(lop.getDsGVCN().size()));
+                                       }
+                                   }
+                               }
+        );
+
     }
 
 }
