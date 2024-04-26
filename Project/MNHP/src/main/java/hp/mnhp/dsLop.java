@@ -97,7 +97,7 @@ public class dsLop implements Initializable {
                     stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
                     stage.show();
                 } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
+                    ex.printStackTrace();
                 }
                 ap.getScene().getWindow().hide();
             }

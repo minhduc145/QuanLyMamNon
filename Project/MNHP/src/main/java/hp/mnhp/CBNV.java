@@ -90,6 +90,7 @@ public class CBNV implements Initializable {
 
     @FXML
     void onClicklogout() {
+
         List<Window> open = Stage.getWindows();
         try {
             for (Window w : open) {

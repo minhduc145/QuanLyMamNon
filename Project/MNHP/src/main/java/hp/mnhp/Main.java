@@ -95,35 +95,16 @@ public class Main implements Initializable {
 
     @FXML
     void onclassBtnClick() throws Exception {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(null);
-        alert.setHeaderText("Chọn kiểu xem");
-        alert.getButtonTypes().remove(0);
-        alert.getButtonTypes().add(new ButtonType("Danh sách"));
-        alert.getButtonTypes().add(new ButtonType("Chi tiết"));
-        alert.showAndWait();
-        if (alert.getResult().getText().equals("Danh sách")) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("DSLop.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Quản lý Lớp");
-                stage.setScene(new Scene(root));
-                stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (alert.getResult().getText().equals("Chi tiết")) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("Lop.fxml"));
-                Stage stage = new Stage();
-                stage.setTitle("Quản lý Lớp");
-                stage.setScene(new Scene(root));
-                stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("DSLop.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Quản lý Lớp");
+            stage.setScene(new Scene(root));
+            stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

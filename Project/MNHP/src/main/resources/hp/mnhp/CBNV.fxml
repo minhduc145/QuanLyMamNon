@@ -29,13 +29,13 @@
                <children>
                   <MenuBar>
                     <menus>
-                      <Menu mnemonicParsing="false" text="File">
+                      <Menu mnemonicParsing="false" text="Chương trình">
                         <items>
                               <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#onClicklogout" text="Đăng xuất" />
                           <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#onClickexit" text="Thoát" />
                         </items>
                       </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" text="Bảng">
                            <items>
                               <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Bảng chấm công" />
                               <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Bảng lương" />
