@@ -65,16 +65,15 @@ public class DbHelper {
     public void getUserInfo(String usn) {
         try {
             Connection cn = (DbHelper.getInstance()).getConnection();
-            String SQL = "SELECT idCBNV, idQuyen FROM TaiKhoan where idCBNV = ?";
+            String SQL = "SELECT CBNV.idCBNV, idQuyen, HoTen FROM CBNV left join TaiKhoan on TaiKhoan.idCBNV = CBNV.idCBNV where CBNV.idCBNV = ?";
             PreparedStatement stmt = cn.prepareStatement(SQL);
             stmt.setString(1, usn);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 User.idCBNV = rs.getString(1);
                 User.idQuyen = rs.getString(2);
+                User.Hoten = rs.getString(3);
             }
-
-            System.out.println("q" + User.idQuyen);
         } catch (Exception e) {
             e.printStackTrace();
         }

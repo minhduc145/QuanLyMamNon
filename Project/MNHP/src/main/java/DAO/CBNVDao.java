@@ -85,7 +85,7 @@ public class CBNVDao {
             stmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }

@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.DSLop">
-
+<AnchorPane fx:id="ap" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.dsLop">
+   <children>
+      <Button fx:id="sBtn" layoutX="725.0" layoutY="92.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="44.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="92.0" />
+      <TextField fx:id="search" layoutX="570.0" layoutY="93.0" prefHeight="42.0" prefWidth="195.0" styleClass="textfield-2" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="93.0" />
+      <TableView fx:id="table" layoutX="21.0" layoutY="178.0" prefHeight="250.0" prefWidth="803.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="178.0">
+        <columns>
+          <TableColumn fx:id="col1" prefWidth="57.86665725708008" sortable="false" text="STT" />
+          <TableColumn fx:id="col2" prefWidth="300.7999954223633" text="Tên lớp" />
+            <TableColumn fx:id="col3" minWidth="0.0" prefWidth="84.79998779296875" text="Số Trẻ" />
+            <TableColumn fx:id="col4" editable="false" prefWidth="332.2667541503906" text="GVCN" />
+            <TableColumn editable="false" prefWidth="89.06658935546875" text="Chi tiết" visible="false" />
+        </columns>
+      </TableView>
+      <Text layoutX="401.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Danh sách Lớp" textAlignment="CENTER" AnchorPane.leftAnchor="401.0" AnchorPane.rightAnchor="325.52734375" AnchorPane.topAnchor="40.2734375">
+         <font>
+            <Font name="Arial Bold Italic" size="24.0" />
+         </font>
+      </Text>
+      <Hyperlink fx:id="chitiet" layoutX="809.0" layoutY="20.0" prefHeight="20.0" prefWidth="70.0" text="Chi tiết" underline="true" AnchorPane.rightAnchor="20.600000000000023" AnchorPane.topAnchor="20.0" />
+   </children>
 </AnchorPane>

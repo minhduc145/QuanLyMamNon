@@ -1,6 +1,7 @@
 package hp.mnhp;
 
 import DAO.DbHelper;
+import Model.User;
 import atlantafx.base.theme.CupertinoLight;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -35,6 +36,7 @@ public class HelloController {
 
     @FXML
     protected void onClick() {
+        new User().reset();
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

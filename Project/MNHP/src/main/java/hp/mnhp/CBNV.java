@@ -1,5 +1,6 @@
 package hp.mnhp;
 
+import DAO.*;
 import DAO.CBNVDao;
 import DAO.linhtinhDao;
 import Model.User;
@@ -18,6 +19,10 @@ import javafx.scene.control.skin.ListViewSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -121,36 +126,19 @@ public class CBNV implements Initializable {
 
     @FXML
     void onClickluuBtn() {
-        suaBtn.setVisible(true);
+
         CBNVModule c = list.getSelectionModel().getSelectedItem();
         boolean i = cbdao.updateCBNV(c.getIdCBNV(), quyen.getSelectionModel().getSelectedItem().getId(), editpw.getText(), hoten.getText(), cv.getSelectionModel().getSelectedItem().getId(), noisinh.getText(), tn.getText(), hsl.getText(), dc.getText(), sdt.getText(), email.getText(), date.getValue(), cccd.getText(), tt.getSelectionModel().getSelectedItem().getId(), gt.getSelectionModel().getSelectedItem().toString(), lopcn.getSelectionModel().getSelectedItem().getId(), bd.getValue(), tdhv.getText());
         if (i) {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("success.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
-                stage.initStyle(StageStyle.UTILITY);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             ds = new CBNVDao().getDSCB();
             list.getItems().setAll(ds);
             setEditable(false);
             huyBtn.setVisible(false);
             luuBtn.setVisible(false);
+            AlertMessage.infoBox(null, "Thông báo", "Cập nhật thành công");
+            suaBtn.setVisible(true);
         } else {
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("loi.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
-                stage.initStyle(StageStyle.UTILITY);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            AlertMessage.erBox(null, "Thông báo", "Cập nhật không thành công");
             setEditable(true);
             huyBtn.setVisible(true);
             luuBtn.setVisible(true);
@@ -170,6 +158,14 @@ public class CBNV implements Initializable {
     @Override
 
     public void initialize(URL location, ResourceBundle resources) {
+        search.getStyleClass().addAll(
+                Styles.ROUNDED
+        );
+        sBtn.getStyleClass().addAll(
+                Styles.ROUNDED, Styles.BUTTON_ICON
+        );
+        Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
+        sBtn.setGraphic(new imgFotBtn().getImg(sBtn, image, 20, 20));
         ds = cbdao.getDSCB();
         search.setPromptText("Tìm trong " + ds.size() + " CBNV.");
         huyBtn.getStyleClass().add(Styles.DANGER);
@@ -193,70 +189,72 @@ public class CBNV implements Initializable {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 CBNVModule cb = list.getSelectionModel().getSelectedItem();
-                int random = 0 + (int) ((3 - 0 + 1) * Math.random());
-                String url = link.get(random);
-                Image a = new Image(getClass().getResourceAsStream(url));
-                img.setImage(a);
-                if (User.idCBNV.equals(cb.getIdCBNV()) || User.idQuyen.equals("0")) {
-                    if (!luuBtn.isVisible()) {
-                        suaBtn.setVisible(true);
-                        suaBtn.setDisable(false);
+                if (cb != null) {
+                    int random = 0 + (int) ((3 - 0 + 1) * Math.random());
+                    String url = link.get(random);
+                    Image a = new Image(getClass().getResourceAsStream(url));
+                    img.setImage(a);
+                    if (cb != null && (User.idCBNV.equals(cb.getIdCBNV()) || User.idQuyen.equals("0"))) {
+                        if (!luuBtn.isVisible()) {
+                            suaBtn.setVisible(true);
+                            suaBtn.setDisable(false);
+                        }
+                        editpw.setText(cb.getMatKhau());
+                    } else {
+                        suaBtn.setDisable(true);
+                        editpw.setText(null);
                     }
-                    editpw.setText(cb.getMatKhau());
-                } else {
-                    suaBtn.setDisable(true);
-                    editpw.setText(null);
-                }
-                if (cb.isGTNam()) {
-                    gt.setValue("Nam");
-                } else {
-                    gt.setValue("Nữ");
-                }
+                    if (cb.isGTNam()) {
+                        gt.setValue("Nam");
+                    } else {
+                        gt.setValue("Nữ");
+                    }
 
-                for (QuyenModel q : linhtinh.dsq) {
-                    if (cb.getIdQuyen() != null && cb.getIdQuyen().equals(q.getId())) {
-                        quyen.setValue(q);
-                        break;
+                    for (QuyenModel q : linhtinh.dsq) {
+                        if (cb.getIdQuyen() != null && cb.getIdQuyen().equals(q.getId())) {
+                            quyen.setValue(q);
+                            break;
+                        }
                     }
-                }
 
 //                lopcn.setText("Khong");
 
-                for (LopModel lop : linhtinh.dsl) {
+                    for (LopModel lop : linhtinh.dsl) {
 
-                    if (cb.getIdLop() != null && cb.getIdLop().equals(lop.getId())) {
-                        lopcn.setValue(lop);
-                        break;
+                        if (cb.getIdLop() != null && cb.getIdLop().equals(lop.getId())) {
+                            lopcn.setValue(lop);
+                            break;
+                        }
+                        lopcn.setValue(lopcn.getItems().get(0));
+
                     }
-                    lopcn.setValue(lopcn.getItems().get(0));
 
-                }
-
-                for (TrangThaiModel trt : linhtinh.dstt) {
-                    if (cb.getIdTinhTrang() != null && cb.getIdTinhTrang().equals(trt.getId())) {
-                        tt.setValue(trt);
-                        break;
+                    for (TrangThaiModel trt : linhtinh.dstt) {
+                        if (cb.getIdTinhTrang() != null && cb.getIdTinhTrang().equals(trt.getId())) {
+                            tt.setValue(trt);
+                            break;
+                        }
                     }
-                }
 
-                for (ChucVuModel c : linhtinh.dschv) {
-                    if (cb.getIdChucVu() != null && cb.getIdChucVu().equals(c.getId())) {
-                        cv.setValue(c);
-                        break;
+                    for (ChucVuModel c : linhtinh.dschv) {
+                        if (cb.getIdChucVu() != null && cb.getIdChucVu().equals(c.getId())) {
+                            cv.setValue(c);
+                            break;
+                        }
                     }
+                    hsl.setText(Double.toString(cb.getHsl()));
+                    tdhv.setText(cb.getTDHV());
+                    date.setValue(cb.getNgayVaoLam());
+                    bd.setValue(cb.getNgaySinh());
+                    id.setText(cb.getIdCBNV());
+                    hoten.setText(cb.getHoten());
+                    noisinh.setText(cb.getNoiSinh());
+                    tn.setText(Double.toString(cb.getPctn()));
+                    dc.setText(cb.getDiaChiTT());
+                    sdt.setText(cb.getSDT());
+                    email.setText(cb.getEmail());
+                    cccd.setText(cb.getSoCCCD());
                 }
-                hsl.setText(Double.toString(cb.getHsl()));
-                tdhv.setText(cb.getTDHV());
-                date.setValue(cb.getNgayVaoLam());
-                bd.setValue(cb.getNgaySinh());
-                id.setText(cb.getIdCBNV());
-                hoten.setText(cb.getHoten());
-                noisinh.setText(cb.getNoiSinh());
-                tn.setText(Double.toString(cb.getPctn()));
-                dc.setText(cb.getDiaChiTT());
-                sdt.setText(cb.getSDT());
-                email.setText(cb.getEmail());
-                cccd.setText(cb.getSoCCCD());
             }
         });
         sBtn.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {

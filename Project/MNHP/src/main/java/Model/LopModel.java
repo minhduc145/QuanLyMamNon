@@ -10,12 +10,13 @@ import java.util.List;
 
 public class LopModel {
     private List<TreModel> dstre = new ArrayList<>();
-    private String id = "Khong";
-    private List<GVCN> dsGVCN = dsGVCN();
+    public String id = "Khong";
+    private List<GVCN> dsGVCN = new ArrayList<>();
     private String TenLop = "Khong";
     private int sotre;
+    private String tenGVCN = "Không";
 
-    private class GVCN {
+    public static class GVCN {
         private String Hoten;
         private String id;
 
@@ -62,19 +63,16 @@ public class LopModel {
         return dstre;
     }
 
-    List<GVCN> dsGVCN() {
-        try {
-            Connection cn = (DbHelper.getInstance()).getConnection();
-            String SQL = "SELECT idCBGV,HoTen from CBGV where idLop = ?";
-            PreparedStatement stmt = cn.prepareStatement(SQL);
-            stmt.setString(1, id);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                dsGVCN.add(new GVCN(rs.getString("idCBGV"), rs.getString("HoTen")));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    public void setTenGVCN(String tenGVCN) {
+        this.tenGVCN = tenGVCN;
+    }
+
+    public void setDsGVCN(List<GVCN> ds) {
+        dsGVCN = ds;
+    }
+
+    public List<GVCN> getDsGVCN() {
         return dsGVCN;
     }
 
@@ -122,14 +120,13 @@ public class LopModel {
     }
 
 
-    public String getGVCN() {
+    public String getTenGVCN() {
         String rs = "";
         for (LopModel.GVCN gv : dsGVCN) {
             rs += gv.getHoten();
             rs += "; ";
         }
         return rs;
-
     }
 
     @Override

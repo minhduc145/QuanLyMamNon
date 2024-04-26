@@ -1,6 +1,7 @@
 package hp.mnhp;
 
 
+import Model.User;
 import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.io.IOException;
@@ -108,7 +110,6 @@ public class Main implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
                 stage.show();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -120,26 +121,34 @@ public class Main implements Initializable {
                 stage.setScene(new Scene(root));
                 stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
                 stage.show();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        idbtn.setMinSize(55, 37);
-        idbtn.setMaxSize(55, 37);
+        idbtn.getStyleClass().addAll(
+                Styles.MEDIUM, Styles.ROUNDED, Styles.BUTTON_OUTLINED, Styles.SUCCESS
+        );
+        classBtn.getStyleClass().addAll(
+                Styles.ROUNDED, Styles.BUTTON_ICON, Styles.BUTTON_OUTLINED
+        );
+        hsBtn.getStyleClass().addAll(
+                Styles.ROUNDED, Styles.BUTTON_ICON, Styles.BUTTON_OUTLINED
+        );
+        cbnvBtn.getStyleClass().addAll(
+                Styles.ROUNDED, Styles.BUTTON_ICON, Styles.BUTTON_OUTLINED
+        );
 
         Image image = new Image(getClass().getResourceAsStream("UI/profile-user.png"), idbtn.getWidth(), idbtn.getHeight(), false, true);
         BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(idbtn.getWidth(), idbtn.getHeight(), true, true, true, false));
         ImageView imgView = new ImageView(image);
         imgView.setFitWidth(30);
         imgView.setFitHeight(30);
+        idbtn.setText(User.Hoten);
         idbtn.setGraphic(imgView);
         //Creating a graphic (image)
         Image img = new Image(getClass().getResourceAsStream("UI/lecture-room.png"));
@@ -160,6 +169,14 @@ public class Main implements Initializable {
         txt1.getStyleClass().addAll(Styles.TEXT, Styles.ACCENT);
         txt2.getStyleClass().addAll(Styles.TEXT, Styles.ACCENT);
         txt3.getStyleClass().addAll(Styles.TEXT, Styles.ACCENT);
-
+        vbox.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            Platform.runLater(() -> {
+                Stage stage = (Stage) newScene.getWindow();
+                stage.setOnCloseRequest(e -> {
+                    Platform.exit();
+                    System.out.println("Program Stopped");
+                });
+            });
+        });
     }
 }

@@ -25,8 +25,24 @@ public class AlertMessage {
         infoBox(infoMessage, titleBar, null);
     }
 
+    public static void cfBox(String infoMessage, String titleBar, String headerMessage) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setContentText(infoMessage);
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.showAndWait();
+    }
+
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setContentText(infoMessage);
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.showAndWait();
+    }
+
+    public static void erBox(String infoMessage, String titleBar, String headerMessage) {
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setContentText(infoMessage);
         alert.setTitle(titleBar);
         alert.setHeaderText(headerMessage);

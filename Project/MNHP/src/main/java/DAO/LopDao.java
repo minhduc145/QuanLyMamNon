@@ -10,6 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LopDao {
+    List<LopModel.GVCN> dsGVCN(String idlop) {
+        List<LopModel.GVCN> dsGVCN = new ArrayList<>();
+        try {
+            Connection cn = (DbHelper.getInstance()).getConnection();
+            String SQL = "SELECT idCBNV,HoTen from CBNV where idLop = ?";
+            PreparedStatement stmt = cn.prepareStatement(SQL);
+            stmt.setString(1, idlop);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                dsGVCN.add(new LopModel.GVCN(rs.getString(1), rs.getString(2)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dsGVCN;
+    }
+
     public List<LopModel> getDSLop() {
         List<LopModel> ds = new ArrayList<>();
         try {
@@ -23,11 +40,14 @@ public class LopDao {
             while (rs.next()) {
                 LopModel lop = new LopModel(rs.getString(1), rs.getString(2));
                 lop.setSotre(rs.getInt(3));
+                lop.setDsGVCN(dsGVCN(lop.getId()));
                 ds.add(lop);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return ds;
+
     }
+
 }

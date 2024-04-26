@@ -19,7 +19,7 @@ public class User {
     public static String MatKhau = "null";
     public static String idQuyen = "null";
 
-    void reset() {
+    public static void reset() {
         idCBNV = "null";
         Hoten = "null";
         idChucVu = "null";
