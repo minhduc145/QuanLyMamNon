@@ -183,7 +183,6 @@ public class CBNV implements Initializable {
         cv.getItems().setAll(linhtinh.dschv);
         lopcn.getItems().setAll(linhtinh.dsl);
         list.getItems().setAll(ds);
-
         ListViewSkin<CBNVModule> skin = new ListViewSkin<>(list);
         List<String> link = new ArrayList<>();
         link.add("UI/teacher.png");

@@ -21,11 +21,7 @@ public class DbHelper {
     private DbHelper() {
 
         try {
-
-
             String configFile = "jdbc:sqlserver://\\\\SQLEXPRESS:1433;databasename=MNHP;user=sa;password=123;trustServerCertificate=true";
-
-
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbURL = configFile;
             cn = DriverManager.getConnection(dbURL);

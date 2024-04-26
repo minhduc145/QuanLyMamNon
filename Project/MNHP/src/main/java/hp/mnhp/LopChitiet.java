@@ -1,7 +1,6 @@
 package hp.mnhp;
 
 import atlantafx.base.theme.CupertinoLight;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,21 +9,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Lop implements Initializable {
+public class LopChitiet implements Initializable {
     @FXML
     AnchorPane ap;
 
-    Stage getStage() {
-    Stage s = (Stage) this.ap.getScene().getWindow();
-    return s;
-    }
+
+
 
     @FXML
     void onClicklogout() {

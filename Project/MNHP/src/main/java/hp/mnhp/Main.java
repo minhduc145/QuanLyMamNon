@@ -12,14 +12,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
@@ -93,17 +93,40 @@ public class Main implements Initializable {
 
     @FXML
     void onclassBtnClick() throws Exception {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("Lop.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Quản lý CBNV");
-            stage.setScene(new Scene(root));
-            stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
-            stage.show();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(null);
+        alert.setHeaderText("Chọn kiểu xem");
+        alert.getButtonTypes().remove(0);
+        alert.getButtonTypes().add(new ButtonType("Danh sách"));
+        alert.getButtonTypes().add(new ButtonType("Chi tiết"));
+        alert.showAndWait();
+        if (alert.getResult().getText().equals("Danh sách")) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("DSLop.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Quản lý Lớp");
+                stage.setScene(new Scene(root));
+                stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+                stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (alert.getResult().getText().equals("Chi tiết")) {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("Lop.fxml"));
+                Stage stage = new Stage();
+                stage.setTitle("Quản lý Lớp");
+                stage.setScene(new Scene(root));
+                stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+
     }
 
 

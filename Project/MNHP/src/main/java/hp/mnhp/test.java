@@ -14,7 +14,7 @@ import java.io.IOException;
 public class test extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CBNV.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
         stage.setTitle("Hello!");

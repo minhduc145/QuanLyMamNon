@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -64,16 +63,12 @@
                               <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="258.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="2.0">
                                  <children>
                                     <Button fx:id="sBtn" layoutX="212.0" layoutY="-4.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="T" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0" />
-                                    <TextField fx:id="search" layoutX="8.0" layoutY="2.0" prefHeight="20.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" />
+                                    <TextField fx:id="search" layoutX="8.0" layoutY="2.0" prefHeight="20.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="49.599999999999966" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="1.0" layoutY="47.2" prefHeight="628.0" prefWidth="267.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
                                  <children>
-                                    <ScrollPane prefHeight="621.0" prefWidth="258.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <content>
-                                          <ListView fx:id="list" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="256.0" />
-                                       </content>
-                                    </ScrollPane>
+                                    <ListView fx:id="list" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="256.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                  </children>
                               </AnchorPane>
                            </children>
