@@ -40,6 +40,9 @@ public class CBNV implements Initializable {
     linhtinhDao linhtinh = new linhtinhDao();
     CBNVDao cbdao = new CBNVDao();
     List<CBNVModule> ds = new ArrayList<>();
+    List<String> link = new ArrayList<>();
+    int lastIndex;
+
 
     @FXML
     ListView<CBNVModule> list;
@@ -138,11 +141,13 @@ public class CBNV implements Initializable {
             luuBtn.setVisible(false);
             AlertMessage.infoBox(null, "Thông báo", "Cập nhật thành công");
             suaBtn.setVisible(true);
+            select();
         } else {
             AlertMessage.erBox(null, "Thông báo", "Cập nhật không thành công");
             setEditable(true);
             huyBtn.setVisible(true);
             luuBtn.setVisible(true);
+            select();
         }
 
 
@@ -156,15 +161,89 @@ public class CBNV implements Initializable {
         setEditable(true);
     }
 
-    @Override
+    void setField(CBNVModule cb) {
+        int random = 0 + (int) ((3 - 0 + 1) * Math.random());
+        String url = link.get(random);
+        Image a = new Image(getClass().getResourceAsStream(url));
+        img.setImage(a);
+        if (cb != null && (User.idCBNV.equals(cb.getIdCBNV()) || User.idQuyen.equals("0"))) {
+            if (!luuBtn.isVisible()) {
+                suaBtn.setVisible(true);
+                suaBtn.setDisable(false);
+            }
+            editpw.setText(cb.getMatKhau());
+        } else {
+            suaBtn.setDisable(true);
+            editpw.setText(null);
+        }
+        if (cb.isGTNam()) {
+            gt.setValue("Nam");
+        } else {
+            gt.setValue("Nữ");
+        }
 
+        for (QuyenModel q : linhtinh.dsq) {
+            if (cb.getIdQuyen() != null && cb.getIdQuyen().equals(q.getId())) {
+                quyen.setValue(q);
+                break;
+            }
+        }
+
+//                lopcn.setText("Khong");
+
+        for (LopModel lop : linhtinh.dsl) {
+
+            if (cb.getIdLop() != null && cb.getIdLop().equals(lop.getId())) {
+                lopcn.setValue(lop);
+                break;
+            }
+            lopcn.setValue(lopcn.getItems().get(0));
+
+        }
+
+        for (TrangThaiModel trt : linhtinh.dstt) {
+            if (cb.getIdTinhTrang() != null && cb.getIdTinhTrang().equals(trt.getId())) {
+                tt.setValue(trt);
+                break;
+            }
+        }
+
+        for (ChucVuModel c : linhtinh.dschv) {
+            if (cb.getIdChucVu() != null && cb.getIdChucVu().equals(c.getId())) {
+                cv.setValue(c);
+                break;
+            }
+        }
+        hsl.setText(Double.toString(cb.getHsl()));
+        tdhv.setText(cb.getTDHV());
+        date.setValue(cb.getNgayVaoLam());
+        bd.setValue(cb.getNgaySinh());
+        id.setText(cb.getIdCBNV());
+        hoten.setText(cb.getHoten());
+        noisinh.setText(cb.getNoiSinh());
+        tn.setText(Double.toString(cb.getPctn()));
+        dc.setText(cb.getDiaChiTT());
+        sdt.setText(cb.getSDT());
+        email.setText(cb.getEmail());
+        cccd.setText(cb.getSoCCCD());
+    }
+
+    void select() {
+        CBNVModule cb = list.getItems().get(lastIndex);
+        if (cb != null) {
+            list.getSelectionModel().select(lastIndex);
+            list.getFocusModel().focus(lastIndex);
+            setField(cb);
+        } else {
+            CBNVModule cb1 = new CBNVModule();
+            setField(cb1);
+        }
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        search.getStyleClass().addAll(
-                Styles.ROUNDED
-        );
-        sBtn.getStyleClass().addAll(
-                Styles.ROUNDED, Styles.BUTTON_ICON
-        );
+        search.getStyleClass().addAll(Styles.ROUNDED);
+        sBtn.getStyleClass().addAll(Styles.ROUNDED, Styles.BUTTON_ICON);
         Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
         sBtn.setGraphic(new imgFotBtn().getImg(sBtn, image, 20, 20));
         ds = cbdao.getDSCB();
@@ -181,7 +260,6 @@ public class CBNV implements Initializable {
         lopcn.getItems().setAll(linhtinh.dsl);
         list.getItems().setAll(ds);
         ListViewSkin<CBNVModule> skin = new ListViewSkin<>(list);
-        List<String> link = new ArrayList<>();
         link.add("UI/teacher.png");
         link.add("UI/teacher1.png");
         link.add("UI/teacher2.png");
@@ -189,75 +267,12 @@ public class CBNV implements Initializable {
         list.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                CBNVModule cb = list.getSelectionModel().getSelectedItem();
-                if (cb != null) {
-                    int random = 0 + (int) ((3 - 0 + 1) * Math.random());
-                    String url = link.get(random);
-                    Image a = new Image(getClass().getResourceAsStream(url));
-                    img.setImage(a);
-                    if (cb != null && (User.idCBNV.equals(cb.getIdCBNV()) || User.idQuyen.equals("0"))) {
-                        if (!luuBtn.isVisible()) {
-                            suaBtn.setVisible(true);
-                            suaBtn.setDisable(false);
-                        }
-                        editpw.setText(cb.getMatKhau());
-                    } else {
-                        suaBtn.setDisable(true);
-                        editpw.setText(null);
-                    }
-                    if (cb.isGTNam()) {
-                        gt.setValue("Nam");
-                    } else {
-                        gt.setValue("Nữ");
-                    }
+                lastIndex = list.getSelectionModel().getSelectedIndex();
+                select();
 
-                    for (QuyenModel q : linhtinh.dsq) {
-                        if (cb.getIdQuyen() != null && cb.getIdQuyen().equals(q.getId())) {
-                            quyen.setValue(q);
-                            break;
-                        }
-                    }
-
-//                lopcn.setText("Khong");
-
-                    for (LopModel lop : linhtinh.dsl) {
-
-                        if (cb.getIdLop() != null && cb.getIdLop().equals(lop.getId())) {
-                            lopcn.setValue(lop);
-                            break;
-                        }
-                        lopcn.setValue(lopcn.getItems().get(0));
-
-                    }
-
-                    for (TrangThaiModel trt : linhtinh.dstt) {
-                        if (cb.getIdTinhTrang() != null && cb.getIdTinhTrang().equals(trt.getId())) {
-                            tt.setValue(trt);
-                            break;
-                        }
-                    }
-
-                    for (ChucVuModel c : linhtinh.dschv) {
-                        if (cb.getIdChucVu() != null && cb.getIdChucVu().equals(c.getId())) {
-                            cv.setValue(c);
-                            break;
-                        }
-                    }
-                    hsl.setText(Double.toString(cb.getHsl()));
-                    tdhv.setText(cb.getTDHV());
-                    date.setValue(cb.getNgayVaoLam());
-                    bd.setValue(cb.getNgaySinh());
-                    id.setText(cb.getIdCBNV());
-                    hoten.setText(cb.getHoten());
-                    noisinh.setText(cb.getNoiSinh());
-                    tn.setText(Double.toString(cb.getPctn()));
-                    dc.setText(cb.getDiaChiTT());
-                    sdt.setText(cb.getSDT());
-                    email.setText(cb.getEmail());
-                    cccd.setText(cb.getSoCCCD());
-                }
             }
         });
+
         sBtn.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {

@@ -21,7 +21,7 @@ public class CBNVDao {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 CBNVModule cb = new CBNVModule();
-                cb.setIdCBNV(rs.getString(1));
+                cb.setIdCBNV(rs.getString("idcbnv"));
                 cb.setHoten(rs.getString(2));
                 cb.setIdChucVu(rs.getString(3));
                 cb.setNoiSinh(rs.getString(4));
@@ -54,7 +54,7 @@ public class CBNVDao {
         boolean i = false;
         try {
             Connection cn = (DbHelper.getInstance()).getConnection();
-            String SQL = "UPDATE [dbo].[CBNV]\n" + "   SET [HoTen] = ?\n" + "      ,[idChucVu] = ?\n" + "      ,[NoiSinh] = ?\n" + "      ,[HSL] = ?\n" + "      ,[DiaChiTT] = ?\n" + "      ,[SDT] = ?\n" + "      ,[Email] = ?\n" + "      ,[NgayVaoLam] = ?\n" + "      ,[SoCCCD] = ?\n" + "      ,[idTinhTrang] = ?\n" + "      ,[GioiTinhNam] = ?\n" + "      ,[NgaySinh] = ?" + "      ,[TrinhDoHocVan] = ?\n" + ",[idLop] = ?\n" + ",[PCTN] = ?\n" + " WHERE idCBNV = ?";
+            String SQL = "UPDATE [dbo].[cBNV]\n" + "   SET [HoTen] = ?\n" + "      ,[idChucVu] = ?\n" + "      ,[NoiSinh] = ?\n" + "      ,[HSL] = ?\n" + "      ,[DiaChiTT] = ?\n" + "      ,[SDT] = ?\n" + "      ,[Email] = ?\n" + "      ,[NgayVaoLam] = ?\n" + "      ,[SoCCCD] = ?\n" + "      ,[idTinhTrang] = ?\n" + "      ,[GioiTinhNam] = ?\n" + "      ,[NgaySinh] = ?" + "      ,[TrinhDoHocVan] = ?\n" + ",[idLop] = ?\n" + ",[PCTN] = ?\n" + " WHERE idCBNV = ?";
             PreparedStatement stmt = cn.prepareStatement(SQL);
             stmt.setString(1, hoten);
             stmt.setString(2, idchv);

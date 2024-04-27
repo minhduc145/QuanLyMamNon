@@ -17,7 +17,7 @@ public class User {
     public static boolean GTNam = false;
     public static String idLop = "null";
     public static String MatKhau = "null";
-    public static String idQuyen = "null";
+    public static String idQuyen = "0";
 
     public static void reset() {
         idCBNV = "null";

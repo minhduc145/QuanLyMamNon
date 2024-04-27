@@ -14,21 +14,21 @@ public class CBNVModule {
     private double hsl = 0.0;
     private double pctn = 0.0;
 
-    private String idCBNV;
-    private String Hoten;
-    private String idChucVu;
-    private String NoiSinh;
-    private String DiaChiTT;
+    private String idCBNV = "null";
+    private String Hoten = "null";
+    private String idChucVu = "null";
+    private String NoiSinh = "null";
+    private String DiaChiTT = "null";
     private String SDT = "null";
     private String Email = "null";
     private LocalDate NgayVaoLam;
     private LocalDate NgaySinh;
     private String soCCCD = "null";
-    private String idTinhTrang;
+    private String idTinhTrang = "null";
     private boolean GTNam;
-    private String idLop;
-    private String MatKhau;
-    private String idQuyen;
+    private String idLop = "null";
+    private String MatKhau = "null";
+    private String idQuyen = "null";
     private String TDHV = "null";
 
     public CBNVModule(double hsl, double pctn, String idCBNV, String hoten, String idChucVu, String noiSinh, String diaChiTT, String SDT, String email, LocalDate ngayVaoLam, LocalDate ngaySinh, String soCCCD, String idTinhTrang, boolean GTNam, String idLop, String matKhau, String idQuyen, String TDHV) {

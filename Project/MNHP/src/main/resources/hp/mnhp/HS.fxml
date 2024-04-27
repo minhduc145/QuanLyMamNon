@@ -14,6 +14,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -40,8 +41,8 @@
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Bảng">
                                     <items>
-                                        <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Bảng chấm công" />
-                                        <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Bảng lương" />
+                                        <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Bảng Theo dõi" />
+                                        <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Bảng Báo cáo suất ăn" />
                                     </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Help">
@@ -100,7 +101,7 @@
                                                                         <Font name="System Bold" size="14.0" />
                                                                     </font>
                                                                 </Text>
-                                                                <Text layoutX="33.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nơi sinh :">
+                                                                <Text layoutX="33.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nơi sinh:">
                                                                     <font>
                                                                         <Font name="System Bold" size="14.0" />
                                                                     </font>
@@ -115,7 +116,6 @@
                                                                         <Font name="System Bold" size="14.0" />
                                                                     </font>
                                                                 </Text>
-                                                                <DatePicker fx:id="date" editable="false" layoutX="161.0" layoutY="328.0" prefHeight="36.0" prefWidth="352.0" />
                                                                 <TextField fx:id="hoten" editable="false" layoutX="161.0" layoutY="34.0" prefHeight="36.0" prefWidth="350.0" />
                                                                 <TextField fx:id="noisinh" editable="false" layoutX="161.0" layoutY="79.0" prefHeight="36.0" prefWidth="350.0" />
                                                                 <TextField fx:id="dc" editable="false" layoutX="161.0" layoutY="180.0" prefHeight="36.0" prefWidth="350.0" />
@@ -125,49 +125,70 @@
                                                                         <Font name="System Bold" size="14.0" />
                                                                     </font>
                                                                 </Text>
-                                                                <DatePicker fx:id="bd" editable="false" layoutX="161.0" layoutY="131.0" prefHeight="36.0" prefWidth="192.0" />
+                                                                <DatePicker fx:id="ngs" editable="false" layoutX="161.0" layoutY="131.0" prefHeight="36.0" prefWidth="192.0" />
                                                 <ButtonBar layoutX="770.4" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="770.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
                                                   <buttons>
-                                                    <Button mnemonicParsing="false" text="+">
+                                                    <Button fx:id="p1" mnemonicParsing="false" onAction="#them1" text="+">
                                                          <font>
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" text="-">
+                                                      <Button fx:id="m1" mnemonicParsing="false" onAction="#xoa1" text="-">
                                                          <font>
                                                             <Font name="System Bold" size="12.0" />
                                                          </font>
                                                       </Button>
                                                   </buttons>
                                                 </ButtonBar>
-                                                <TableView fx:id="listdh" layoutX="684.0" layoutY="54.4" prefHeight="366.0" prefWidth="286.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="684.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="54.0">
+                                                <TableView fx:id="listdh" layoutX="684.0" layoutY="54.4" prefHeight="317.0" prefWidth="286.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="684.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="54.0">
                                                   <columns>
-                                                    <TableColumn fx:id="nam" prefWidth="104.0" text="Năm" />
-                                                    <TableColumn fx:id="dh" prefWidth="153.60009765625" text="Đạt Danh hiệu" />
+                                                    <TableColumn fx:id="col1" prefWidth="104.0" text="Năm" />
+                                                    <TableColumn fx:id="col2" prefWidth="153.60009765625" text="Đạt Danh hiệu" />
                                                   </columns>
                                                 </TableView>
-                                                <Text layoutX="710.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Danh hiệu:">
+                                                <Text layoutX="710.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xếp loại:">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Text>
+                                                <TextField fx:id="ename" layoutX="683.0" layoutY="374.0" prefHeight="36.0" prefWidth="102.0" promptText="Năm" />
+                                                <TextField fx:id="nnh" editable="false" layoutX="161.0" layoutY="327.0" prefHeight="36.0" prefWidth="126.0" />
+                                                <Text layoutX="26.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đang học tại:">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Text>
+                                                <ComboBox fx:id="lopds" layoutX="161.0" layoutY="252.0" prefHeight="36.0" prefWidth="240.0" />
+                                                <ComboBox fx:id="dhds" layoutX="785.0" layoutY="374.0" prefHeight="36.0" prefWidth="186.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </content>
                                                 </Tab>
-                                                <Tab text="*Khác">
+                                                <Tab fx:id="ph" text="Phụ Huynh">
                                                     <content>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextField layoutX="11.0" layoutY="386.0" />
+                                                <TableView fx:id="phtable" editable="true" layoutX="11.2" layoutY="42.0" prefHeight="334.0" prefWidth="954.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
+                                                  <columns>
+                                                    <TableColumn prefWidth="75.0" text="STT" />
+                                                    <TableColumn prefWidth="75.0" text="Họ Tên" />
+                                                  </columns>
+                                                </TableView>
+                                             </children></AnchorPane>
                                                     </content>
                                                 </Tab>
                                             </tabs>
                                         </TabPane>
                                         <VBox layoutX="11.0" layoutY="10.0" prefHeight="144.0" prefWidth="174.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
                                             <children>
-                                                <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@UI/boy.png" />
+                                       </image></ImageView>
                                             </children>
                                         </VBox>
-                                        <GridPane layoutX="234.0" layoutY="56.0" prefHeight="128.0" prefWidth="380.0" vgap="5.0" AnchorPane.topAnchor="56.0">
+                                        <GridPane layoutX="192.0" layoutY="56.0" prefHeight="128.0" prefWidth="380.0" vgap="5.0" AnchorPane.topAnchor="56.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.4000244140625" minWidth="10.0" prefWidth="109.5999755859375" />
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.2000244140625" minWidth="10.0" prefWidth="291.2000244140625" />
@@ -198,6 +219,16 @@
                                         <Button fx:id="suaBtn" defaultButton="true" disable="true" layoutX="856.0" layoutY="23.0" mnemonicParsing="false" onAction="#onClicksuaBtn" text="Sửa" AnchorPane.rightAnchor="20.799999999999983" />
                                         <Button fx:id="luuBtn" layoutX="940.0" layoutY="68.0" mnemonicParsing="false" onAction="#onClickluuBtn" text="Lưu" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
                                         <Button fx:id="huyBtn" cancelButton="true" layoutX="940.0" layoutY="113.0" mnemonicParsing="false" onAction="#onClickhuyBtn" text="Hủy" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
+                              <Text layoutX="564.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chủ nhiệm:">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="gvcn" layoutX="647.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nll">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
                                     </children>
                                 </AnchorPane>
                             </items>

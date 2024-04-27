@@ -108,6 +108,21 @@ public class Main implements Initializable {
         }
     }
 
+    @FXML
+    void onkidsBtnClick() throws Exception {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("HS.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Quản lý Trẻ");
+            stage.setScene(new Scene(root));
+            stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -142,7 +157,7 @@ public class Main implements Initializable {
         imgView.setFitWidth(150);
         imgView.setFitHeight(150);
         cbnvBtn.setGraphic(imgView);
-        img = new Image(getClass().getResourceAsStream("UI/baby-boy.png"));
+        img = new Image(getClass().getResourceAsStream("UI/chase.png"));
         imgView = new ImageView(img);
         imgView.setFitWidth(150);
         imgView.setFitHeight(150);
