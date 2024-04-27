@@ -92,7 +92,7 @@
                                         </GridPane>
                                         <TabPane layoutX="19.2" layoutY="238.0" prefHeight="464.0" prefWidth="909.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="196.80000000000007">
                                             <tabs>
-                                                <Tab closable="false" text="Thông tin">
+                                                <Tab closable="false" onSelectionChanged="#editbtnshow" text="Thông tin">
                                                     <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="909.0">
                                                             <children>
@@ -164,15 +164,18 @@
                                                         </AnchorPane>
                                                     </content>
                                                 </Tab>
-                                                <Tab fx:id="ph" text="Phụ Huynh">
+                                                <Tab fx:id="ph" onSelectionChanged="#editbtnnotshow" text="Phụ Huynh">
                                                     <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
                                                 <TextField layoutX="11.0" layoutY="386.0" />
                                                 <TableView fx:id="phtable" editable="true" layoutX="11.2" layoutY="42.0" prefHeight="334.0" prefWidth="954.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
                                                   <columns>
-                                                    <TableColumn prefWidth="75.0" text="STT" />
-                                                    <TableColumn prefWidth="75.0" text="Họ Tên" />
+                                                    <TableColumn fx:id="phcol1" prefWidth="193.86667841672897" text="Họ Tên" />
+                                                      <TableColumn fx:id="phcol2" prefWidth="117.33326721191406" text="Vai trò" />
+                                                      <TableColumn fx:id="phcol3" prefWidth="166.66668701171875" text="SDT" />
+                                                      <TableColumn fx:id="phcol4" prefWidth="231.199951171875" text="Địa chỉ" />
+                                                      <TableColumn fx:id="phcol5" prefWidth="208.2666015625" text="Nghề nghiệp" />
                                                   </columns>
                                                 </TableView>
                                              </children></AnchorPane>

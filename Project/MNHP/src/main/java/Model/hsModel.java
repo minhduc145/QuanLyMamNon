@@ -1,6 +1,7 @@
 package Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class hsModel {
@@ -15,7 +16,7 @@ public class hsModel {
     private boolean dangtheohoc = false;
     private List<LopModel.GVCN> gvcn;
     private String gvcnString;
-    private List<phModel> ph;
+    private List<phModel> ph = new ArrayList<>();
     private List<danhhieuModel> danhhieu;
 
     public hsModel() {

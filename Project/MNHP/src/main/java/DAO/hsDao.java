@@ -44,6 +44,7 @@ public class hsDao {
                     dsgv.add(new LopModel.GVCN(rs.getString(1), rs.getString(2)));
                 }
                 hs.setGvcn(dsgv);
+
                 List<phModel> dsph = new ArrayList<>();
                 SQL = "SELECT * from PhuHuynh where idTre = ?";
                 stmt = cn.prepareStatement(SQL);
@@ -57,7 +58,9 @@ public class hsDao {
                     ph.setSdt(rs.getString("sdt"));
                     ph.setVaitro(rs.getString("vaitro"));
                     ph.setHoten(rs.getString("hoten"));
+                    dsph.add(ph);
                 }
+
                 hs.setPh(dsph);
                 List<danhhieuModel> dsdh = new ArrayList<>();
                 SQL = "SELECT XepLoai.idDanhhieu, idTre, DanhHieu, year(NamHoc) as nam\n" + "FROM            XepLoai lEFT OUTER JOIN\n" + "                  DanhHieu ON XepLoai.idDanhHieu = DanhHieu.idDanhHieu where idtre = ?";

@@ -58,14 +58,24 @@ public class HS implements Initializable {
     @FXML
     DatePicker ngs;
     @FXML
-    TableColumn col1, col2;
+    TableColumn col1, col2, phcol1, phcol2, phcol3, phcol4, phcol5;
 
     void setTable1(List<danhhieuModel> ds) {
-        col1.setSortable(false);
         col1.setCellValueFactory(new PropertyValueFactory<danhhieuModel, String>("nam"));
-        col2.setSortable(false);
         col2.setCellValueFactory(new PropertyValueFactory<danhhieuModel, String>("danhhieu"));
         listdh.getItems().setAll(ds);
+    }
+
+    void setTable2(List<phModel> ds) {
+        for (phModel d : ds) {
+            System.out.println(d.getHoten());
+        }
+        phcol1.setCellValueFactory(new PropertyValueFactory<phModel, String>("hoten"));
+        phcol2.setCellValueFactory(new PropertyValueFactory<phModel, String>("vaitro"));
+        phcol3.setCellValueFactory(new PropertyValueFactory<phModel, String>("sdt"));
+        phcol4.setCellValueFactory(new PropertyValueFactory<phModel, String>("diachi"));
+        phcol5.setCellValueFactory(new PropertyValueFactory<phModel, String>("nghe"));
+        phtable.getItems().setAll(ds);
     }
 
     void setField(hsModel hs) {
@@ -116,6 +126,8 @@ public class HS implements Initializable {
         search.setPromptText("Tìm trong " + ds.size() + " Học sinh");
         setTable1(hs.getDanhhieu());
         dhds.getItems().setAll(linhtinh.dsdh);
+        setTable2(hs.getPh());
+
     }
 
     void select() {
@@ -125,6 +137,7 @@ public class HS implements Initializable {
             list.getFocusModel().focus(lastIndex);
             setField(hs);
             setTable1(hs.getDanhhieu());
+            setTable2(hs.getPh());
         } else {
             hsModel hs1 = new hsModel();
             setField(hs1);
@@ -135,6 +148,22 @@ public class HS implements Initializable {
         ds = hdao.getdshs();
         list.getItems().setAll(ds);
 
+    }
+
+    @FXML
+    void editbtnnotshow() {
+        if (suaBtn != null) {
+            suaBtn.setVisible(false);
+
+        }
+    }
+
+    @FXML
+    void editbtnshow() {
+        if (suaBtn != null) {
+            suaBtn.setVisible(true);
+
+        }
     }
 
     @FXML
@@ -150,19 +179,16 @@ public class HS implements Initializable {
     }
 
     @FXML
-    void xoa1(hsModel hs, danhhieuModel e) {
+    void xoa1(hsModel hs, danhhieuModel e) throws Exception {
 
-        try {
-            Connection cn = (DbHelper.getInstance()).getConnection();
-            String SQL = "delete from XepLoai where idTre = ? and year(NamHoc) = ?";
-            PreparedStatement stmt = cn.prepareStatement(SQL);
-            stmt.setString(1, hs.getId());
-            stmt.setString(2, e.getNam());
-            stmt.executeUpdate();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        Connection cn = (DbHelper.getInstance()).getConnection();
+        String SQL = "delete from XepLoai where idTre = ? and year(NamHoc) = ?";
+        PreparedStatement stmt = cn.prepareStatement(SQL);
+        stmt.setString(1, hs.getId());
+        stmt.setString(2, e.getNam());
+        stmt.executeUpdate();
+
 
     }
 
@@ -183,23 +209,25 @@ public class HS implements Initializable {
         }
     }
 
-    boolean them1(List<danhhieuModel> ds) {
+    boolean them1(List<danhhieuModel> ds) throws Exception {
         boolean i = true;
-        for (danhhieuModel d : ds) {
-            try {
-                Connection cn = (DbHelper.getInstance()).getConnection();
-                String SQL = "insert Xeploai values(?,?,?)";
-                PreparedStatement stmt = cn.prepareStatement(SQL);
-                stmt.setString(1, d.getIddh());
-                stmt.setString(2, d.getId());
-                stmt.setString(3, d.getNam());
-                if (stmt.executeUpdate() != 1) {
-                    return false;
-                }
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        for (danhhieuModel d : ds) {
+            for (char ch : d.getNam().toCharArray()) {
+                if (Character.isLetter(ch)) {
+                    throw new Exception();
+                }
             }
+            Connection cn = (DbHelper.getInstance()).getConnection();
+            String SQL = "insert Xeploai values(?,?,?)";
+            PreparedStatement stmt = cn.prepareStatement(SQL);
+            stmt.setString(1, d.getIddh());
+            stmt.setString(2, d.getId());
+            stmt.setString(3, d.getNam());
+            if (stmt.executeUpdate() != 1) {
+                return false;
+            }
+
         }
         return i;
     }
@@ -262,27 +290,32 @@ public class HS implements Initializable {
     @FXML
     void onClickluuBtn() {
         boolean ch = false;
-        if (temp != null && temp1 != null) {
-            xoa1(temp1, temp);
-            temp1 = null;
-            temp = null;
-            ch = true;
-        }
-        if (!tempdh.isEmpty()) {
-            if (them1(tempdh)) ch = true;
-            tempdh.clear();
-        }
-        hsModel hs = list.getSelectionModel().getSelectedItem();
-        ch = hdao.upHs(hs.getId(), hoten.getText(), lopds.getSelectionModel().getSelectedItem().getId(), dc.getText(), nnh.getText(), gt.getSelectionModel().getSelectedItem().equals("Nam"), tt.getSelectionModel().getSelectedItem().equals("Đang theo học"), ngs.getValue(), noisinh.getText());
-        if (ch == true) {
-            AlertMessage.infoBox(null, "Thông báo", "Cập nhật thành công");
-            reload();
-            select();
-            setEditable(false);
-            huyBtn.setVisible(false);
-            luuBtn.setVisible(false);
-            suaBtn.setVisible(true);
-        } else {
+
+        try {
+            if (temp != null && temp1 != null) {
+                xoa1(temp1, temp);
+                temp1 = null;
+                temp = null;
+                ch = true;
+            }
+            if (!tempdh.isEmpty()) {
+                if (them1(tempdh)) ch = true;
+                else throw new Exception();
+                tempdh.clear();
+            }
+            hsModel hs = list.getSelectionModel().getSelectedItem();
+            ch = hdao.upHs(hs.getId(), hoten.getText(), lopds.getSelectionModel().getSelectedItem().getId(), dc.getText(), nnh.getText(), gt.getSelectionModel().getSelectedItem().equals("Nam"), tt.getSelectionModel().getSelectedItem().equals("Đang theo học"), ngs.getValue(), noisinh.getText());
+            if (ch == true) {
+                AlertMessage.infoBox(null, "Thông báo", "Cập nhật thành công");
+                reload();
+                select();
+                setEditable(false);
+                huyBtn.setVisible(false);
+                luuBtn.setVisible(false);
+                suaBtn.setVisible(true);
+            }
+
+        } catch (Exception e) {
             AlertMessage.erBox(null, "Thông báo", "Cập nhật không thành công");
             reload();
             select();
