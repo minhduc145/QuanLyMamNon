@@ -38,7 +38,7 @@ public class HS implements Initializable {
     @FXML
     Text gvcn;
     @FXML
-    Button suaBtn, luuBtn, huyBtn, sBtn, m1, p1;
+    Button suaBtn, luuBtn, huyBtn, sBtn, m1, p1, add2, del2;
     @FXML
     ListView<hsModel> list;
     @FXML
@@ -46,7 +46,7 @@ public class HS implements Initializable {
     @FXML
     TableView<phModel> phtable;
     @FXML
-    TextField search, hoten, noisinh, dc, nnh, ename;
+    TextField search, hoten, noisinh, dc, nnh, ename, inputten, inputvt, inputsdt, inputdc, inputnn;
     @FXML
     ComboBox<String> gt;
     @FXML
@@ -67,9 +67,6 @@ public class HS implements Initializable {
     }
 
     void setTable2(List<phModel> ds) {
-        for (phModel d : ds) {
-            System.out.println(d.getHoten());
-        }
         phcol1.setCellValueFactory(new PropertyValueFactory<phModel, String>("hoten"));
         phcol2.setCellValueFactory(new PropertyValueFactory<phModel, String>("vaitro"));
         phcol3.setCellValueFactory(new PropertyValueFactory<phModel, String>("sdt"));
@@ -148,6 +145,81 @@ public class HS implements Initializable {
         ds = hdao.getdshs();
         list.getItems().setAll(ds);
 
+    }
+
+    @FXML
+    void xoa2() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Xác nhận xóa");
+        alert.showAndWait();
+        if (alert.getResult().getButtonData().isDefaultButton()) {
+            if (phtable.getItems().size() > 1) {
+                phModel ph = phtable.getSelectionModel().getSelectedItem();
+                try {
+                    Connection cn = (DbHelper.getInstance()).getConnection();
+                    String SQL = "delete from Phuhuynh where idTre = ? and vaitro = ?";
+                    PreparedStatement stmt = cn.prepareStatement(SQL);
+                    stmt.setString(1, ph.getId());
+                    stmt.setString(2, ph.getVaitro().trim());
+                    stmt.executeUpdate();
+                } catch (Exception e) {
+
+                }
+                phtable.getItems().remove(ph);
+                reload();
+                select();
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("HS cần có ít nhất 1 Phụ Huynh");
+                alert.showAndWait();
+            }
+        }
+
+    }
+
+    @FXML
+    void them2() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Xác nhận Thêm");
+        alert.showAndWait();
+        if (alert.getResult().getButtonData().isDefaultButton()) {
+            if (!inputten.getText().isEmpty() && !inputvt.getText().isEmpty() && !inputsdt.getText().isEmpty() && !inputnn.getText().isEmpty() && !inputdc.getText().isEmpty()) {
+                phModel ph = new phModel();
+                ph.setId(list.getSelectionModel().getSelectedItem().getId());
+                ph.setHoten(inputten.getText());
+                ph.setVaitro(inputvt.getText());
+                ph.setSdt(inputsdt.getText());
+                ph.setNghe(inputnn.getText());
+                ph.setDiachi(inputdc.getText());
+                phcol1.setCellValueFactory(new PropertyValueFactory<phModel, String>("hoten"));
+                phcol2.setCellValueFactory(new PropertyValueFactory<phModel, String>("vaitro"));
+                phcol3.setCellValueFactory(new PropertyValueFactory<phModel, String>("sdt"));
+                phcol4.setCellValueFactory(new PropertyValueFactory<phModel, String>("diachi"));
+                phcol5.setCellValueFactory(new PropertyValueFactory<phModel, String>("nghe"));
+                phtable.getItems().add(ph);
+                try {
+                    Connection cn = (DbHelper.getInstance()).getConnection();
+                    String SQL = "insert into PhuHuynh\n" +
+                            "values(?,?,?,?,?,?)";
+                    PreparedStatement stmt = cn.prepareStatement(SQL);
+                    stmt.setString(1, ph.getId());
+                    stmt.setString(2, ph.getVaitro().trim());
+                    stmt.setString(3, ph.getHoten().trim());
+                    stmt.setString(4, ph.getDiachi());
+                    stmt.setString(5, ph.getSdt());
+                    stmt.setString(6, ph.getNghe());
+                    stmt.executeUpdate();
+                } catch (Exception e) {
+
+                }
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Điền đầy đủ các trường");
+                alert.showAndWait();
+            }
+            reload();
+            select();
+        }
     }
 
     @FXML

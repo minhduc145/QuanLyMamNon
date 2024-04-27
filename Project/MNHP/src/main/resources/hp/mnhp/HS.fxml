@@ -128,14 +128,14 @@
                                                                 <DatePicker fx:id="ngs" editable="false" layoutX="161.0" layoutY="131.0" prefHeight="36.0" prefWidth="192.0" />
                                                 <ButtonBar layoutX="770.4" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="770.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
                                                   <buttons>
-                                                    <Button fx:id="p1" mnemonicParsing="false" onAction="#them1" text="+">
+                                                    <Button fx:id="p1" mnemonicParsing="false" onAction="#them1" text="Thêm">
                                                          <font>
-                                                            <Font name="System Bold" size="12.0" />
+                                                            <Font name="System Bold" size="10.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button fx:id="m1" mnemonicParsing="false" onAction="#xoa1" text="-">
+                                                      <Button fx:id="m1" mnemonicParsing="false" onAction="#xoa1" text="Xóa">
                                                          <font>
-                                                            <Font name="System Bold" size="12.0" />
+                                                            <Font name="System Bold" size="10.0" />
                                                          </font>
                                                       </Button>
                                                   </buttons>
@@ -168,7 +168,7 @@
                                                     <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <TextField layoutX="11.0" layoutY="386.0" />
+                                                <TextField fx:id="inputten" layoutX="11.0" layoutY="386.0" promptText="Thêm Tên" />
                                                 <TableView fx:id="phtable" editable="true" layoutX="11.2" layoutY="42.0" prefHeight="334.0" prefWidth="954.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
                                                   <columns>
                                                     <TableColumn fx:id="phcol1" prefWidth="193.86667841672897" text="Họ Tên" />
@@ -178,6 +178,16 @@
                                                       <TableColumn fx:id="phcol5" prefWidth="208.2666015625" text="Nghề nghiệp" />
                                                   </columns>
                                                 </TableView>
+                                                <TextField fx:id="inputvt" layoutX="193.0" layoutY="386.0" promptText="Thêm VT" />
+                                                <TextField fx:id="inputsdt" layoutX="374.0" layoutY="385.0" promptText="Thêm SDT" />
+                                                <TextField fx:id="inputdc" layoutX="556.0" layoutY="385.0" promptText="Thêm ĐC" />
+                                                <TextField fx:id="inputnn" layoutX="738.0" layoutY="385.0" promptText="Thêm NN" />
+                                                <ButtonBar layoutX="764.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.rightAnchor="11.200000000000045">
+                                                  <buttons>
+                                                    <Button fx:id="add2" mnemonicParsing="false" onAction="#them2" text="Thêm" />
+                                                      <Button fx:id="del2" mnemonicParsing="false" onAction="#xoa2" text="Xóa" />
+                                                  </buttons>
+                                                </ButtonBar>
                                              </children></AnchorPane>
                                                     </content>
                                                 </Tab>

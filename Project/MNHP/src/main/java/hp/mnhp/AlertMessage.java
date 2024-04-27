@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlertMessage {
+    public Alert a;
 
     public static void infoBox(String infoMessage, String titleBar) {
         /* By specifying a null headerMessage String, we cause the dialog to
