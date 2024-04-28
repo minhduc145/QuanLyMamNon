@@ -114,6 +114,7 @@ public class BangTTHS implements Initializable {
         lopds.getItems().setAll(linhtinh.dsl);
         dhds.getItems().setAll(linhtinh.dsdh);
         ngs.setConverter(linhtinh.datePickerFormatter(ngs));
-        newHs
+        newHs.setHoten(hoten.getText());
+        newHs.setNoisinh(noisinh.getText());
     }
 }
