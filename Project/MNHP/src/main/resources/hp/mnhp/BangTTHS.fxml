@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.BangTTHS">
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="44.0" prefWidth="1920.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <MenuBar>
+                            <menus>
+                                <Menu mnemonicParsing="false" text="Help">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" text="About" />
+                                    </items>
+                                </Menu>
+                            </menus>
+                        </MenuBar>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="114.0" layoutY="144.0" prefHeight="1035.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.799999999999955">
+            <children>
+                <BorderPane layoutX="466.0" layoutY="254.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <center>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="963.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <GridPane layoutX="319.0" layoutY="68.0" prefHeight="90.0" prefWidth="98.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.20001602172852" minWidth="10.0" prefWidth="61.199987792968756" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.20001602172852" minWidth="10.0" prefWidth="50.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                </GridPane>
+                                <TabPane layoutX="19.2" layoutY="238.0" prefHeight="464.0" prefWidth="909.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="196.80000000000007">
+                                    <tabs>
+                                        <Tab closable="false" text="Thông tin">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="909.0">
+                                                    <children>
+                                                        <Text layoutX="33.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Họ và Tên :">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text layoutX="33.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nơi sinh:">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text layoutX="27.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ thường trú: ">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text layoutX="28.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Năm nhập học:">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <TextField fx:id="hoten" layoutX="161.0" layoutY="34.0" prefHeight="36.0" prefWidth="350.0" />
+                                                        <TextField fx:id="noisinh" layoutX="161.0" layoutY="79.0" prefHeight="36.0" prefWidth="350.0" />
+                                                        <TextField fx:id="dc" layoutX="161.0" layoutY="180.0" prefHeight="36.0" prefWidth="350.0" />
+                                                        <ComboBox fx:id="gt" layoutX="384.0" layoutY="131.0" prefHeight="36.0" prefWidth="126.0" promptText="Nam" />
+                                                        <Text layoutX="33.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày sinh:">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <DatePicker fx:id="ngs" layoutX="161.0" layoutY="131.0" prefHeight="36.0" prefWidth="192.0" />
+                                                        <ButtonBar layoutX="770.4" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="770.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
+                                                            <buttons>
+                                                                <Button fx:id="p1" mnemonicParsing="false" onAction="#them1" text="Thêm">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="10.0" />
+                                                                    </font>
+                                                                </Button>
+                                                                <Button fx:id="m1" mnemonicParsing="false" onAction="#xoa1" text="Xóa">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="10.0" />
+                                                                    </font>
+                                                                </Button>
+                                                            </buttons>
+                                                        </ButtonBar>
+                                                        <TableView fx:id="listdh" layoutX="656.8" layoutY="55.2" prefHeight="318.0" prefWidth="334.0" AnchorPane.bottomAnchor="43.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="col1" prefWidth="104.0" text="Năm" />
+                                                                <TableColumn fx:id="col2" prefWidth="222.40000915527344" text="Đạt Danh hiệu" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <Text layoutX="710.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xếp loại:">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <TextField fx:id="ename" layoutX="627.0" layoutY="374.0" prefHeight="36.0" prefWidth="127.0" promptText="Năm" AnchorPane.bottomAnchor="5.199999999999989" AnchorPane.rightAnchor="212.19999999999993" />
+                                                        <TextField fx:id="nnh" layoutX="161.0" layoutY="327.0" prefHeight="36.0" prefWidth="126.0" />
+                                                        <Text layoutX="26.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đang học tại:">
+                                                            <font>
+                                                                <Font name="System Bold" size="14.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <ComboBox fx:id="lopds" layoutX="161.0" layoutY="252.0" prefHeight="36.0" prefWidth="240.0" />
+                                                        <ComboBox fx:id="dhds" layoutX="785.0" layoutY="374.0" prefHeight="36.0" prefWidth="204.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="ph" text="Phụ Huynh">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <TextField fx:id="inputten" layoutX="11.0" layoutY="386.0" promptText="Thêm Tên" AnchorPane.bottomAnchor="3.599999999999987" />
+                                                        <TableView fx:id="phtable" editable="true" layoutX="11.2" layoutY="42.0" prefHeight="334.0" prefWidth="954.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="phcol1" prefWidth="193.86667841672897" text="Họ Tên" />
+                                                                <TableColumn fx:id="phcol2" prefWidth="117.33326721191406" text="Vai trò" />
+                                                                <TableColumn fx:id="phcol3" prefWidth="166.66668701171875" text="SDT" />
+                                                                <TableColumn fx:id="phcol4" prefWidth="231.199951171875" text="Địa chỉ" />
+                                                                <TableColumn fx:id="phcol5" prefWidth="208.2666015625" text="Nghề nghiệp" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <TextField fx:id="inputvt" layoutX="193.0" layoutY="386.0" promptText="Thêm VT" AnchorPane.bottomAnchor="3.599999999999987" />
+                                                        <TextField fx:id="inputsdt" layoutX="374.0" layoutY="385.0" promptText="Thêm SDT" AnchorPane.bottomAnchor="3.599999999999987" />
+                                                        <TextField fx:id="inputdc" layoutX="556.0" layoutY="385.0" promptText="Thêm ĐC" AnchorPane.bottomAnchor="3.599999999999987" />
+                                                        <TextField fx:id="inputnn" layoutX="738.0" layoutY="385.0" promptText="Thêm NN" AnchorPane.bottomAnchor="3.599999999999987" />
+                                                        <ButtonBar layoutX="755.1999999999999" layoutY="-4.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.rightAnchor="11.200000000000045">
+                                                            <buttons>
+                                                                <Button fx:id="add2" mnemonicParsing="false" onAction="#them2" text="Thêm" />
+                                                                <Button fx:id="del2" mnemonicParsing="false" onAction="#xoa2" text="Xóa" />
+                                                            </buttons>
+                                                        </ButtonBar>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                                <VBox layoutX="11.0" layoutY="10.0" prefHeight="144.0" prefWidth="174.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
+                                    <children>
+                                        <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@UI/boy.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </VBox>
+                                <GridPane layoutX="192.0" layoutY="56.0" prefHeight="128.0" prefWidth="380.0" vgap="5.0" AnchorPane.topAnchor="56.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.4000244140625" minWidth="10.0" prefWidth="109.5999755859375" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.2000244140625" minWidth="10.0" prefWidth="291.2000244140625" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Trạng thái:" GridPane.rowIndex="1">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Text>
+                                        <ComboBox fx:id="tt" prefHeight="36.0" prefWidth="240.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </children>
+                                </GridPane>
+                                <Button fx:id="luuBtn" defaultButton="true" layoutX="940.0" layoutY="68.0" mnemonicParsing="false" text="Lưu" AnchorPane.rightAnchor="20.799999999999997" />
+                                <Button fx:id="huyBtn" cancelButton="true" layoutX="940.0" layoutY="113.0" mnemonicParsing="false" text="Hủy" AnchorPane.rightAnchor="20.799999999999997" />
+                                <Text layoutX="417.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="THÊM HỌC SINH:" AnchorPane.bottomAnchor="628.18046875" AnchorPane.leftAnchor="417.0" AnchorPane.rightAnchor="428.185546875" AnchorPane.topAnchor="0.41796875">
+                                    <font>
+                                        <Font size="20.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                        </AnchorPane>
+                    </center>
+                </BorderPane>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

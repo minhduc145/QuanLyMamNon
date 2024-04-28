@@ -5,10 +5,14 @@ import Model.ChucVuModel;
 import Model.LopModel;
 import Model.QuyenModel;
 import Model.TrangThaiModel;
+import javafx.scene.control.DatePicker;
+import javafx.util.StringConverter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,5 +110,35 @@ public class linhtinhDao {
         getdsQuyen();
         getdsTrT();
         getdsChucvu();
+    }
+
+    public StringConverter<LocalDate> datePickerFormatter(DatePicker ngs) {
+        StringConverter<LocalDate> d = new StringConverter<LocalDate>() {
+            String pattern = "dd/MM/yyyy";
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            {
+                ngs.setPromptText(pattern.toLowerCase());
+            }
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        };
+        return d;
     }
 }

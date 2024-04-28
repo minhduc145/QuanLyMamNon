@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -39,10 +40,12 @@
                                         <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#onClickexit" text="Thoát" />
                                     </items>
                                 </Menu>
-                                <Menu mnemonicParsing="false" text="Bảng">
+                                <Menu mnemonicParsing="false" text="Chức năng">
                                     <items>
-                                        <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Bảng Theo dõi" />
-                                        <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Bảng Báo cáo suất ăn" />
+                              <MenuItem fx:id="themhsbtn" mnemonicParsing="false" onAction="#setThemhsbtn" text="Thêm HS" />
+                              <SeparatorMenuItem mnemonicParsing="false" />
+                                        <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Xem Bảng Theo dõi" />
+                                        <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Xem Bảng Báo cáo suất ăn" />
                                     </items>
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Help">
@@ -72,7 +75,8 @@
                                         </AnchorPane>
                                         <AnchorPane layoutX="1.0" layoutY="47.2" prefHeight="628.0" prefWidth="267.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
                                             <children>
-                                                <ListView fx:id="list" minHeight="-Infinity" minWidth="-Infinity" prefHeight="942.0" prefWidth="256.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                <ListView fx:id="list" layoutX="11.2" layoutY="35.2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="246.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="35.0" />
+                                                <ComboBox fx:id="cblop" layoutX="11.0" layoutY="-4.0" onAction="#picklop" prefHeight="36.0" prefWidth="246.0" promptText="Chọn lớp" AnchorPane.leftAnchor="11.19999999999996" AnchorPane.rightAnchor="9.799999999999983" />
                                             </children>
                                         </AnchorPane>
                                     </children>
@@ -125,41 +129,41 @@
                                                                         <Font name="System Bold" size="14.0" />
                                                                     </font>
                                                                 </Text>
-                                                                <DatePicker fx:id="ngs" editable="false" layoutX="161.0" layoutY="131.0" prefHeight="36.0" prefWidth="192.0" />
-                                                <ButtonBar layoutX="770.4" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="770.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
-                                                  <buttons>
-                                                    <Button fx:id="p1" mnemonicParsing="false" onAction="#them1" text="Thêm">
-                                                         <font>
-                                                            <Font name="System Bold" size="10.0" />
-                                                         </font>
-                                                      </Button>
-                                                      <Button fx:id="m1" mnemonicParsing="false" onAction="#xoa1" text="Xóa">
-                                                         <font>
-                                                            <Font name="System Bold" size="10.0" />
-                                                         </font>
-                                                      </Button>
-                                                  </buttons>
-                                                </ButtonBar>
-                                                <TableView fx:id="listdh" layoutX="684.0" layoutY="54.4" prefHeight="317.0" prefWidth="286.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="684.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="54.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="col1" prefWidth="104.0" text="Năm" />
-                                                    <TableColumn fx:id="col2" prefWidth="153.60009765625" text="Đạt Danh hiệu" />
-                                                  </columns>
-                                                </TableView>
-                                                <Text layoutX="710.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xếp loại:">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Text>
-                                                <TextField fx:id="ename" layoutX="683.0" layoutY="374.0" prefHeight="36.0" prefWidth="102.0" promptText="Năm" />
-                                                <TextField fx:id="nnh" editable="false" layoutX="161.0" layoutY="327.0" prefHeight="36.0" prefWidth="126.0" />
-                                                <Text layoutX="26.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đang học tại:">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                </Text>
-                                                <ComboBox fx:id="lopds" layoutX="161.0" layoutY="252.0" prefHeight="36.0" prefWidth="240.0" />
-                                                <ComboBox fx:id="dhds" layoutX="785.0" layoutY="374.0" prefHeight="36.0" prefWidth="186.0" />
+                                                                <DatePicker fx:id="ngs" layoutX="161.0" layoutY="131.0" prefHeight="36.0" prefWidth="192.0" />
+                                                                <ButtonBar layoutX="770.4" layoutY="7.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="770.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="7.0">
+                                                                    <buttons>
+                                                                        <Button fx:id="p1" mnemonicParsing="false" onAction="#them1" text="Thêm">
+                                                                            <font>
+                                                                                <Font name="System Bold" size="10.0" />
+                                                                            </font>
+                                                                        </Button>
+                                                                        <Button fx:id="m1" mnemonicParsing="false" onAction="#xoa1" text="Xóa">
+                                                                            <font>
+                                                                                <Font name="System Bold" size="10.0" />
+                                                                            </font>
+                                                                        </Button>
+                                                                    </buttons>
+                                                                </ButtonBar>
+                                                                <TableView fx:id="listdh" layoutX="684.0" layoutY="54.4" prefHeight="317.0" prefWidth="286.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="684.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="54.0">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="col1" prefWidth="104.0" text="Năm" />
+                                                                        <TableColumn fx:id="col2" prefWidth="153.60009765625" text="Đạt Danh hiệu" />
+                                                                    </columns>
+                                                                </TableView>
+                                                                <Text layoutX="710.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xếp loại:">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                    </font>
+                                                                </Text>
+                                                                <TextField fx:id="ename" layoutX="683.0" layoutY="374.0" prefHeight="36.0" prefWidth="102.0" promptText="Năm" />
+                                                                <TextField fx:id="nnh" editable="false" layoutX="161.0" layoutY="327.0" prefHeight="36.0" prefWidth="126.0" />
+                                                                <Text layoutX="26.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đang học tại:">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="14.0" />
+                                                                    </font>
+                                                                </Text>
+                                                                <ComboBox fx:id="lopds" layoutX="161.0" layoutY="252.0" prefHeight="36.0" prefWidth="240.0" />
+                                                                <ComboBox fx:id="dhds" layoutX="785.0" layoutY="374.0" prefHeight="36.0" prefWidth="186.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </content>
@@ -167,28 +171,29 @@
                                                 <Tab fx:id="ph" onSelectionChanged="#editbtnnotshow" text="Phụ Huynh">
                                                     <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <TextField fx:id="inputten" layoutX="11.0" layoutY="386.0" promptText="Thêm Tên" />
-                                                <TableView fx:id="phtable" editable="true" layoutX="11.2" layoutY="42.0" prefHeight="334.0" prefWidth="954.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="phcol1" prefWidth="193.86667841672897" text="Họ Tên" />
-                                                      <TableColumn fx:id="phcol2" prefWidth="117.33326721191406" text="Vai trò" />
-                                                      <TableColumn fx:id="phcol3" prefWidth="166.66668701171875" text="SDT" />
-                                                      <TableColumn fx:id="phcol4" prefWidth="231.199951171875" text="Địa chỉ" />
-                                                      <TableColumn fx:id="phcol5" prefWidth="208.2666015625" text="Nghề nghiệp" />
-                                                  </columns>
-                                                </TableView>
-                                                <TextField fx:id="inputvt" layoutX="193.0" layoutY="386.0" promptText="Thêm VT" />
-                                                <TextField fx:id="inputsdt" layoutX="374.0" layoutY="385.0" promptText="Thêm SDT" />
-                                                <TextField fx:id="inputdc" layoutX="556.0" layoutY="385.0" promptText="Thêm ĐC" />
-                                                <TextField fx:id="inputnn" layoutX="738.0" layoutY="385.0" promptText="Thêm NN" />
-                                                <ButtonBar layoutX="764.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.rightAnchor="11.200000000000045">
-                                                  <buttons>
-                                                    <Button fx:id="add2" mnemonicParsing="false" onAction="#them2" text="Thêm" />
-                                                      <Button fx:id="del2" mnemonicParsing="false" onAction="#xoa2" text="Xóa" />
-                                                  </buttons>
-                                                </ButtonBar>
-                                             </children></AnchorPane>
+                                                            <children>
+                                                                <TextField fx:id="inputten" layoutX="11.0" layoutY="386.0" promptText="Thêm Tên" />
+                                                                <TableView fx:id="phtable" editable="true" layoutX="11.2" layoutY="42.0" prefHeight="334.0" prefWidth="954.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="phcol1" prefWidth="193.86667841672897" text="Họ Tên" />
+                                                                        <TableColumn fx:id="phcol2" prefWidth="117.33326721191406" text="Vai trò" />
+                                                                        <TableColumn fx:id="phcol3" prefWidth="166.66668701171875" text="SDT" />
+                                                                        <TableColumn fx:id="phcol4" prefWidth="231.199951171875" text="Địa chỉ" />
+                                                                        <TableColumn fx:id="phcol5" prefWidth="208.2666015625" text="Nghề nghiệp" />
+                                                                    </columns>
+                                                                </TableView>
+                                                                <TextField fx:id="inputvt" layoutX="193.0" layoutY="386.0" promptText="Thêm VT" />
+                                                                <TextField fx:id="inputsdt" layoutX="374.0" layoutY="385.0" promptText="Thêm SDT" />
+                                                                <TextField fx:id="inputdc" layoutX="556.0" layoutY="385.0" promptText="Thêm ĐC" />
+                                                                <TextField fx:id="inputnn" layoutX="738.0" layoutY="385.0" promptText="Thêm NN" />
+                                                                <ButtonBar layoutX="764.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.rightAnchor="11.200000000000045">
+                                                                    <buttons>
+                                                                        <Button fx:id="add2" mnemonicParsing="false" onAction="#them2" text="Thêm" />
+                                                                        <Button fx:id="del2" mnemonicParsing="false" onAction="#xoa2" text="Xóa" />
+                                                                    </buttons>
+                                                                </ButtonBar>
+                                                            </children>
+                                                        </AnchorPane>
                                                     </content>
                                                 </Tab>
                                             </tabs>
@@ -196,9 +201,10 @@
                                         <VBox layoutX="11.0" layoutY="10.0" prefHeight="144.0" prefWidth="174.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="10.0">
                                             <children>
                                                 <ImageView fx:id="img" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@UI/boy.png" />
-                                       </image></ImageView>
+                                                    <image>
+                                                        <Image url="@UI/boy.png" />
+                                                    </image>
+                                                </ImageView>
                                             </children>
                                         </VBox>
                                         <GridPane layoutX="192.0" layoutY="56.0" prefHeight="128.0" prefWidth="380.0" vgap="5.0" AnchorPane.topAnchor="56.0">
@@ -229,25 +235,27 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                         </GridPane>
-                                        <Button fx:id="suaBtn" defaultButton="true" disable="true" layoutX="856.0" layoutY="23.0" mnemonicParsing="false" onAction="#onClicksuaBtn" text="Sửa" AnchorPane.rightAnchor="20.799999999999983" />
+                                        <Button fx:id="suaBtn" disable="true" layoutX="856.0" layoutY="23.0" mnemonicParsing="false" onAction="#onClicksuaBtn" text="Sửa" AnchorPane.rightAnchor="20.799999999999983" />
                                         <Button fx:id="luuBtn" layoutX="940.0" layoutY="68.0" mnemonicParsing="false" onAction="#onClickluuBtn" text="Lưu" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
                                         <Button fx:id="huyBtn" cancelButton="true" layoutX="940.0" layoutY="113.0" mnemonicParsing="false" onAction="#onClickhuyBtn" text="Hủy" visible="false" AnchorPane.rightAnchor="20.799999999999997" />
-                              <Text layoutX="564.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chủ nhiệm:">
-                                 <font>
-                                    <Font name="System Bold Italic" size="14.0" />
-                                 </font>
-                              </Text>
-                              <Text fx:id="gvcn" layoutX="647.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nll">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Text>
+                                        <Text layoutX="564.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chủ nhiệm:">
+                                            <font>
+                                                <Font name="System Bold Italic" size="14.0" />
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="gvcn" layoutX="647.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nll">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                        </Text>
+                                        <Button disable="true" layoutX="863.0" layoutY="23.0" mnemonicParsing="false" onAction="#onClickxoa" text="Xóa HS" AnchorPane.rightAnchor="77.0" fx:id="xoabtn" />
                                     </children>
                                 </AnchorPane>
                             </items>
                         </SplitPane>
                     </center>
                 </BorderPane>
-            </children></AnchorPane>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>

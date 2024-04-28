@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,10 +36,11 @@ public class HS implements Initializable {
     int lastIndex;
     danhhieuModel temp;
     hsModel temp1;
+    LopModel lastpick;
     @FXML
     Text gvcn;
     @FXML
-    Button suaBtn, luuBtn, huyBtn, sBtn, m1, p1, add2, del2;
+    Button xoabtn, suaBtn, luuBtn, huyBtn, sBtn, m1, p1, add2, del2;
     @FXML
     ListView<hsModel> list;
     @FXML
@@ -52,31 +54,77 @@ public class HS implements Initializable {
     @FXML
     ComboBox<String> tt;
     @FXML
-    ComboBox<LopModel> lopds;
+    ComboBox<LopModel> lopds, cblop;
     @FXML
     ComboBox<danhhieuModel> dhds;
     @FXML
     DatePicker ngs;
     @FXML
     TableColumn col1, col2, phcol1, phcol2, phcol3, phcol4, phcol5;
+    @FXML
+    MenuItem themhsbtn;
+
+    @FXML
+    void setThemhsbtn() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("BangTTHS.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Thêm Trẻ");
+            stage.setScene(new Scene(root));
+            stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onClickxoa() {
+        if (hdao.xoaHS(list.getItems().get(lastIndex).getId())) {
+            lastIndex = -1;
+            reload();
+            picklop();
+        }
+    }
+
+    @FXML
+    void picklop() {
+        if (cblop.getSelectionModel().getSelectedItem() != null) {
+            ds = hdao.getdshs(cblop.getSelectionModel().getSelectedItem().getId());
+            list.getItems().setAll(ds);
+            search.setPromptText("Tìm trong " + ds.size() + " Học sinh");
+
+        } else {
+            ds = hdao.getdshs();
+            list.getItems().setAll(ds);
+            search.setPromptText("Tìm trong " + ds.size() + " Học sinh");
+
+
+        }
+    }
 
     void setTable1(List<danhhieuModel> ds) {
-        col1.setCellValueFactory(new PropertyValueFactory<danhhieuModel, String>("nam"));
-        col2.setCellValueFactory(new PropertyValueFactory<danhhieuModel, String>("danhhieu"));
-        listdh.getItems().setAll(ds);
+        if (list.getSelectionModel().getSelectedItem() != null) {
+            col1.setCellValueFactory(new PropertyValueFactory<danhhieuModel, String>("nam"));
+            col2.setCellValueFactory(new PropertyValueFactory<danhhieuModel, String>("danhhieu"));
+            listdh.getItems().setAll(ds);
+        }
     }
 
     void setTable2(List<phModel> ds) {
-        phcol1.setCellValueFactory(new PropertyValueFactory<phModel, String>("hoten"));
-        phcol2.setCellValueFactory(new PropertyValueFactory<phModel, String>("vaitro"));
-        phcol3.setCellValueFactory(new PropertyValueFactory<phModel, String>("sdt"));
-        phcol4.setCellValueFactory(new PropertyValueFactory<phModel, String>("diachi"));
-        phcol5.setCellValueFactory(new PropertyValueFactory<phModel, String>("nghe"));
-        phtable.getItems().setAll(ds);
+        if (list.getSelectionModel().getSelectedItem() != null) {
+
+            phcol1.setCellValueFactory(new PropertyValueFactory<phModel, String>("hoten"));
+            phcol2.setCellValueFactory(new PropertyValueFactory<phModel, String>("vaitro"));
+            phcol3.setCellValueFactory(new PropertyValueFactory<phModel, String>("sdt"));
+            phcol4.setCellValueFactory(new PropertyValueFactory<phModel, String>("diachi"));
+            phcol5.setCellValueFactory(new PropertyValueFactory<phModel, String>("nghe"));
+            phtable.getItems().setAll(ds);
+        }
     }
 
     void setField(hsModel hs) {
-        linhtinh.load();
+
         gvcn.setText(hs.getGvcnString());
         hoten.setText(hs.getHoten());
         noisinh.setText(hs.getNoisinh());
@@ -86,6 +134,7 @@ public class HS implements Initializable {
         suaBtn.setDisable(true);
         if (User.idQuyen.equals("0")) {
             suaBtn.setDisable(false);
+            xoabtn.setDisable(false);
 
         } else {
             for (LopModel.GVCN e : hs.getGvcn()) {
@@ -93,6 +142,14 @@ public class HS implements Initializable {
                     if (!luuBtn.isVisible()) {
                         suaBtn.setVisible(true);
                         suaBtn.setDisable(false);
+                        xoabtn.setDisable(false);
+                        break;
+                    }
+                } else {
+                    if (!luuBtn.isVisible()) {
+                        suaBtn.setVisible(false);
+                        suaBtn.setDisable(true);
+                        xoabtn.setDisable(true);
                         break;
                     }
                 }
@@ -104,6 +161,7 @@ public class HS implements Initializable {
         } else {
             gt.setValue("Nữ");
         }
+
         lopds.getItems().setAll(linhtinh.dsl);
         for (LopModel lop : linhtinh.dsl) {
             if (hs.getIdLop() != null && hs.getIdLop().equals(lop.getId())) {
@@ -114,13 +172,13 @@ public class HS implements Initializable {
 
         }
 
+
         tt.getItems().setAll("Đang theo học", "Không đang theo học");
         if (hs.isDangtheohoc() == true) {
             tt.setValue("Đang theo học");
         } else {
             tt.setValue("Không đang theo học");
         }
-        search.setPromptText("Tìm trong " + ds.size() + " Học sinh");
         setTable1(hs.getDanhhieu());
         dhds.getItems().setAll(linhtinh.dsdh);
         setTable2(hs.getPh());
@@ -128,7 +186,9 @@ public class HS implements Initializable {
     }
 
     void select() {
-        hsModel hs = list.getItems().get(lastIndex);
+        hsModel hs;
+        if (lastIndex == -1) hs = null;
+        else hs = list.getItems().get(lastIndex);
         if (hs != null) {
             list.getSelectionModel().select(lastIndex);
             list.getFocusModel().focus(lastIndex);
@@ -144,6 +204,7 @@ public class HS implements Initializable {
     void reload() {
         ds = hdao.getdshs();
         list.getItems().setAll(ds);
+        search.setPromptText("Tìm trong " + ds.size() + " Học sinh");
 
     }
 
@@ -406,9 +467,17 @@ public class HS implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        linhtinh.load();
+        ngs.setConverter(linhtinh.datePickerFormatter(ngs));
+
+        cblop.getItems().setAll(linhtinh.dsl);
+        suaBtn.getStyleClass().add(Styles.ACCENT);
+
         huyBtn.getStyleClass().add(Styles.DANGER);
         luuBtn.getStyleClass().add(Styles.SUCCESS);
         ds = hdao.getdshs();
+        search.setPromptText("Tìm trong " + ds.size() + " Học sinh");
+
         list.getItems().setAll(ds);
         search.getStyleClass().addAll(
                 Styles.ROUNDED
@@ -424,8 +493,26 @@ public class HS implements Initializable {
             public void handle(javafx.scene.input.MouseEvent event) {
                 lastIndex = list.getSelectionModel().getSelectedIndex();
                 select();
+            }
+        });
+        sBtn.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                if (search.getText() != null || !search.getText().toString().isEmpty()) {
+                    List<hsModel> dstk = new ArrayList<>();
+                    for (hsModel scb : ds) {
+                        if (scb.getHoten().toLowerCase().contains(search.getText().trim().toLowerCase())) {
+                            dstk.add(scb);
+                        }
+                    }
+                    list.getItems().setAll(dstk);
+                } else {
+                    list.getItems().setAll(ds);
+                }
+
 
             }
         });
+
     }
 }

@@ -242,6 +242,8 @@ public class CBNV implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        date.setConverter(linhtinh.datePickerFormatter(date));
+
         search.getStyleClass().addAll(Styles.ROUNDED);
         sBtn.getStyleClass().addAll(Styles.ROUNDED, Styles.BUTTON_ICON);
         Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
