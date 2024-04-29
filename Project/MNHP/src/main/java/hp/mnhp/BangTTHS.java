@@ -74,6 +74,7 @@ public class BangTTHS implements Initializable {
                 ph.setHoten(inputten.getText());
                 ph.setVaitro(inputvt.getText());
                 ph.setSdt(inputsdt.getText());
+
                 ph.setNghe(inputnn.getText());
                 ph.setDiachi(inputdc.getText());
                 phcol1.setCellValueFactory(new PropertyValueFactory<phModel, String>("hoten"));
