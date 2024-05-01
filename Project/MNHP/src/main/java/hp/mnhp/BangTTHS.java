@@ -149,11 +149,14 @@ public class BangTTHS implements Initializable {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Thanh cong");
                         alert.showAndWait();
+                        ap.getScene().getWindow().hide();
+
+
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setHeaderText("Khong Thanh cong");
                         alert.showAndWait();
-                        ap.getScene().getWindow().hide();
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
