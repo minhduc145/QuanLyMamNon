@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class hsModel {
-    private String id;
-    private String idLop;
-    private String hoten;
-    private String noisinh;
-    private LocalDate ngaysinh;
-    private String diachi;
-    private String namnhaphoc;
-    private boolean lanam;
+    private String id = "NULL";
+    private String idLop= "NULL";
+    private String hoten= "NULL";
+    private String noisinh= "NULL";
+    private LocalDate ngaysinh = null;
+    private String diachi= "NULL";
+    private String namnhaphoc= "NULL";
+    private boolean lanam = true;
     private boolean dangtheohoc = false;
     private List<LopModel.GVCN> gvcn;
     private String gvcnString;

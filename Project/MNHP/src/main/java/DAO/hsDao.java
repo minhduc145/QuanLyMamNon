@@ -12,6 +12,84 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class hsDao {
+    public boolean themHS(hsModel hs) {
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Xác nhận Them");
+            alert.showAndWait();
+            if (alert.getResult().getButtonData().isDefaultButton()) {
+                Connection cn = (DbHelper.getInstance()).getConnection();
+                String SQL = "INSERT INTO [dbo].[Tre]\n" +
+                        "           ([HoTen]\n" +
+                        "           ,[idLop]\n" +
+                        "           ,[DiaChi]\n" +
+                        "           ,[NamNhapHoc]\n" +
+                        "           ,[laNam]\n" +
+                        "           ,[dangTheoHoc]\n" +
+                        "           ,[NgaySinh]\n" +
+                        "           ,[NoiSinh])\n" +
+                        "     VALUES (\n" +
+                        "           ?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?)";
+                PreparedStatement stmt = cn.prepareStatement(SQL);
+                stmt.setString(1, hs.getHoten());
+                stmt.setString(2, hs.getIdLop());
+                stmt.setString(3, hs.getDiachi());
+                stmt.setString(4, hs.getNamnhaphoc());
+                stmt.setBoolean(5, hs.isLanam());
+                stmt.setBoolean(6, hs.isDangtheohoc());
+                stmt.setString(7, hs.getNgaysinh().toString());
+                stmt.setString(8, hs.getNoisinh());
+                int i = stmt.executeUpdate();
+                if (i == 1) {
+                    SQL = "select max(idTre) from  tre";
+                    stmt = cn.prepareStatement(SQL);
+                    ResultSet r = stmt.executeQuery();
+                    while (r.next()) {
+                        hs.setId(r.getString(1));
+                    }
+
+
+                    for (phModel p : hs.getPh()){
+                        SQL = "INSERT INTO [dbo].[PhuHuynh]\n" +
+                                "           ([idTre]\n" +
+                                "           ,[VaiTro]\n" +
+                                "           ,[HoTen]\n" +
+                                "           ,[DiaChi]\n" +
+                                "           ,[SDT]\n" +
+                                "           ,[NgheNghiep])\n" +
+                                "     VALUES\n" +
+                                "           (?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?)";
+                        stmt = cn.prepareStatement(SQL);
+                        stmt.setString(1, hs.getId());
+                        stmt.setString(2, p.getVaitro());
+                        stmt.setString(3,p.getHoten());
+                        stmt.setString(4,p.getDiachi());
+                        stmt.setString(5,p.getSdt());
+                        stmt.setString(6,p.getNghe());
+                        stmt.executeUpdate();
+                    }
+
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean xoaHS(String id) {
         boolean i = false;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

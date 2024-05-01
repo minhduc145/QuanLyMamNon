@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.CBNVModule;
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,7 +12,66 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CBNVDao {
-
+//    public boolean themNV(CBNVModule e) {
+//        boolean i = false;
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setHeaderText("Xác nhận xóa");
+//        alert.showAndWait();
+//        if (alert.getResult().getButtonData().isDefaultButton()) {
+//
+//            try {
+//                Connection cn = (DbHelper.getInstance()).getConnection();
+//                String SQL = "delete from tre where idTre = ?";
+//                PreparedStatement stmt = cn.prepareStatement(SQL);
+//                stmt.setString(1, id);
+//                stmt.executeUpdate();
+//                i = true;
+//            } catch (Exception e) {
+//
+//                i = false;
+//            }
+//            if (i == true) {
+//                alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setHeaderText("Xoa Thanh cong");
+//                alert.showAndWait();
+//            } else {
+//                alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setHeaderText("Xoa khong Thanh cong");
+//                alert.showAndWait();
+//            }
+//
+//        }
+//
+//        return i;
+//
+//    }
+    public void xoaNV(String id) {
+        boolean i = false;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Xác nhận xóa");
+        alert.showAndWait();
+        if (alert.getResult().getButtonData().isDefaultButton()) {
+            try {
+                Connection cn = (DbHelper.getInstance()).getConnection();
+                String SQL = "delete from CBNV where idCBNV = ?";
+                PreparedStatement stmt = cn.prepareStatement(SQL);
+                stmt.setString(1, id);
+                stmt.executeUpdate();
+                i = true;
+            } catch (Exception e) {
+                i = false;
+            }
+            if (i == true) {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Xoa Thanh cong");
+                alert.showAndWait();
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Xoa khong Thanh cong");
+                alert.showAndWait();
+            }
+        }
+    }
     public List<CBNVModule> getDSCB() {
         List<CBNVModule> ds = new ArrayList<>();
         try {

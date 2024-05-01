@@ -89,7 +89,7 @@ public class HS implements Initializable {
 
     @FXML
     void picklop() {
-        if (cblop.getSelectionModel().getSelectedItem() != null) {
+        if (cblop.getSelectionModel().getSelectedItem() != null && cblop.getSelectionModel().getSelectedItem().getId() != null) {
             ds = hdao.getdshs(cblop.getSelectionModel().getSelectedItem().getId());
             list.getItems().setAll(ds);
             search.setPromptText("Tìm trong " + ds.size() + " Học sinh");

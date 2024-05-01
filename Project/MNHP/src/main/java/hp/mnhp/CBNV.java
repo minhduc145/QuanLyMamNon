@@ -63,7 +63,7 @@ public class CBNV implements Initializable {
     @FXML
     ImageView img;
     @FXML
-    Button suaBtn, luuBtn, huyBtn, sBtn;
+    Button themnv, xoanv, suaBtn, luuBtn, huyBtn, sBtn;
 
     @FXML
     DatePicker date, bd;
@@ -167,6 +167,8 @@ public class CBNV implements Initializable {
         Image a = new Image(getClass().getResourceAsStream(url));
         img.setImage(a);
         if (cb != null && (User.idCBNV.equals(cb.getIdCBNV()) || User.idQuyen.equals("0"))) {
+            themnv.setDisable(false);
+            xoanv.setDisable(false);
             if (!luuBtn.isVisible()) {
                 suaBtn.setVisible(true);
                 suaBtn.setDisable(false);
@@ -291,6 +293,19 @@ public class CBNV implements Initializable {
                 }
 
 
+            }
+        });
+
+        xoanv.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                cbdao.xoaNV(list.getSelectionModel().getSelectedItem().getIdCBNV());
+            }
+        });
+        themnv.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                cbdao.xoaNV(list.getSelectionModel().getSelectedItem().getIdCBNV());
             }
         });
     }

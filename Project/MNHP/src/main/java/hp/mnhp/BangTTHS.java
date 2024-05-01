@@ -1,28 +1,43 @@
 package hp.mnhp;
 
 import DAO.DbHelper;
+import DAO.hsDao;
 import DAO.linhtinhDao;
 import Model.LopModel;
 import Model.danhhieuModel;
 import Model.hsModel;
 import Model.phModel;
+import atlantafx.base.theme.CupertinoLight;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BangTTHS implements Initializable {
     linhtinhDao linhtinh = new linhtinhDao();
-
+    hsDao hdao = new hsDao();
+    @FXML
+    AnchorPane ap;
     @FXML
     ComboBox<String> tt, gt;
     @FXML
@@ -30,7 +45,7 @@ public class BangTTHS implements Initializable {
     @FXML
     ComboBox<danhhieuModel> dhds;
     @FXML
-    Button luuBtn, huyBtn, m1, p1, add2, del2;
+    Button luuBtn, m1, p1, add2, del2;
     @FXML
     DatePicker ngs;
     @FXML
@@ -115,7 +130,39 @@ public class BangTTHS implements Initializable {
         lopds.getItems().setAll(linhtinh.dsl);
         dhds.getItems().setAll(linhtinh.dsdh);
         ngs.setConverter(linhtinh.datePickerFormatter(ngs));
-        newHs.setHoten(hoten.getText());
-        newHs.setNoisinh(noisinh.getText());
+
+        luuBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                try {
+                    newHs.setIdLop(lopds.getSelectionModel().getSelectedItem().getId() != null ? lopds.getSelectionModel().getSelectedItem().getId() : "NULL");
+                    newHs.setHoten(hoten.getText());
+                    newHs.setNoisinh(noisinh.getText());
+                    newHs.setNgaysinh(ngs.getValue());
+                    newHs.setDiachi(dc.getText());
+                    newHs.setIdLop(lopds.getSelectionModel().getSelectedItem().getId());
+                    newHs.setNamnhaphoc(nnh.getText());
+                    newHs.setDangtheohoc(tt.getSelectionModel().getSelectedItem().equals("Đang theo học"));
+                    newHs.setLanam(gt.getSelectionModel().getSelectedItem().equals("Nam"));
+                    newHs.setPh(phtable.getItems());
+                    if (hdao.themHS(newHs)) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText("Thanh cong");
+                        alert.showAndWait();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText("Khong Thanh cong");
+                        alert.showAndWait();
+                        ap.getScene().getWindow().hide();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Khong Thanh cong");
+                    alert.showAndWait();
+                }
+
+            }
+        });
     }
 }
