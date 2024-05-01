@@ -124,7 +124,7 @@ public class LopModel {
         String rs = "";
         for (LopModel.GVCN gv : dsGVCN) {
             rs += gv.getHoten();
-            rs += "; ";
+            rs += "\n";
         }
         return rs;
     }
