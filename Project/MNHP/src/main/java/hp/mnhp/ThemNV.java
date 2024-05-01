@@ -71,8 +71,6 @@ public class ThemNV implements Initializable {
         luu.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-
-
                 try {
                     Connection cn = (DbHelper.getInstance()).getConnection();
                     String SQL = "INSERT INTO [dbo].[CBNV] ([idCBNV] ,[idChucVu], [HoTen]) VALUES(? ,?, ?)";
@@ -80,6 +78,10 @@ public class ThemNV implements Initializable {
                     stmt.setString(1, tentk.getText());
                     stmt.setString(2, c.getId());
                     stmt.setString(3, hoten.getText());
+                    stmt.executeUpdate();
+                    SQL = "insert into taikhoan(idcbnv) values (?)";
+                    stmt = cn.prepareStatement(SQL);
+                    stmt.setString(1,tentk.getText());
                     stmt.executeUpdate();
                     ap.getScene().getWindow().hide();
                 } catch (Exception e) {

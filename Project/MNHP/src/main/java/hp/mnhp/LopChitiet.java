@@ -58,7 +58,9 @@ public class LopChitiet implements Initializable {
     @FXML
     TableView<hsModel> hstab;
     @FXML
-    TableColumn stths, hths, nshs, gths;
+    TableColumn stths, hths, nshs, gths, sttgv, htgv, tkgv, nsgv;
+    @FXML
+    TableView<CBNVModule> gvtab;
 
 
     @FXML
@@ -176,13 +178,42 @@ public class LopChitiet implements Initializable {
                     }
                     stths.setSortable(false);
                     stths.setCellFactory(new LineNumbersCellFactory<>());
-                    if (list.getSelectionModel().getSelectedItem() != null) {
-                        hths.setCellValueFactory(new PropertyValueFactory<hsModel, String>("hoten"));
-                        nshs.setCellValueFactory(new PropertyValueFactory<LopModel, String>("ngaysinh"));
-                        gths.setCellValueFactory(new PropertyValueFactory<LopModel, String>("lanam"));
-                        hstab.getItems().setAll(hsl);
-                    }
+
+                    hths.setCellValueFactory(new PropertyValueFactory<hsModel, String>("hoten"));
+                    nshs.setCellValueFactory(new PropertyValueFactory<hsModel, String>("ngaysinh"));
+                    gths.setCellValueFactory(new PropertyValueFactory<hsModel, String>("lanam"));
+                    hstab.getItems().setAll(hsl);
+
                 }
+
+                List<CBNVModule> dsgv = new ArrayList<>();
+                try {
+                    Connection cn = (DbHelper.getInstance()).getConnection();
+                    String SQL = "SELECT *\n" +
+                            "FROM     CBNV\n" +
+                            "where idLop = ?";
+                    PreparedStatement stmt = cn.prepareStatement(SQL);
+                    stmt.setString(1, lop.getId());
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+                        CBNVModule h = new CBNVModule();
+                        h.setHoten(rs.getString("hoten"));
+                        h.setIdCBNV(rs.getString("idcbnv"));
+                        if (rs.getDate("ngaysinh") != null) {
+                            LocalDate newDate2 = rs.getDate("ngaysinh").toLocalDate();
+                            h.setNgaySinh(newDate2);
+                        }
+                        dsgv.add(h);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                sttgv.setSortable(false);
+                sttgv.setCellFactory(new LineNumbersCellFactory<>());
+                htgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("hoten"));
+                nsgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("NgaySinh"));
+                tkgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("idCBNV"));
+                gvtab.getItems().setAll(dsgv);
             }
         });
 

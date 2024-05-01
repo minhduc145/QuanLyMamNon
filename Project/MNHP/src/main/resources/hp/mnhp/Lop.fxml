@@ -95,11 +95,12 @@
                                              <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <TableView layoutX="156.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                      <TableView fx:id="gvtab" layoutX="156.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                                         <columns>
-                                                          <TableColumn prefWidth="75.0" text="STT" />
-                                                          <TableColumn prefWidth="75.0" text="Họ Tên" />
-                                                            <TableColumn prefWidth="122.13331604003906" text="Tài khoản" />
+                                                          <TableColumn fx:id="sttgv" prefWidth="75.0" text="STT" />
+                                                          <TableColumn fx:id="htgv" prefWidth="246.39999389648438" text="Họ Tên" />
+                                                            <TableColumn fx:id="tkgv" prefWidth="158.4000244140625" text="Tài khoản" />
+                                                            <TableColumn fx:id="nsgv" prefWidth="191.2000732421875" text="Ngày sinh" />
                                                         </columns>
                                                       </TableView>
                                                    </children></AnchorPane>
