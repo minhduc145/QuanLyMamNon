@@ -1,17 +1,21 @@
 package Model;
 
+import DAO.linhtinhDao;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class hsModel {
     private String id = "NULL";
-    private String idLop= "NULL";
-    private String hoten= "NULL";
-    private String noisinh= "NULL";
+    private String idLop = "NULL";
+    private String hoten = "NULL";
+    private String noisinh = "NULL";
     private LocalDate ngaysinh = null;
-    private String diachi= "NULL";
-    private String namnhaphoc= "NULL";
+    private String diachi = "NULL";
+    private String namnhaphoc = "NULL";
     private boolean lanam = true;
     private boolean dangtheohoc = false;
     private List<LopModel.GVCN> gvcn;
@@ -22,6 +26,7 @@ public class hsModel {
     public hsModel() {
         super();
     }
+
 
     public List<danhhieuModel> getDanhhieu() {
         return danhhieu;
@@ -91,6 +96,7 @@ public class hsModel {
         return ngaysinh;
     }
 
+
     public void setNgaysinh(LocalDate ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
@@ -105,6 +111,11 @@ public class hsModel {
 
     public boolean isLanam() {
         return lanam;
+    }
+
+    public String getLanam() {
+        if (lanam) return "Nam";
+        else return "Nữ";
     }
 
     public void setLanam(boolean lanam) {

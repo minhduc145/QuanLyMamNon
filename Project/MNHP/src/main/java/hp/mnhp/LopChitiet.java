@@ -1,14 +1,19 @@
 package hp.mnhp;
 
+import DAO.DbHelper;
+import DAO.LineNumbersCellFactory;
 import DAO.LopDao;
 import DAO.imgFotBtn;
 import Model.CBNVModule;
 import Model.LopModel;
+import Model.hsModel;
 import atlantafx.base.controls.Notification;
 import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.Animations;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.ListViewSkin;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +32,10 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,6 +55,10 @@ public class LopChitiet implements Initializable {
     Text tenlop, sl1, sl2;
     @FXML
     TabPane t;
+    @FXML
+    TableView<hsModel> hstab;
+    @FXML
+    TableColumn stths, hths, nshs, gths;
 
 
     @FXML
@@ -129,18 +143,48 @@ public class LopChitiet implements Initializable {
         luuBtn.getStyleClass().add(Styles.SUCCESS);
         suaBtn.setVisible(false);
         list.getItems().setAll(dslop);
-        list.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
-                                   @Override
-                                   public void handle(javafx.scene.input.MouseEvent event) {
-                                       LopModel lop = list.getSelectionModel().getSelectedItem();
-                                       if (lop != null) {
-                                           tenlop.setText(lop.getTenLop());
-                                           sl1.setText(String.valueOf(lop.getSotre()));
-                                           sl2.setText(String.valueOf(lop.getDsGVCN().size()));
-                                       }
-                                   }
-                               }
-        );
+        list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LopModel>() {
+            @Override
+            public void changed(ObservableValue<? extends LopModel> observable, LopModel oldValue, LopModel newValue) {
+                LopModel lop = list.getSelectionModel().getSelectedItem();
+                if (lop != null) {
+                    tenlop.setText(lop.getTenLop());
+                    sl1.setText(String.valueOf(lop.getSotre()));
+                    sl2.setText(String.valueOf(lop.getDsGVCN().size()));
+
+                    List<hsModel> hsl = new ArrayList<>();
+                    try {
+                        Connection cn = (DbHelper.getInstance()).getConnection();
+                        String SQL = "SELECT Tre.*\n" +
+                                "FROM     Tre\n" +
+                                "where idLop = ?";
+                        PreparedStatement stmt = cn.prepareStatement(SQL);
+                        stmt.setString(1, lop.getId());
+                        ResultSet rs = stmt.executeQuery();
+                        while (rs.next()) {
+                            hsModel h = new hsModel();
+                            h.setHoten(rs.getString("hoten"));
+                            h.setLanam(rs.getBoolean("lanam"));
+                            if (rs.getDate("ngaysinh") != null) {
+                                LocalDate newDate2 = rs.getDate("ngaysinh").toLocalDate();
+                                h.setNgaysinh(newDate2);
+                            }
+                            hsl.add(h);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    stths.setSortable(false);
+                    stths.setCellFactory(new LineNumbersCellFactory<>());
+                    if (list.getSelectionModel().getSelectedItem() != null) {
+                        hths.setCellValueFactory(new PropertyValueFactory<hsModel, String>("hoten"));
+                        nshs.setCellValueFactory(new PropertyValueFactory<LopModel, String>("ngaysinh"));
+                        gths.setCellValueFactory(new PropertyValueFactory<LopModel, String>("lanam"));
+                        hstab.getItems().setAll(hsl);
+                    }
+                }
+            }
+        });
 
     }
 

@@ -63,10 +63,17 @@ public class CBNV implements Initializable {
     @FXML
     ImageView img;
     @FXML
-    Button themnv, xoanv, suaBtn, luuBtn, huyBtn, sBtn;
+    Button reload, themnv, xoanv, suaBtn, luuBtn, huyBtn, sBtn;
 
     @FXML
     DatePicker date, bd;
+
+    @FXML
+    void setReload() {
+        ds = cbdao.getDSCB();
+        list.getItems().setAll(ds);
+        search.setPromptText("Tìm trong " + ds.size() + " CBNV.");
+    }
 
     void setEditable(boolean i) {
         hoten.setEditable(i);
@@ -305,7 +312,17 @@ public class CBNV implements Initializable {
         themnv.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                cbdao.xoaNV(list.getSelectionModel().getSelectedItem().getIdCBNV());
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("themnV.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Them CBGV, NV");
+                    stage.setScene(new Scene(root));
+                    stage.setResizable(false);
+                    stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

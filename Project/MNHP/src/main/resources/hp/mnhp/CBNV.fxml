@@ -71,6 +71,7 @@
                                     <ListView fx:id="list" layoutX="11.2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="245.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="10.0" />
                                     <Button fx:id="themnv" disable="true" layoutX="14.0" layoutY="584.0" mnemonicParsing="false" text="Thêm" />
                                     <Button disable="true" layoutX="187.0" layoutY="584.0" mnemonicParsing="false" text="Xóa" fx:id="xoanv" />
+                                    <Button fx:id="reload" layoutX="92.0" layoutY="584.0" mnemonicParsing="false" onAction="#setReload" text="reload" />
                                  </children>
                               </AnchorPane>
                            </children>

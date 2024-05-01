@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CBNVDao {
-//    public boolean themNV(CBNVModule e) {
+    //    public boolean themNV(CBNVModule e) {
 //        boolean i = false;
 //        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 //        alert.setHeaderText("Xác nhận xóa");
@@ -72,6 +72,7 @@ public class CBNVDao {
             }
         }
     }
+
     public List<CBNVModule> getDSCB() {
         List<CBNVModule> ds = new ArrayList<>();
         try {
@@ -88,16 +89,20 @@ public class CBNVDao {
                 cb.setDiaChiTT(rs.getString(5));
                 cb.setSDT(rs.getString(6));
                 cb.setEmail(rs.getString(7));
-                LocalDate newDate = rs.getDate(8).toLocalDate();
-                cb.setNgayVaoLam(newDate);
+                if (rs.getDate(8) != null) {
+                    LocalDate newDate = rs.getDate(8).toLocalDate();
+                    cb.setNgayVaoLam(newDate);
+                }
                 cb.setSoCCCD(rs.getString(9));
                 cb.setIdTinhTrang(rs.getString(10));
                 cb.setGTNam(rs.getBoolean(11));
                 cb.setIdLop(rs.getString(12));
                 cb.setMatKhau(rs.getString(13));
                 cb.setIdQuyen(rs.getString(14));
-                LocalDate newDate2 = rs.getDate(15).toLocalDate();
-                cb.setNgaySinh(newDate2);
+                if (rs.getDate(15) != null) {
+                    LocalDate newDate2 = rs.getDate(15).toLocalDate();
+                    cb.setNgaySinh(newDate2);
+                }
                 cb.setTDHV(rs.getString(16));
                 cb.setHsl(rs.getDouble(17));
                 cb.setPctn(rs.getDouble(18));
