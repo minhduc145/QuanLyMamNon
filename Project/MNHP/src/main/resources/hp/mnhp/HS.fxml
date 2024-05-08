@@ -73,12 +73,13 @@
                                                 <TextField fx:id="search" layoutX="8.0" layoutY="2.0" prefHeight="20.0" prefWidth="200.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="49.599999999999966" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane layoutX="1.0" layoutY="47.2" prefHeight="628.0" prefWidth="267.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+                                        <AnchorPane layoutX="1.0" layoutY="47.2" prefHeight="588.0" prefWidth="267.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
                                             <children>
                                                 <ListView fx:id="list" layoutX="11.2" layoutY="35.2" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="246.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="35.0" />
                                                 <ComboBox fx:id="cblop" layoutX="11.0" layoutY="-4.0" onAction="#picklop" prefHeight="36.0" prefWidth="246.0" promptText="Chọn lớp" AnchorPane.leftAnchor="11.19999999999996" AnchorPane.rightAnchor="9.799999999999983" />
                                             </children>
                                         </AnchorPane>
+                              <Button fx:id="reloadbtn" layoutX="98.0" layoutY="635.0" mnemonicParsing="false" onAction="#onReload" text="reload" AnchorPane.bottomAnchor="4.2000000000000455" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="675.0" prefWidth="963.0">

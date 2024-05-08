@@ -40,7 +40,7 @@ public class HS implements Initializable {
     @FXML
     Text gvcn;
     @FXML
-    Button xoabtn, suaBtn, luuBtn, huyBtn, sBtn, m1, p1, add2, del2;
+    Button reloadbtn, xoabtn, suaBtn, luuBtn, huyBtn, sBtn, m1, p1, add2, del2;
     @FXML
     ListView<hsModel> list;
     @FXML
@@ -235,6 +235,12 @@ public class HS implements Initializable {
                 alert.showAndWait();
             }
         }
+
+    }
+
+    @FXML
+    void onReload() {
+        reload();
 
     }
 
