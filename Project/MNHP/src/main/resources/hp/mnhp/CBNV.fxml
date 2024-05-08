@@ -136,7 +136,7 @@
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <Text layoutX="586.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chủ nhiệm lớp:">
+                                                <Text fx:id="lopcntitle" layoutX="586.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chủ nhiệm lớp:">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -155,7 +155,7 @@
                                                    </font>
                                                 </Text>
                                                 <TextField fx:id="tdhv" editable="false" layoutX="707.0" layoutY="97.0" prefHeight="36.0" prefWidth="214.0" />
-                                                <ComboBox fx:id="lopcn" layoutX="655.0" layoutY="279.0" prefHeight="36.0" prefWidth="274.0" promptText="Nam" />
+                                                <ComboBox fx:id="lopcn" disable="true" layoutX="655.0" layoutY="279.0" prefHeight="36.0" prefWidth="274.0" promptText="Nam" />
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -198,9 +198,9 @@
                                           <Font name="System Bold Italic" size="14.0" />
                                        </font>
                                     </Text>
-                                    <ComboBox fx:id="quyen" prefHeight="36.0" prefWidth="238.0" GridPane.columnIndex="1" />
+                                    <ComboBox fx:id="quyen" disable="true" prefHeight="36.0" prefWidth="238.0" GridPane.columnIndex="1" />
                                     <ComboBox fx:id="tt" prefHeight="36.0" prefWidth="240.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <ComboBox fx:id="cv" prefHeight="36.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <ComboBox fx:id="cv" disable="true" prefHeight="36.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                               <GridPane layoutX="361.0" layoutY="17.0" prefHeight="30.0" prefWidth="290.0" AnchorPane.topAnchor="5.0">

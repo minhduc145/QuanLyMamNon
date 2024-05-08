@@ -467,6 +467,9 @@ public class HS implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (User.idQuyen.equals("0") || User.idQuyen.equals("1") || User.idChucVu.equals("gv")) {
+            themhsbtn.setDisable(false);
+        }
         linhtinh.load();
         ngs.setConverter(linhtinh.datePickerFormatter(ngs));
 

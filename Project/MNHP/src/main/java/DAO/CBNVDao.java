@@ -45,7 +45,7 @@ public class CBNVDao {
 //        return i;
 //
 //    }
-    public void xoaNV(String id) {
+    public boolean xoaNV(String id) {
         boolean i = false;
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Xác nhận xóa");
@@ -71,6 +71,7 @@ public class CBNVDao {
                 alert.showAndWait();
             }
         }
+        return i;
     }
 
     public List<CBNVModule> getDSCB() {

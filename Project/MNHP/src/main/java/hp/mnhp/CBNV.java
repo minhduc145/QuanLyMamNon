@@ -47,7 +47,7 @@ public class CBNV implements Initializable {
     @FXML
     ListView<CBNVModule> list;
     @FXML
-    Text id;
+    Text id, lopcntitle;
     @FXML
     TextField hsl, tdhv, search, hoten, tn, noisinh, dc, sdt, email, cccd, editpw;
     @FXML
@@ -173,9 +173,17 @@ public class CBNV implements Initializable {
         String url = link.get(random);
         Image a = new Image(getClass().getResourceAsStream(url));
         img.setImage(a);
+
+        if (cb != null && cb.getIdChucVu().equals("gv")) {
+            lopcn.setVisible(true);
+            lopcntitle.setVisible(true);
+        } else {
+            lopcn.setVisible(false);
+            lopcntitle.setVisible(false);
+        }
+
         if (cb != null && (User.idCBNV.equals(cb.getIdCBNV()) || User.idQuyen.equals("0"))) {
-            themnv.setDisable(false);
-            xoanv.setDisable(false);
+
             if (!luuBtn.isVisible()) {
                 suaBtn.setVisible(true);
                 suaBtn.setDisable(false);
@@ -238,6 +246,8 @@ public class CBNV implements Initializable {
     }
 
     void select() {
+        if (lastIndex == -1)
+            lastIndex = 0;
         CBNVModule cb = list.getItems().get(lastIndex);
         if (cb != null) {
             list.getSelectionModel().select(lastIndex);
@@ -252,7 +262,6 @@ public class CBNV implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         date.setConverter(linhtinh.datePickerFormatter(date));
-
         search.getStyleClass().addAll(Styles.ROUNDED);
         sBtn.getStyleClass().addAll(Styles.ROUNDED, Styles.BUTTON_ICON);
         Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
@@ -275,6 +284,14 @@ public class CBNV implements Initializable {
         link.add("UI/teacher1.png");
         link.add("UI/teacher2.png");
         link.add("UI/teacher3.png");
+        if (User.idQuyen.equals("0") || User.idQuyen.equals("1")) {
+            themnv.setDisable(false);
+            xoanv.setDisable(false);
+            cv.setDisable(false);
+            quyen.setDisable(false);
+            lopcn.setDisable(false);
+        }
+
         list.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
@@ -306,7 +323,12 @@ public class CBNV implements Initializable {
         xoanv.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
-                cbdao.xoaNV(list.getSelectionModel().getSelectedItem().getIdCBNV());
+                boolean i = cbdao.xoaNV(list.getSelectionModel().getSelectedItem().getIdCBNV());
+                if (i) {
+                    list.getItems().remove(list.getSelectionModel().getSelectedItem());
+                    lastIndex = 0;
+                    select();
+                }
             }
         });
         themnv.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {

@@ -42,7 +42,7 @@
                                 </Menu>
                                 <Menu mnemonicParsing="false" text="Chức năng">
                                     <items>
-                              <MenuItem fx:id="themhsbtn" mnemonicParsing="false" onAction="#setThemhsbtn" text="Thêm HS" />
+                              <MenuItem fx:id="themhsbtn" disable="true" mnemonicParsing="false" onAction="#setThemhsbtn" text="Thêm HS" />
                               <SeparatorMenuItem mnemonicParsing="false" />
                                         <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Xem Bảng Theo dõi" />
                                         <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Xem Bảng Báo cáo suất ăn" />

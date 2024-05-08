@@ -62,17 +62,36 @@ public class DbHelper {
         return false;
     }
 
+    //    public void getUserInfo(String usn) {
+//        try {
+//            Connection cn = (DbHelper.getInstance()).getConnection();
+//            String SQL = "SELECT CBNV.idCBNV, idQuyen, HoTen FROM CBNV left join TaiKhoan on TaiKhoan.idCBNV = CBNV.idCBNV where CBNV.idCBNV = ?";
+//            PreparedStatement stmt = cn.prepareStatement(SQL);
+//            stmt.setString(1, usn);
+//            ResultSet rs = stmt.executeQuery();
+//            if (rs.next()) {
+//                User.idCBNV = rs.getString(1);
+//                User.idQuyen = rs.getString(2);
+//                User.Hoten = rs.getString(3);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
     public void getUserInfo(String usn) {
         try {
             Connection cn = (DbHelper.getInstance()).getConnection();
-            String SQL = "SELECT CBNV.idCBNV, idQuyen, HoTen FROM CBNV left join TaiKhoan on TaiKhoan.idCBNV = CBNV.idCBNV where CBNV.idCBNV = ?";
+            String SQL = "SELECT idLop, CBNV.idCBNV, idQuyen, HoTen, idchucvu FROM CBNV left join TaiKhoan on TaiKhoan.idCBNV = CBNV.idCBNV where CBNV.idCBNV = ?";
             PreparedStatement stmt = cn.prepareStatement(SQL);
             stmt.setString(1, usn);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                User.idCBNV = rs.getString(1);
-                User.idQuyen = rs.getString(2);
-                User.Hoten = rs.getString(3);
+                User.idCBNV = rs.getString("idcbnv");
+                User.idQuyen = rs.getString("idquyen");
+                User.Hoten = rs.getString("hoten");
+                User.idChucVu = rs.getString("idchucvu");
+                User.idLop = rs.getString("idlop");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -3,10 +3,7 @@ package hp.mnhp;
 import DAO.DbHelper;
 import DAO.hsDao;
 import DAO.linhtinhDao;
-import Model.LopModel;
-import Model.danhhieuModel;
-import Model.hsModel;
-import Model.phModel;
+import Model.*;
 import atlantafx.base.theme.CupertinoLight;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -124,13 +121,22 @@ public class BangTTHS implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         linhtinh.load();
+        lopds.getItems().setAll(linhtinh.dsl);
         hsModel newHs = new hsModel();
         tt.getItems().setAll("Đang theo học", "Không đang theo học");
         gt.getItems().setAll("Nam", "Nữ");
-        lopds.getItems().setAll(linhtinh.dsl);
         dhds.getItems().setAll(linhtinh.dsdh);
         ngs.setConverter(linhtinh.datePickerFormatter(ngs));
-
+        if (User.idChucVu.equals("gv")) {
+            for (LopModel l : lopds.getItems()) {
+                if (l.getId() != null && l.getId().equals(User.idLop)) {
+                    lopds.getSelectionModel().select(l);
+                    System.out.println(lopds.getSelectionModel().getSelectedItem().getTenLop());
+                    break;
+                }
+            }
+            lopds.setDisable(true);
+        }
         luuBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {

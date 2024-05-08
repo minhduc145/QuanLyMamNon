@@ -34,7 +34,7 @@ public class ThemNV implements Initializable {
     @FXML
     ComboBox<ChucVuModel> chucvu;
     @FXML
-    TextField hoten;
+    TextField hoten, mk;
     @FXML
     Text tentk;
 
@@ -79,9 +79,11 @@ public class ThemNV implements Initializable {
                     stmt.setString(2, c.getId());
                     stmt.setString(3, hoten.getText());
                     stmt.executeUpdate();
-                    SQL = "insert into taikhoan(idcbnv) values (?)";
+                    SQL = "insert into taikhoan(idcbnv, matkhau) values (?,?)";
                     stmt = cn.prepareStatement(SQL);
                     stmt.setString(1,tentk.getText());
+                    stmt.setString(2,mk.getText());
+
                     stmt.executeUpdate();
                     ap.getScene().getWindow().hide();
                 } catch (Exception e) {

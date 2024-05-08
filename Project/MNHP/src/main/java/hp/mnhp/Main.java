@@ -122,6 +122,20 @@ public class Main implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    void onidbtnClick() throws Exception {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("myInfo.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Quản lý Trẻ");
+            stage.setScene(new Scene(root));
+            stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override
