@@ -1,13 +1,11 @@
 package hp.mnhp;
 
-import DAO.DbHelper;
-import DAO.LineNumbersCellFactory;
-import DAO.LopDao;
-import DAO.imgFotBtn;
+import DAO.*;
 import Model.CBNVModule;
 import Model.LopModel;
 import Model.User;
 import Model.hsModel;
+import atlantafx.base.controls.Message;
 import atlantafx.base.controls.Notification;
 import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.Styles;
@@ -22,14 +20,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.ListViewSkin;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,24 +44,28 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LopChitiet implements Initializable {
+    Integer i = null;
+    List<hsModel> hsTemp = new ArrayList<>();
+    LopModel lastObj = null;
     LopDao ldao = new LopDao();
+    hsDao hdao = new hsDao();
     List<LopModel> dslop = ldao.getDSLop();
     @FXML
     AnchorPane ap;
     @FXML
     ListView<LopModel> list;
     @FXML
-    Button themlop, xoalop, suaBtn, luuBtn, huyBtn, sBtn, reload;
+    Button addtoclass, delfromclass, themlop, xoalop, suaBtn, luuBtn, huyBtn, sBtn, reload;
     @FXML
-    TextField search;
+    TextField txttenlop, search;
     @FXML
-    Text tenlop, sl1, sl2;
+    Text idlop, tenlop, sl1, sl2;
     @FXML
     TabPane t;
     @FXML
     TableView<hsModel> hstab;
     @FXML
-    TableColumn stths, hths, nshs, gths, sttgv, htgv, tkgv, nsgv;
+    TableColumn cotid, ch, stths, hths, nshs, gths, sttgv, htgv, tkgv, nsgv;
     @FXML
     TableView<CBNVModule> gvtab;
 
@@ -117,8 +123,76 @@ public class LopChitiet implements Initializable {
         dslop = ldao.getDSLop();
         list.getItems().setAll(dslop);
         search.setPromptText("Tìm trong " + dslop.size() + " Lớp học");
+        if (i != null) {
+            list.getSelectionModel().select(i);
+        }
+        i = null;
     }
 
+    @FXML
+    void onClickSuaBtn() {
+        i = list.getSelectionModel().getSelectedIndex();
+        list.setDisable(true);
+        tenlop.setVisible(false);
+        txttenlop.setVisible(true);
+        suaBtn.setVisible(false);
+        luuBtn.setVisible(true);
+        huyBtn.setVisible(true);
+        delfromclass.setVisible(true);
+        addtoclass.setVisible(true);
+        ch.setVisible(true);
+    }
+
+    @FXML
+    void onClickLuuBtn() {
+        if (AlertMessage.iscfBox(null, "Xác nhận lưu", "Xác nhận lưu")) {
+            try {
+                ldao.updateLop(list.getSelectionModel().getSelectedItem().getId(), idlop.getText().toString(), txttenlop.getText().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (e.getMessage().contains("Violation of PRIMARY KEY")) {
+                    AlertMessage.erBox("Thử với tên khác", "Loi", "Lớp đã tồn tại (trùng mã lớp)");
+                } else {
+                    AlertMessage.erBox("Thử với tên khác", "Loi", "Loi them");
+                }
+            }
+            if (hsTemp != null) try {
+                for (hsModel hs : hsTemp) {
+                    if (hs.getSelect().isSelected()) {
+                        hdao.setLopchoHS(hs.getId(), null);
+                    }
+                }
+            } catch (Exception e) {
+                AlertMessage.erBox(null, "Loi", "Lỗi xóa");
+            }
+        }
+        list.setDisable(false);
+        tenlop.setVisible(true);
+        txttenlop.setVisible(false);
+        suaBtn.setVisible(true);
+        luuBtn.setVisible(false);
+        huyBtn.setVisible(false);
+        ch.setVisible(false);
+        delfromclass.setVisible(false);
+        addtoclass.setVisible(false);
+        setReload();
+    }
+
+    @FXML
+    void onClickHuyBtn() {
+        setReload();
+        list.setDisable(false);
+        tenlop.setVisible(true);
+        txttenlop.setVisible(false);
+        suaBtn.setVisible(true);
+        luuBtn.setVisible(false);
+        huyBtn.setVisible(false);
+        ch.setVisible(false);
+        delfromclass.setVisible(false);
+        addtoclass.setVisible(false);
+    }
+
+    @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (User.idQuyen.equals("0")) {
@@ -145,14 +219,10 @@ public class LopChitiet implements Initializable {
             });
         });
         t.getStyleClass().add(Styles.BORDERED);
-        search.getStyleClass().addAll(
-                Styles.ROUNDED
-        );
+        search.getStyleClass().addAll(Styles.ROUNDED);
         Image image = new Image(getClass().getResourceAsStream("UI/loupe.png"), sBtn.getWidth(), sBtn.getHeight(), false, true);
         sBtn.setGraphic(new imgFotBtn().getImg(sBtn, image, 20, 20));
-        sBtn.getStyleClass().addAll(
-                Styles.ROUNDED, Styles.BUTTON_ICON
-        );
+        sBtn.getStyleClass().addAll(Styles.ROUNDED, Styles.BUTTON_ICON);
         search.setPromptText("Tìm trong " + dslop.size() + " Lớp học");
         huyBtn.getStyleClass().add(Styles.DANGER);
         luuBtn.getStyleClass().add(Styles.SUCCESS);
@@ -162,6 +232,8 @@ public class LopChitiet implements Initializable {
             public void changed(ObservableValue<? extends LopModel> observable, LopModel oldValue, LopModel newValue) {
                 LopModel lop = list.getSelectionModel().getSelectedItem();
                 if (lop != null) {
+                    txttenlop.setText(lop.getTenLop());
+                    idlop.setText(lop.getId());
                     tenlop.setText(lop.getTenLop());
                     sl1.setText(String.valueOf(lop.getSotre()));
                     sl2.setText(String.valueOf(lop.getDsGVCN().size()));
@@ -169,15 +241,14 @@ public class LopChitiet implements Initializable {
                     List<hsModel> hsl = new ArrayList<>();
                     try {
                         Connection cn = (DbHelper.getInstance()).getConnection();
-                        String SQL = "SELECT Tre.*\n" +
-                                "FROM     Tre\n" +
-                                "where idLop = ?";
+                        String SQL = "SELECT Tre.*\n" + "FROM     Tre\n" + "where idLop = ?";
                         PreparedStatement stmt = cn.prepareStatement(SQL);
                         stmt.setString(1, lop.getId());
                         ResultSet rs = stmt.executeQuery();
                         while (rs.next()) {
                             hsModel h = new hsModel();
                             h.setHoten(rs.getString("hoten"));
+                            h.setId(rs.getString("idtre"));
                             h.setLanam(rs.getBoolean("lanam"));
                             if (rs.getDate("ngaysinh") != null) {
                                 LocalDate newDate2 = rs.getDate("ngaysinh").toLocalDate();
@@ -190,21 +261,16 @@ public class LopChitiet implements Initializable {
                     }
                     stths.setSortable(false);
                     stths.setCellFactory(new LineNumbersCellFactory<>());
-
                     hths.setCellValueFactory(new PropertyValueFactory<hsModel, String>("hoten"));
                     nshs.setCellValueFactory(new PropertyValueFactory<hsModel, String>("ngaysinh"));
                     gths.setCellValueFactory(new PropertyValueFactory<hsModel, String>("lanam"));
+                    ch.setCellValueFactory(new PropertyValueFactory<hsModel, CheckBox>("select"));
+                    cotid.setCellValueFactory(new PropertyValueFactory<hsModel, String>("id"));
                     hstab.getItems().setAll(hsl);
-
-                }
-
-                List<CBNVModule> dsgv = new ArrayList<>();
-                if (lop != null) {
+                    List<CBNVModule> dsgv = new ArrayList<>();
                     try {
                         Connection cn = (DbHelper.getInstance()).getConnection();
-                        String SQL = "SELECT *\n" +
-                                "FROM     CBNV\n" +
-                                "where idLop = ?";
+                        String SQL = "SELECT *\n" + "FROM     CBNV\n" + "where idLop = ?";
                         PreparedStatement stmt = cn.prepareStatement(SQL);
                         stmt.setString(1, lop.getId());
                         ResultSet rs = stmt.executeQuery();
@@ -229,6 +295,8 @@ public class LopChitiet implements Initializable {
                     gvtab.getItems().setAll(dsgv);
                 }
             }
+
+
         });
         themlop.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
@@ -265,6 +333,42 @@ public class LopChitiet implements Initializable {
         });
 
         suaBtn.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+
+            }
+        });
+        txttenlop.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (!txttenlop.getText().isEmpty()) {
+                    String newid = "";
+                    String[] splited = txttenlop.getText().toString().split("\\s+");
+                    for (String s : splited) {
+                        if (s.substring(0, 1).chars().allMatch(Character::isDigit)) {
+                            newid += s;
+                        } else {
+                            newid += s.substring(0, 1);
+                        }
+                    }
+                    idlop.setText(newid.toLowerCase());
+                } else idlop.setText(null);
+            }
+        });
+        delfromclass.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                for (hsModel hs : hstab.getItems()) {
+                    if (hs.getSelect().isSelected()) {
+                        hsTemp.add(hs);
+                    }
+                }
+                for (hsModel hs : hsTemp) {
+                    hstab.getItems().remove(hs);
+                }
+            }
+        });
+        addtoclass.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
 

@@ -27,6 +27,18 @@ public class LopDao {
         return dsGVCN;
     }
 
+    public void updateLop(String idcu, String idmoi, String ten) throws Exception {
+        Connection cn = (DbHelper.getInstance()).getConnection();
+        String SQL = "UPDATE Lop\n" +
+                "   SET [idLop] = ?, TenLop = ?\n" +
+                " WHERE idLop = ?";
+        PreparedStatement stmt = cn.prepareStatement(SQL);
+        stmt.setString(1, idmoi);
+        stmt.setString(2, ten);
+        stmt.setString(3, idcu);
+        stmt.executeUpdate();
+    }
+
     public void xoaLop(LopModel l) throws Exception {
         Connection cn = (DbHelper.getInstance()).getConnection();
         String SQL = "DELETE FROM [dbo].[Lop]\n" +
@@ -56,7 +68,7 @@ public class LopDao {
             String SQL = "SELECT Lop.idLop, Lop.TenLop,  COUNT(Tre.idTre) AS SoTre\n" +
                     "FROM     Lop left JOIN\n" +
                     "                  Tre ON Lop.idLop = Tre.idLop \n" +
-                    "Group by Lop.idLop, Lop.TenLop\n " + "order by TenLop asc\n";
+                    "Group by Lop.idLop, Lop.TenLop\n";
             PreparedStatement stmt = cn.prepareStatement(SQL);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

@@ -1,6 +1,7 @@
 package Model;
 
 import DAO.linhtinhDao;
+import javafx.scene.control.CheckBox;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class hsModel {
     private String gvcnString;
     private List<phModel> ph = new ArrayList<>();
     private List<danhhieuModel> danhhieu;
+    private CheckBox select = new CheckBox();
 
     public hsModel() {
         super();
@@ -144,6 +146,14 @@ public class hsModel {
 
     public void setGvcn(List<LopModel.GVCN> gvcn) {
         this.gvcn = gvcn;
+    }
+
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(CheckBox select) {
+        this.select = select;
     }
 
     @Override

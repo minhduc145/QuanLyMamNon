@@ -12,6 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class hsDao {
+    public void setLopchoHS(String idTre, String idLop) throws Exception {
+        Connection cn = (DbHelper.getInstance()).getConnection();
+        String SQL = "UPDATE [dbo].[Tre]\n" +
+                "   SET [idLop] = ?\n" +
+                " WHERE idTre = ?";
+        PreparedStatement stmt = cn.prepareStatement(SQL);
+        stmt.setString(1, idLop);
+        stmt.setString(2, idTre);
+        stmt.executeUpdate();
+    }
+
     public boolean themHS(hsModel hs) {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -56,7 +67,7 @@ public class hsDao {
                     }
 
 
-                    for (phModel p : hs.getPh()){
+                    for (phModel p : hs.getPh()) {
                         SQL = "INSERT INTO [dbo].[PhuHuynh]\n" +
                                 "           ([idTre]\n" +
                                 "           ,[VaiTro]\n" +
@@ -74,10 +85,10 @@ public class hsDao {
                         stmt = cn.prepareStatement(SQL);
                         stmt.setString(1, hs.getId());
                         stmt.setString(2, p.getVaitro());
-                        stmt.setString(3,p.getHoten());
-                        stmt.setString(4,p.getDiachi());
-                        stmt.setString(5,p.getSdt());
-                        stmt.setString(6,p.getNghe());
+                        stmt.setString(3, p.getHoten());
+                        stmt.setString(4, p.getDiachi());
+                        stmt.setString(5, p.getSdt());
+                        stmt.setString(6, p.getNghe());
                         stmt.executeUpdate();
                     }
 
