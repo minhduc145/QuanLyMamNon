@@ -27,6 +27,28 @@ public class LopDao {
         return dsGVCN;
     }
 
+    public void xoaLop(LopModel l) throws Exception {
+        Connection cn = (DbHelper.getInstance()).getConnection();
+        String SQL = "DELETE FROM [dbo].[Lop]\n" +
+                "      WHERE idLop = ?";
+        PreparedStatement stmt = cn.prepareStatement(SQL);
+        stmt.setString(1, l.getId());
+        stmt.executeUpdate();
+    }
+
+    public void ThemLop(String id, String txt) throws Exception {
+        Connection cn = (DbHelper.getInstance()).getConnection();
+        String SQL = "INSERT INTO [dbo].[Lop]\n" +
+                "           ([idLop]\n" +
+                "           ,[TenLop])\n" +
+                "     VALUES\n" +
+                "           (?,?)";
+        PreparedStatement stmt = cn.prepareStatement(SQL);
+        stmt.setString(1, id);
+        stmt.setString(2, txt);
+        stmt.executeUpdate();
+    }
+
     public List<LopModel> getDSLop() {
         List<LopModel> ds = new ArrayList<>();
         try {

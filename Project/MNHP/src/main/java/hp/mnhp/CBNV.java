@@ -96,6 +96,7 @@ public class CBNV implements Initializable {
         luuBtn.setVisible(false);
         suaBtn.setVisible(true);
         setEditable(false);
+        list.setDisable(false);
     }
 
     @FXML
@@ -156,12 +157,14 @@ public class CBNV implements Initializable {
             luuBtn.setVisible(true);
             select();
         }
+        list.setDisable(false);
 
 
     }
 
     @FXML
     void onClicksuaBtn() {
+        list.setDisable(true);
         huyBtn.setVisible(true);
         luuBtn.setVisible(true);
         suaBtn.setVisible(false);

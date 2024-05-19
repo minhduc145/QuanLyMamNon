@@ -129,13 +129,16 @@ public class CBNVDao {
             stmt.setString(5, Dctt);
             stmt.setString(6, sdt);
             stmt.setString(7, em);
-            Date d = Date.valueOf(Nvl);
+            Date d = null;
+            if (Nvl != null) d = Date.valueOf(Nvl);
             stmt.setDate(8, d);
             stmt.setString(9, cc);
             stmt.setString(10, idtt);
             if (gt.equals("Nam")) stmt.setString(11, "1");
             else stmt.setString(11, "0");
-            stmt.setDate(12, Date.valueOf(ns));
+            Date ds = null;
+            if (ns != null) ds = Date.valueOf(ns);
+            stmt.setDate(12, ds);
             stmt.setString(13, hv);
             stmt.setString(14, idlop);
             stmt.setString(15, tn);

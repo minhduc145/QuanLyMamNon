@@ -1,6 +1,7 @@
 package hp.mnhp;
 
 import DAO.DbHelper;
+import DAO.LopDao;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,16 +50,7 @@ public class ThemLop implements Initializable {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
                 try {
-                    Connection cn = (DbHelper.getInstance()).getConnection();
-                    String SQL = "INSERT INTO [dbo].[Lop]\n" +
-                            "           ([idLop]\n" +
-                            "           ,[TenLop])\n" +
-                            "     VALUES\n" +
-                            "           (?,?)";
-                    PreparedStatement stmt = cn.prepareStatement(SQL);
-                    stmt.setString(1, id.getText().toString());
-                    stmt.setString(2, txt.getText().toString());
-                    stmt.executeUpdate();
+                    new LopDao().ThemLop(id.getText().toString(), txt.getText().toString());
                     ap.getScene().getWindow().hide();
                 } catch (Exception e) {
                     if (e.getMessage().contains("Violation of PRIMARY KEY")) {

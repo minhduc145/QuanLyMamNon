@@ -253,12 +253,7 @@ public class LopChitiet implements Initializable {
                 if (AlertMessage.iscfBox(null, "Xác nhận xóa lớp ", "Xác nhận xóa lớp " + list.getSelectionModel().getSelectedItem().getTenLop())) {
                     LopModel l = list.getSelectionModel().getSelectedItem();
                     try {
-                        Connection cn = (DbHelper.getInstance()).getConnection();
-                        String SQL = "DELETE FROM [dbo].[Lop]\n" +
-                                "      WHERE idLop = ?";
-                        PreparedStatement stmt = cn.prepareStatement(SQL);
-                        stmt.setString(1, l.getId());
-                        stmt.executeUpdate();
+                        ldao.xoaLop(l);
                         list.getItems().remove(l);
                         search.setPromptText("Tìm trong " + list.getItems().size() + " Lớp học");
                     } catch (Exception e) {

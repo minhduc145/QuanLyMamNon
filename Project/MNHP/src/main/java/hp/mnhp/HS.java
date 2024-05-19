@@ -413,6 +413,7 @@ public class HS implements Initializable {
 
     @FXML
     void onClickhuyBtn() {
+        list.setDisable(false);
         huyBtn.setVisible(false);
         luuBtn.setVisible(false);
         suaBtn.setVisible(true);
@@ -428,8 +429,8 @@ public class HS implements Initializable {
 
     @FXML
     void onClickluuBtn() {
+        list.setDisable(false);
         boolean ch = false;
-
         try {
             if (temp != null && temp1 != null) {
                 xoa1(temp1, temp);
@@ -465,6 +466,7 @@ public class HS implements Initializable {
 
     @FXML
     void onClicksuaBtn() {
+        list.setDisable(true);
         huyBtn.setVisible(true);
         luuBtn.setVisible(true);
         suaBtn.setVisible(false);
