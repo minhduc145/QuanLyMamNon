@@ -232,6 +232,15 @@ public class LopChitiet implements Initializable {
             public void changed(ObservableValue<? extends LopModel> observable, LopModel oldValue, LopModel newValue) {
                 LopModel lop = list.getSelectionModel().getSelectedItem();
                 if (lop != null) {
+                    if (!User.idQuyen.equals("0")) {
+                        suaBtn.setDisable(true);
+                        for (LopModel.GVCN cb : lop.getDsGVCN()) {
+                            if (User.idCBNV.equals(cb.getId()) || User.idQuyen.equals("0")) {
+                                suaBtn.setDisable(false);
+                                break;
+                            }
+                        }
+                    }
                     txttenlop.setText(lop.getTenLop());
                     idlop.setText(lop.getId());
                     tenlop.setText(lop.getTenLop());
