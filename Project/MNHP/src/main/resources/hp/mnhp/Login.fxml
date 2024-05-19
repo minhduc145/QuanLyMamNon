@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.HelloController">
+<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="512.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.HelloController">
    <children>
-      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="main_form" prefHeight="518.0" prefWidth="331.0">
          <children>
-            <AnchorPane fx:id="login_form" layoutX="48.0" layoutY="75.0" prefHeight="550.0" prefWidth="330.0" styleClass="white-bg" stylesheets="@PageDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="login_form" layoutY="27.0" prefHeight="451.0" prefWidth="331.0" styleClass="white-bg" stylesheets="@PageDesign.css">
                <children>
 
                   <Label layoutX="116.0" layoutY="30.0" text="Đăng nhập" textFill="#10778e">
@@ -44,7 +44,7 @@
                         <String fx:value="white-bg" />
                      </styleClass>
                   </TextField>
-                  <Button fx:id="login_loginBtn" layoutX="39.0" layoutY="433.0" mnemonicParsing="false" onAction="#startProcess" prefHeight="40.0" prefWidth="250.0" text="Đăng nhập">
+                  <Button fx:id="login_loginBtn" layoutX="39.0" layoutY="393.0" mnemonicParsing="false" onAction="#startProcess" prefHeight="40.0" prefWidth="250.0" text="Đăng nhập">
                      <styleClass>
                         <String fx:value="btn-1" />
                         <String fx:value="radius" />
@@ -57,7 +57,7 @@
                         <Image url="@UI/management.png" />
                      </image>
                   </ImageView>
-                  <ProgressBar fx:id="p" layoutX="1.0" layoutY="527.0" prefHeight="10.0" prefWidth="330.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <ProgressBar fx:id="p" layoutX="1.0" layoutY="460.0" prefHeight="10.0" prefWidth="330.0" visible="false" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="register_form" layoutX="10.0" layoutY="10.0" prefHeight="550.0" prefWidth="330.0" styleClass="white-bg" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

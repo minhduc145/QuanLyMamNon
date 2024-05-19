@@ -6,6 +6,7 @@ import DAO.LopDao;
 import DAO.imgFotBtn;
 import Model.CBNVModule;
 import Model.LopModel;
+import Model.User;
 import Model.hsModel;
 import atlantafx.base.controls.Notification;
 import atlantafx.base.theme.CupertinoLight;
@@ -48,7 +49,7 @@ public class LopChitiet implements Initializable {
     @FXML
     ListView<LopModel> list;
     @FXML
-    Button suaBtn, luuBtn, huyBtn, sBtn;
+    Button themlop, xoalop, suaBtn, luuBtn, huyBtn, sBtn, reload;
     @FXML
     TextField search;
     @FXML
@@ -111,8 +112,20 @@ public class LopChitiet implements Initializable {
         }
     }
 
+    @FXML
+    void setReload() {
+        dslop = ldao.getDSLop();
+        list.getItems().setAll(dslop);
+        search.setPromptText("Tìm trong " + dslop.size() + " Lớp học");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (User.idQuyen.equals("0")) {
+            suaBtn.setDisable(false);
+            themlop.setDisable(false);
+            xoalop.setDisable(false);
+        }
         ap.sceneProperty().addListener((obs, oldScene, newScene) -> {
             Platform.runLater(() -> {
                 Stage stage = (Stage) newScene.getWindow();
@@ -143,7 +156,6 @@ public class LopChitiet implements Initializable {
         search.setPromptText("Tìm trong " + dslop.size() + " Lớp học");
         huyBtn.getStyleClass().add(Styles.DANGER);
         luuBtn.getStyleClass().add(Styles.SUCCESS);
-        suaBtn.setVisible(false);
         list.getItems().setAll(dslop);
         list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<LopModel>() {
             @Override
@@ -187,36 +199,82 @@ public class LopChitiet implements Initializable {
                 }
 
                 List<CBNVModule> dsgv = new ArrayList<>();
-                try {
-                    Connection cn = (DbHelper.getInstance()).getConnection();
-                    String SQL = "SELECT *\n" +
-                            "FROM     CBNV\n" +
-                            "where idLop = ?";
-                    PreparedStatement stmt = cn.prepareStatement(SQL);
-                    stmt.setString(1, lop.getId());
-                    ResultSet rs = stmt.executeQuery();
-                    while (rs.next()) {
-                        CBNVModule h = new CBNVModule();
-                        h.setHoten(rs.getString("hoten"));
-                        h.setIdCBNV(rs.getString("idcbnv"));
-                        if (rs.getDate("ngaysinh") != null) {
-                            LocalDate newDate2 = rs.getDate("ngaysinh").toLocalDate();
-                            h.setNgaySinh(newDate2);
+                if (lop != null) {
+                    try {
+                        Connection cn = (DbHelper.getInstance()).getConnection();
+                        String SQL = "SELECT *\n" +
+                                "FROM     CBNV\n" +
+                                "where idLop = ?";
+                        PreparedStatement stmt = cn.prepareStatement(SQL);
+                        stmt.setString(1, lop.getId());
+                        ResultSet rs = stmt.executeQuery();
+                        while (rs.next()) {
+                            CBNVModule h = new CBNVModule();
+                            h.setHoten(rs.getString("hoten"));
+                            h.setIdCBNV(rs.getString("idcbnv"));
+                            if (rs.getDate("ngaysinh") != null) {
+                                LocalDate newDate2 = rs.getDate("ngaysinh").toLocalDate();
+                                h.setNgaySinh(newDate2);
+                            }
+                            dsgv.add(h);
                         }
-                        dsgv.add(h);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                    sttgv.setSortable(false);
+                    sttgv.setCellFactory(new LineNumbersCellFactory<>());
+                    htgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("hoten"));
+                    nsgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("NgaySinh"));
+                    tkgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("idCBNV"));
+                    gvtab.getItems().setAll(dsgv);
+                }
+            }
+        });
+        themlop.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("themLop.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Thêm Lớp");
+                    stage.setScene(new Scene(root));
+                    stage.setResizable(false);
+//                    stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+                    stage.show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                sttgv.setSortable(false);
-                sttgv.setCellFactory(new LineNumbersCellFactory<>());
-                htgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("hoten"));
-                nsgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("NgaySinh"));
-                tkgv.setCellValueFactory(new PropertyValueFactory<CBNVModule, String>("idCBNV"));
-                gvtab.getItems().setAll(dsgv);
+
+            }
+        });
+        xoalop.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                if (AlertMessage.iscfBox(null, "Xác nhận xóa lớp ", "Xác nhận xóa lớp " + list.getSelectionModel().getSelectedItem().getTenLop())) {
+                    LopModel l = list.getSelectionModel().getSelectedItem();
+                    try {
+                        Connection cn = (DbHelper.getInstance()).getConnection();
+                        String SQL = "DELETE FROM [dbo].[Lop]\n" +
+                                "      WHERE idLop = ?";
+                        PreparedStatement stmt = cn.prepareStatement(SQL);
+                        stmt.setString(1, l.getId());
+                        stmt.executeUpdate();
+                        list.getItems().remove(l);
+                        search.setPromptText("Tìm trong " + list.getItems().size() + " Lớp học");
+                    } catch (Exception e) {
+
+                    }
+                }
+
             }
         });
 
+        suaBtn.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+
+            }
+        });
     }
 
 }

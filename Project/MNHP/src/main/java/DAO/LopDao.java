@@ -34,7 +34,7 @@ public class LopDao {
             String SQL = "SELECT Lop.idLop, Lop.TenLop,  COUNT(Tre.idTre) AS SoTre\n" +
                     "FROM     Lop left JOIN\n" +
                     "                  Tre ON Lop.idLop = Tre.idLop \n" +
-                    "Group by Lop.idLop, Lop.TenLop";
+                    "Group by Lop.idLop, Lop.TenLop\n " + "order by TenLop asc\n";
             PreparedStatement stmt = cn.prepareStatement(SQL);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
