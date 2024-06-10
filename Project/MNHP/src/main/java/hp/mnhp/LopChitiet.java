@@ -55,7 +55,7 @@ public class LopChitiet implements Initializable {
     @FXML
     ListView<LopModel> list;
     @FXML
-    Button addtoclass, delfromclass, themlop, xoalop, suaBtn, luuBtn, huyBtn, sBtn, reload;
+    Button chs, addtoclass, delfromclass, themlop, xoalop, suaBtn, luuBtn, huyBtn, sBtn, reload;
     @FXML
     TextField txttenlop, search;
     @FXML
@@ -127,6 +127,7 @@ public class LopChitiet implements Initializable {
             list.getSelectionModel().select(i);
         }
         i = null;
+        hstab.getItems().setAll(getdshs());
     }
 
     @FXML
@@ -196,6 +197,7 @@ public class LopChitiet implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (User.idQuyen.equals("0")) {
+            chs.setDisable(false);
             suaBtn.setDisable(false);
             themlop.setDisable(false);
             xoalop.setDisable(false);
@@ -247,27 +249,7 @@ public class LopChitiet implements Initializable {
                     sl1.setText(String.valueOf(lop.getSotre()));
                     sl2.setText(String.valueOf(lop.getDsGVCN().size()));
 
-                    List<hsModel> hsl = new ArrayList<>();
-                    try {
-                        Connection cn = (DbHelper.getInstance()).getConnection();
-                        String SQL = "SELECT Tre.*\n" + "FROM     Tre\n" + "where idLop = ?";
-                        PreparedStatement stmt = cn.prepareStatement(SQL);
-                        stmt.setString(1, lop.getId());
-                        ResultSet rs = stmt.executeQuery();
-                        while (rs.next()) {
-                            hsModel h = new hsModel();
-                            h.setHoten(rs.getString("hoten"));
-                            h.setId(rs.getString("idtre"));
-                            h.setLanam(rs.getBoolean("lanam"));
-                            if (rs.getDate("ngaysinh") != null) {
-                                LocalDate newDate2 = rs.getDate("ngaysinh").toLocalDate();
-                                h.setNgaysinh(newDate2);
-                            }
-                            hsl.add(h);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    List<hsModel> hsl = getdshs();
                     stths.setSortable(false);
                     stths.setCellFactory(new LineNumbersCellFactory<>());
                     hths.setCellValueFactory(new PropertyValueFactory<hsModel, String>("hoten"));
@@ -380,9 +362,64 @@ public class LopChitiet implements Initializable {
         addtoclass.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
+                ThemHSvaoLop._lopht = list.getSelectionModel().getSelectedItem();
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("ThemHSvaoLop.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Thêm HS");
+                    stage.setScene(new Scene(root));
+                    stage.setResizable(false);
+                    stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        chs.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                List<hsModel> hsl = new ArrayList<>();
+                chuyenLop.setLopht(list.getSelectionModel().getSelectedItem());
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("chuyenLop.fxml"));
+                    Stage stage = new Stage();
+                    stage.setTitle("Chuyển Lớp HS");
+                    stage.setScene(new Scene(root));
+                    stage.setResizable(false);
+                    stage.getScene().getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
+                    stage.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });
     }
 
+    private List<hsModel> getdshs() {
+        List<hsModel> hsl = new ArrayList<>();
+        try {
+            Connection cn = (DbHelper.getInstance()).getConnection();
+            String SQL = "SELECT Tre.*\n" + "FROM     Tre\n" + "where idLop = ?";
+            PreparedStatement stmt = cn.prepareStatement(SQL);
+            stmt.setString(1, list.getSelectionModel().getSelectedItem().getId());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                hsModel h = new hsModel();
+                h.setHoten(rs.getString("hoten"));
+                h.setId(rs.getString("idtre"));
+                h.setLanam(rs.getBoolean("lanam"));
+                if (rs.getDate("ngaysinh") != null) {
+                    LocalDate newDate2 = rs.getDate("ngaysinh").toLocalDate();
+                    h.setNgaysinh(newDate2);
+                }
+                hsl.add(h);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return hsl;
+    }
 }
+

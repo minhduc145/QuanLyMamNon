@@ -37,8 +37,8 @@
                       </Menu>
                         <Menu mnemonicParsing="false" text="Bảng">
                            <items>
-                              <MenuItem fx:id="logout1" mnemonicParsing="false" onAction="#onClicklogout" text="Bảng chấm công" />
-                              <MenuItem fx:id="exit1" mnemonicParsing="false" onAction="#onClickexit" text="Bảng lương" />
+                              <MenuItem fx:id="cc" mnemonicParsing="false" onAction="#ChamCong" text="Bảng chấm công" />
+                              <MenuItem fx:id="bl" mnemonicParsing="false" onAction="#bangLuong" text="Bảng lương" />
                            </items>
                         </Menu>
                       <Menu mnemonicParsing="false" text="Help">

@@ -6,6 +6,7 @@ import DAO.linhtinhDao;
 import Model.User;
 import Model.*;
 import atlantafx.base.theme.CupertinoLight;
+import atlantafx.base.theme.PrimerLight;
 import atlantafx.base.theme.Styles;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -64,7 +65,8 @@ public class CBNV implements Initializable {
     ImageView img;
     @FXML
     Button reload, themnv, xoanv, suaBtn, luuBtn, huyBtn, sBtn;
-
+    @FXML
+    MenuItem cc, bl;
     @FXML
     DatePicker date, bd;
 
@@ -125,6 +127,26 @@ public class CBNV implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    @FXML
+    void ChamCong() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("chamCong1.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Chấm công");
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true);
+//            stage.getScene().getStylesheets().add(new PrimerLight().getUserAgentStylesheet());
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void bangLuong() {
 
     }
 

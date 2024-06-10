@@ -14,11 +14,12 @@ import java.io.IOException;
 public class test extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Lop.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CBNV.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(new CupertinoLight().getUserAgentStylesheet());
         stage.setTitle("Hello!");
         stage.setScene(scene);
+//        stage.setMaximized(true);
         stage.setResizable(false);
         stage.show();
     }

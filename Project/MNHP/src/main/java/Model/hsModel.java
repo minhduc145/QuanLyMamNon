@@ -5,6 +5,7 @@ import javafx.scene.control.CheckBox;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ public class hsModel {
     private List<phModel> ph = new ArrayList<>();
     private List<danhhieuModel> danhhieu;
     private CheckBox select = new CheckBox();
+    private String tt = "null";
 
     public hsModel() {
         super();
@@ -154,6 +156,21 @@ public class hsModel {
 
     public void setSelect(CheckBox select) {
         this.select = select;
+    }
+
+    public String getTt() {
+        Date d = Date.from(ngaysinh.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(d);
+        return
+                "id='" + id + '\'' +
+                        ", hoten='" + hoten + '\'' +
+                        ", noisinh='" + noisinh + '\'' +
+                        ", ngaysinh=" + date +
+                        ", diachi='" + diachi + '\'' +
+                        ", namnhaphoc='" + namnhaphoc + '\'' +
+                        ", lanam=" + lanam
+                ;
     }
 
     @Override

@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.LopChitiet">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setReload" prefHeight="603.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.LopChitiet">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -139,6 +139,7 @@
                                     <Button fx:id="huyBtn" cancelButton="true" layoutX="671.0" layoutY="59.0" mnemonicParsing="false" onAction="#onClickHuyBtn" text="Hủy" visible="false" />
                                     <Button fx:id="delfromclass" layoutX="619.0" layoutY="515.0" mnemonicParsing="false" text="Xóa khỏi DS" visible="false" AnchorPane.bottomAnchor="6.399999999999977" />
                                     <Button fx:id="addtoclass" layoutX="15.0" layoutY="515.0" mnemonicParsing="false" text="Thêm HS vào" visible="false" AnchorPane.bottomAnchor="6.600000000000023" />
+                                    <Button fx:id="chs" disable="true" layoutX="342.0" layoutY="515.0" mnemonicParsing="false" text="Chuyển HS" AnchorPane.bottomAnchor="6.399999999999977" />
                                  </children>
                               </AnchorPane>
                            </items>

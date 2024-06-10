@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.ChamCong1">
+   <children>
+      <TableView fx:id="tab" layoutX="90.0" layoutY="148.8" prefHeight="926.0" prefWidth="1910.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="149.0" />
+      <ComboBox fx:id="thang" layoutX="89.0" layoutY="97.0" prefWidth="150.0" AnchorPane.leftAnchor="89.0" />
+      <ComboBox fx:id="nam" layoutX="296.0" layoutY="96.0" prefWidth="150.0" AnchorPane.leftAnchor="296.0" />
+   </children>
+</AnchorPane>
