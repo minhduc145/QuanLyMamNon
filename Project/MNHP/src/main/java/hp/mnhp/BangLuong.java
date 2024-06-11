@@ -57,7 +57,7 @@ public class BangLuong implements Initializable {
     private void napDL() {
         tab.getItems().clear();
         dscb = new ArrayList<>();
-        if (taoBang() && thangchon >= month && namchon >= year) {
+        if ((taoBang() && thangchon >= month && namchon >= year) || (!taoBang() && thangchon >= month && namchon >= year)) {
             dscb = new ArrayList<>();
             try {
                 Connection cn = (DbHelper.getInstance()).getConnection();
@@ -102,6 +102,7 @@ public class BangLuong implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
 
     }
