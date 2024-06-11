@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.ChamCong1">
    <children>
-      <TableView fx:id="tab" layoutX="90.0" layoutY="148.8" prefHeight="926.0" prefWidth="1910.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="149.0" />
+      <TableView fx:id="tab" layoutX="90.0" layoutY="148.8" prefHeight="926.0" prefWidth="1910.0" stylesheets="@PageDesign.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="149.0">
+         <styleClass>
+            <String fx:value="radius" />
+            <String fx:value="column-header" />
+            <String fx:value="header-1" />
+            <String fx:value="column-header-background" />
+         </styleClass></TableView>
       <ComboBox fx:id="thang" layoutX="89.0" layoutY="97.0" prefWidth="150.0" AnchorPane.leftAnchor="89.0" />
       <ComboBox fx:id="nam" layoutX="296.0" layoutY="96.0" prefWidth="150.0" AnchorPane.leftAnchor="296.0" />
+      <Button fx:id="luubtn" layoutX="1796.0" layoutY="40.0" mnemonicParsing="false" onAction="#onClickLuuBtn" styleClass="btn-1" stylesheets="@PageDesign.css" text="Lưu" visible="false" AnchorPane.rightAnchor="88.0" />
+      <Button fx:id="huybtn" cancelButton="true" layoutX="1798.0" layoutY="80.0" mnemonicParsing="false" onAction="#onClickHuyBtn" styleClass="btn-3" stylesheets="@PatientMainFormDesign.css" text="Hủy" visible="false" AnchorPane.rightAnchor="88.0" />
+      <Button fx:id="suabtn" defaultButton="true" disable="true" layoutX="1763.0" layoutY="51.0" mnemonicParsing="false" onAction="#onClickSuaBtn" styleClass="btn-2" stylesheets="@PageDesign.css" text="Sửa" AnchorPane.rightAnchor="110.59999999999991" />
+      <Text layoutX="648.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="shadow" text="BẢNG CHẤM CÔNG NHÂN VIÊN" textAlignment="CENTER" AnchorPane.leftAnchor="648.0" AnchorPane.rightAnchor="1012.9658203125" AnchorPane.topAnchor="26.6552734375">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="a" layoutX="859.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hôm nay " AnchorPane.leftAnchor="858.4" AnchorPane.rightAnchor="1038.86328125">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font></Text>
    </children>
 </AnchorPane>

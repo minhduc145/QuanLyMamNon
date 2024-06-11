@@ -1,10 +1,20 @@
 package Model;
 
+import DAO.DbHelper;
 import javafx.scene.control.CheckBox;
+
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChamCongModel {
     private String id;
     private String ten;
+    private List<CheckBox> ds = new ArrayList<>();
+    private Integer dem = 0;
     private CheckBox select1 = new CheckBox();
     private CheckBox select2 = new CheckBox();
     private CheckBox select3 = new CheckBox();
@@ -36,6 +46,150 @@ public class ChamCongModel {
     private CheckBox select29 = new CheckBox();
     private CheckBox select30 = new CheckBox();
     private CheckBox select31 = new CheckBox();
+    int songay = 0;
+
+    public String getDem() {
+        return String.valueOf(dem) + " / " + String.valueOf(songay);
+    }
+
+    public void setDem(Integer dem, int sn) {
+        songay = sn;
+        this.dem = dem;
+    }
+
+    public ChamCongModel() {
+        setIdSelect();
+        setDs();
+    }
+
+    public void napDiLam(Integer thang, Integer nam) {
+        try {
+            Connection cn = (DbHelper.getInstance()).getConnection();
+            String SQL = "SELECT day(Ngay) FROM [MNHP].[dbo].[CongNV]\n" +
+                    "where idCBNV = ? and diLam = 1 and year(Ngay) = ? and month(Ngay) = ?";
+            PreparedStatement stmt = cn.prepareStatement(SQL);
+            stmt.setString(1, id);
+            stmt.setInt(2, nam);
+            stmt.setInt(3, thang);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                for (CheckBox cc : ds) {
+                    if (cc.getId().equals(String.valueOf(rs.getInt(1)))) {
+                        cc.setSelected(true);
+                    }
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void setIdSelect() {
+        select1.setId("1");
+        select2.setId("2");
+        select3.setId("3");
+        select4.setId("4");
+        select5.setId("5");
+        select6.setId("6");
+        select7.setId("7");
+        select8.setId("8");
+        select9.setId("9");
+        select10.setId("10");
+        select11.setId("11");
+        select12.setId("12");
+        select13.setId("13");
+        select14.setId("14");
+        select15.setId("15");
+        select16.setId("16");
+        select17.setId("17");
+        select18.setId("18");
+        select19.setId("19");
+        select20.setId("20");
+        select21.setId("21");
+        select22.setId("22");
+        select23.setId("23");
+        select24.setId("24");
+        select25.setId("25");
+        select26.setId("26");
+        select27.setId("27");
+        select28.setId("28");
+        select29.setId("29");
+        select30.setId("30");
+        select31.setId("31");
+
+    }
+
+    public List<CheckBox> getDs() {
+        return ds;
+    }
+
+    public void setDs() {
+        select1.setDisable(true);
+        select2.setDisable(true);
+        select3.setDisable(true);
+        select4.setDisable(true);
+        select5.setDisable(true);
+        select6.setDisable(true);
+        select7.setDisable(true);
+        select8.setDisable(true);
+        select9.setDisable(true);
+        select10.setDisable(true);
+        select11.setDisable(true);
+        select12.setDisable(true);
+        select13.setDisable(true);
+        select14.setDisable(true);
+        select15.setDisable(true);
+        select16.setDisable(true);
+        select17.setDisable(true);
+        select18.setDisable(true);
+        select19.setDisable(true);
+        select20.setDisable(true);
+        select21.setDisable(true);
+        select22.setDisable(true);
+        select23.setDisable(true);
+        select24.setDisable(true);
+        select25.setDisable(true);
+        select26.setDisable(true);
+        select27.setDisable(true);
+        select28.setDisable(true);
+        select29.setDisable(true);
+        select30.setDisable(true);
+        select31.setDisable(true);
+
+        ds.add(select1);
+        ds.add(select2);
+        ds.add(select3);
+        ds.add(select4);
+        ds.add(select5);
+        ds.add(select6);
+        ds.add(select7);
+        ds.add(select8);
+        ds.add(select9);
+        ds.add(select10);
+        ds.add(select11);
+        ds.add(select12);
+        ds.add(select13);
+        ds.add(select14);
+        ds.add(select15);
+        ds.add(select16);
+        ds.add(select17);
+        ds.add(select18);
+        ds.add(select19);
+        ds.add(select20);
+        ds.add(select21);
+        ds.add(select22);
+        ds.add(select23);
+        ds.add(select24);
+        ds.add(select25);
+        ds.add(select26);
+        ds.add(select27);
+        ds.add(select28);
+        ds.add(select29);
+        ds.add(select30);
+        ds.add(select31);
+
+    }
 
     public String getId() {
         return id;
