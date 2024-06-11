@@ -6,6 +6,8 @@ module hp.mnhp {
     requires static lombok;
     requires java.prefs;
     requires org.kordamp.ikonli.javafx;
+    requires java.desktop;
+    requires org.apache.commons.io;
 
 
     opens hp.mnhp to javafx.fxml;

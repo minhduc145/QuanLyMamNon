@@ -16,6 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.skin.ListViewSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,13 +32,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import org.apache.commons.io.FileUtils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.List;
 
 public class CBNV implements Initializable {
     linhtinhDao linhtinh = new linhtinhDao();
@@ -44,7 +50,8 @@ public class CBNV implements Initializable {
     List<String> link = new ArrayList<>();
     int lastIndex;
 
-
+    @FXML
+    ImageView img;
     @FXML
     ListView<CBNVModule> list;
     @FXML
@@ -62,19 +69,24 @@ public class CBNV implements Initializable {
     @FXML
     ComboBox<LopModel> lopcn;
     @FXML
-    ImageView img;
-    @FXML
     Button reload, themnv, xoanv, suaBtn, luuBtn, huyBtn, sBtn;
     @FXML
     MenuItem cc, bl;
     @FXML
     DatePicker date, bd;
 
+
     @FXML
     void setReload() {
         ds = cbdao.getDSCB();
         list.getItems().setAll(ds);
         search.setPromptText("Tìm trong " + ds.size() + " CBNV.");
+        for (CBNVModule cb : ds) {
+            File f = new File("D:\\Projects\\IntelliJ\\QuanLyMamNon\\Project\\MNHP\\src\\main\\resources\\hp\\mnhp\\IMG\\" + cb.getIdCBNV() + ".jpg");
+            if (f.exists()) {
+                cb.setImg(new Image(getClass().getResourceAsStream("IMG/" + cb.getIdCBNV() + ".jpg")));
+            }
+        }
     }
 
     void setEditable(boolean i) {
@@ -204,10 +216,14 @@ public class CBNV implements Initializable {
     }
 
     void setField(CBNVModule cb) {
-        int random = 0 + (int) ((3 - 0 + 1) * Math.random());
-        String url = link.get(random);
-        Image a = new Image(getClass().getResourceAsStream(url));
-        img.setImage(a);
+        if (!PickAFile.isExisted(cb.getIdCBNV())) {
+            int random = 0 + (int) ((3 - 0 + 1) * Math.random());
+            String url = link.get(random);
+            Image a = new Image(getClass().getResourceAsStream(url));
+            img.setImage(a);
+        } else {
+            img.setImage(cb.getImg());
+        }
 
         if (cb != null && cb.getIdChucVu().equals("gv")) {
             lopcn.setVisible(true);
@@ -326,7 +342,12 @@ public class CBNV implements Initializable {
             quyen.setDisable(false);
             lopcn.setDisable(false);
         }
-
+        for (CBNVModule cb : ds) {
+            File f = new File("D:\\Projects\\IntelliJ\\QuanLyMamNon\\Project\\MNHP\\src\\main\\resources\\hp\\mnhp\\IMG\\" + cb.getIdCBNV() + ".jpg");
+            if (f.exists()) {
+                cb.setImg(new Image(getClass().getResourceAsStream("IMG/" + cb.getIdCBNV() + ".jpg")));
+            }
+        }
         list.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
@@ -382,5 +403,39 @@ public class CBNV implements Initializable {
                 }
             }
         });
+        img.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (User.idQuyen.equals("0") || User.idCBNV.equals(list.getSelectionModel().getSelectedItem().getIdCBNV())) {
+                    CBNVModule cb = list.getSelectionModel().getSelectedItem();
+                    FileDialog dialog = new FileDialog((Frame) null, "Select File to Open");
+                    dialog.setMode(FileDialog.LOAD);
+                    dialog.setVisible(true);
+                    File[] f = dialog.getFiles();
+                    dialog.dispose();
+                    File dest = new File("D:\\Projects\\IntelliJ\\QuanLyMamNon\\Project\\MNHP\\src\\main\\resources\\hp\\mnhp\\IMG\\");
+                    try {
+                        FileUtils.copyFileToDirectory(f[0], dest);
+                        File old = new File("D:\\Projects\\IntelliJ\\QuanLyMamNon\\Project\\MNHP\\src\\main\\resources\\hp\\mnhp\\IMG\\" + f[0].getName());
+                        File newname = new File("D:\\Projects\\IntelliJ\\QuanLyMamNon\\Project\\MNHP\\src\\main\\resources\\hp\\mnhp\\IMG\\" + cb.getIdCBNV() + ".jpg");
+                        if (newname.exists()) {
+                            newname.delete();
+                        }
+                        old.renameTo(newname);
+                        System.out.println("xong");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    cb.setImg(new Image(f[0].toURI().toString()));
+                    img.setImage(cb.getImg());
+                }
+            }
+        });
+    }
+
+    private void loadIMG(String id) {
+        String url = "/IMG/" + id + ".jpg";
+        Image a = new Image(getClass().getResourceAsStream(url));
+        img.setImage(a);
     }
 }

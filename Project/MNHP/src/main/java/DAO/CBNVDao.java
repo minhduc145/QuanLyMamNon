@@ -64,6 +64,7 @@ public class CBNVDao {
             if (i == true) {
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("Xoa Thanh cong");
+                PickAFile.delIMG(id);
                 alert.showAndWait();
             } else {
                 alert = new Alert(Alert.AlertType.ERROR);

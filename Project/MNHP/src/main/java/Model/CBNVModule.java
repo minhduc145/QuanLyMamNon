@@ -1,5 +1,6 @@
 package Model;
 
+import javafx.scene.image.Image;
 import lombok.Builder;
 import lombok.Setter;
 
@@ -13,7 +14,7 @@ import java.util.Locale;
 public class CBNVModule {
     private double hsl = 0.0;
     private double pctn = 0.0;
-
+    private Image img;
     private String idCBNV = "null";
     private String Hoten = "null";
     private String idChucVu = "null";
@@ -31,9 +32,18 @@ public class CBNVModule {
     private String idQuyen = "null";
     private String TDHV = "null";
 
-    public CBNVModule(double hsl, double pctn, String idCBNV, String hoten, String idChucVu, String noiSinh, String diaChiTT, String SDT, String email, LocalDate ngayVaoLam, LocalDate ngaySinh, String soCCCD, String idTinhTrang, boolean GTNam, String idLop, String matKhau, String idQuyen, String TDHV) {
+    public Image getImg() {
+        return img;
+    }
+
+    public void setImg(Image img) {
+        this.img = img;
+    }
+
+    public CBNVModule(double hsl, double pctn, Image img, String idCBNV, String hoten, String idChucVu, String noiSinh, String diaChiTT, String SDT, String email, LocalDate ngayVaoLam, LocalDate ngaySinh, String soCCCD, String idTinhTrang, boolean GTNam, String idLop, String matKhau, String idQuyen, String TDHV) {
         this.hsl = hsl;
         this.pctn = pctn;
+        this.img = img;
         this.idCBNV = idCBNV;
         Hoten = hoten;
         this.idChucVu = idChucVu;
