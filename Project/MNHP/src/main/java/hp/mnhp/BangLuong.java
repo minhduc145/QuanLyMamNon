@@ -22,6 +22,11 @@ import java.time.ZoneId;
 import java.util.*;
 
 public class BangLuong implements Initializable {
+    Date curDate = new Date();
+    LocalDate localDate = curDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    int month = localDate.getMonthValue();
+    int year = localDate.getYear();
+    int day = localDate.getDayOfMonth();
     List<luongModel> dscb = new ArrayList<>();
     Integer thangchon = null;
     Integer ngaychon = null;
@@ -35,23 +40,25 @@ public class BangLuong implements Initializable {
     @FXML
     TableColumn id, hoten, hs1, tt1, hs2, tt2, hs3, tt3, tongpc, tong1, bhxh, bhyt, bhtn, tong2;
 
-    Integer taoBang() {
+    Boolean taoBang() {
         try {
             Connection cn = (DbHelper.getInstance()).getConnection();
             String SQL = "insert into BangLuong values(?)";
             PreparedStatement stmt = cn.prepareStatement(SQL);
             stmt.setString(1, thangchon + "/" + namchon);
-            int i = stmt.executeUpdate();
-            return 1;
+            stmt.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println("Bang Luong da ton tai");
+            return false;
         }
-        return 0;
     }
 
     private void napDL() {
-        int i = taoBang();
-        if (i == 0) {
+        tab.getItems().clear();
+        dscb = new ArrayList<>();
+        if (taoBang() && thangchon >= month && namchon >= year) {
+            dscb = new ArrayList<>();
             try {
                 Connection cn = (DbHelper.getInstance()).getConnection();
                 String SQL = "SELECT TaiKhoan.idQuyen, CBNV.*\n" +
@@ -73,9 +80,64 @@ public class BangLuong implements Initializable {
                 e.printStackTrace();
             }
         } else {
-
+            tab.getItems().clear();
+            try {
+                Connection cn = (DbHelper.getInstance()).getConnection();
+                String SQL = "SELECT LuongNV.*, CBNV.HoTen\n" +
+                        "FROM LuongNV INNER JOIN CBNV ON LuongNV.idCBNV = CBNV.idCBNV" + " where idbang = ? and  Thang = ? and Nam = ?";
+                PreparedStatement stmt = cn.prepareStatement(SQL);
+                stmt.setString(1, thangchon + "/" + namchon);
+                stmt.setInt(2, thangchon);
+                stmt.setInt(3, namchon);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    luongModel cb = new luongModel();
+                    cb.setId(rs.getString("idcbnv"));
+                    cb.setTen(rs.getString("HoTen"));
+                    cb.setIdCV(rs.getString("TTidchucvu"));
+                    cb.setHsl(rs.getFloat("TTHSL"));
+                    cb.setPCTN(rs.getFloat("TTpctn"));
+                    dscb.add(cb);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
+    }
+
+    void luuLuong() {
+        for (luongModel l : dscb) {
+            try {
+                Connection cn = (DbHelper.getInstance()).getConnection();
+                String SQL = "INSERT INTO [dbo].[LuongNV]\n" +
+                        "           ([idCBNV]\n" +
+                        "           ,[idBang]\n" +
+                        "           ,[Thang]\n" +
+                        "           ,[Nam]\n" +
+                        "           ,[TTHSL]\n" +
+                        "           ,[TTPCTN]\n" +
+                        "           ,[TTidChucVu])\n" +
+                        "     VALUES\n" +
+                        "           (?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?\n" +
+                        "           ,?)";
+                PreparedStatement stmt = cn.prepareStatement(SQL);
+                stmt.setString(1, l.getId());
+                stmt.setString(2, thangchon + "/" + namchon);
+                stmt.setInt(3, thangchon);
+                stmt.setInt(4, namchon);
+                stmt.setFloat(5, l.getHsl());
+                stmt.setFloat(6, l.getPCTN());
+                stmt.setString(7, l.getIdCV());
+                stmt.executeUpdate();
+            } catch (Exception e) {
+            }
+        }
     }
 
     void napBang() {
@@ -98,12 +160,7 @@ public class BangLuong implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Date curDate = new Date();
-        LocalDate localDate = curDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int month = localDate.getMonthValue();
-        int year = localDate.getYear();
-        int day = localDate.getDayOfMonth();
-        for (int i = 1; i <= 12; i++) {
+        for (int i = 1; i <= month; i++) {
             thang.getItems().add(new datepicker("Tháng " + i, i));
             if (i == month)
                 thang.getSelectionModel().select(thang.getItems().get(i - 1));
@@ -130,20 +187,42 @@ public class BangLuong implements Initializable {
         namchon = year;
         napDL();
         napBang();
+        luuLuong();
         thang.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<datepicker>() {
             @Override
             public void changed(ObservableValue<? extends datepicker> observable, datepicker oldValue, datepicker newValue) {
-                thangchon = newValue.getThang();
-                napDL();
+                tab.getItems().clear();
+                dscb = new ArrayList<>();
+                if (newValue != null) {
+                    thangchon = newValue.getThang();
+                    napDL();
+                    napBang();
+                }
 
             }
         });
         nam.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Integer>() {
             @Override
             public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                tab.getItems().clear();
+                dscb = new ArrayList<>();
                 namchon = newValue;
+                thang.getItems().clear();
+                if (namchon < year) {
+                    for (int i = 1; i <= 12; i++) {
+                        thang.getItems().add(new datepicker("Tháng " + i, i));
+                        if (i == month)
+                            thang.getSelectionModel().select(thang.getItems().get(i - 1));
+                    }
+                } else if (namchon == year) {
+                    for (int i = 1; i <= month; i++) {
+                        thang.getItems().add(new datepicker("Tháng " + i, i));
+                        if (i == month)
+                            thang.getSelectionModel().select(thang.getItems().get(i - 1));
+                    }
+                }
                 napDL();
-
+                napBang();
             }
         });
 

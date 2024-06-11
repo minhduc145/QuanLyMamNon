@@ -138,7 +138,7 @@ public class CBNV implements Initializable {
             stage.setTitle("Chấm công");
             stage.setScene(new Scene(root));
             stage.setMaximized(true);
-//            stage.getScene().getStylesheets().add(new PrimerLight().getUserAgentStylesheet());
+            stage.getScene().getStylesheets().add(new PrimerLight().getUserAgentStylesheet());
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,7 +147,17 @@ public class CBNV implements Initializable {
 
     @FXML
     void bangLuong() {
-
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("bangLuong.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Chấm công");
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true);
+//            stage.getScene().getStylesheets().add(new PrimerLight().getUserAgentStylesheet());
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

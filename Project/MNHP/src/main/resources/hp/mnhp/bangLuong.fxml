@@ -13,13 +13,13 @@
         <columns>
           <TableColumn fx:id="id" prefWidth="45.33333969116211" text="ID" />
           <TableColumn fx:id="hoten" prefWidth="188.53330993652344" text="Họ Tên" />
-            <TableColumn prefWidth="215.46664428710938" text="Lương">
+            <TableColumn prefWidth="155.199951171875" text="Lương">
                <columns>
                   <TableColumn fx:id="hs1" prefWidth="75.0" text="Hệ số" />
                   <TableColumn fx:id="tt1" prefWidth="75.0" text="Thành tiền" />
                </columns>
             </TableColumn>
-            <TableColumn prefWidth="75.0" text="Các khoản phụ cấp">
+            <TableColumn prefWidth="371.1999816894531" text="Các khoản phụ cấp">
                <columns>
                   <TableColumn prefWidth="75.0" text="Chức vụ">
                      <columns>
@@ -37,14 +37,14 @@
                </columns>
             </TableColumn>
             <TableColumn fx:id="tong1" prefWidth="174.4000244140625" text="Tổng tiền lương và phụ cấp " />
-            <TableColumn prefWidth="75.0" text="Các khoản đóng">
+            <TableColumn prefWidth="262.4000244140625" text="Các khoản đóng">
                <columns>
                   <TableColumn fx:id="bhxh" prefWidth="75.0" text="BHXH(8%)" />
                   <TableColumn fx:id="bhyt" prefWidth="75.0" text="BHYT(1,5%)" />
-                  <TableColumn fx:id="bhtn" prefWidth="75.0" text="BHTN(1%)" />
+                  <TableColumn fx:id="bhtn" prefWidth="75.199951171875" text="BHTN(1%)" />
                </columns>
             </TableColumn>
-            <TableColumn fx:id="tong2" prefWidth="152.0" text="Tổng Thực nhận" />
+            <TableColumn fx:id="tong2" prefWidth="115.199951171875" text="Tổng Thực nhận" />
         </columns>
       </TableView>
       <ComboBox fx:id="thang" layoutX="486.0" layoutY="149.0" prefWidth="150.0" />

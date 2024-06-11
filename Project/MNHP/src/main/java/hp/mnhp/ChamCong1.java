@@ -118,7 +118,11 @@ public class ChamCong1 implements Initializable {
             if (s.getId() != null && s.getId().contains("select")) {
                 TableColumn b = (TableColumn) s.getColumns().get(0);
                 if (b.getText().equals("CN") || ((TableColumn) b).getText().equals("T7")) {
-                    b.setStyle("-fx-background-color: red ;");
+                    b.setStyle(".table-view .column-header,\n" +
+                            ".table-view .column-header .filler,\n" +
+                            ".table-view .column-header-background .filler {\n" +
+                            "    -fx-background-color: red;\n" +
+                            "}");
                 } else {
                     sn++;
                     b.setCellValueFactory(new PropertyValueFactory<ChamCongModel, CheckBox>(s.getId()));
@@ -139,8 +143,9 @@ public class ChamCong1 implements Initializable {
         dscb = new ArrayList<>();
         try {
             Connection cn = (DbHelper.getInstance()).getConnection();
-            String SQL = "SELECT idCBNV, HoTen from CBNV";
+            String SQL = "SELECT idCBNV, HoTen from CBNV where year(Ngayvaolam) <= ?";
             PreparedStatement stmt = cn.prepareStatement(SQL);
+            stmt.setInt(1, namchon);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 ChamCongModel cb = new ChamCongModel();
