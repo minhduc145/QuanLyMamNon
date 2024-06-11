@@ -118,7 +118,7 @@ public class ChamCong1 implements Initializable {
             if (s.getId() != null && s.getId().contains("select")) {
                 TableColumn b = (TableColumn) s.getColumns().get(0);
                 if (b.getText().equals("CN") || ((TableColumn) b).getText().equals("T7")) {
-//                    b.setStyle("-fx-background-color: red ;");
+                    b.setStyle("-fx-background-color: red ;");
                 } else {
                     sn++;
                     b.setCellValueFactory(new PropertyValueFactory<ChamCongModel, CheckBox>(s.getId()));

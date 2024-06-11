@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hp.mnhp.BangLuong">
+   <children>
+      <TableView fx:id="tab" layoutX="12.0" layoutY="196.0" prefHeight="533.0" prefWidth="1270.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="196.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="45.33333969116211" text="ID" />
+          <TableColumn fx:id="hoten" prefWidth="188.53330993652344" text="Họ Tên" />
+            <TableColumn prefWidth="215.46664428710938" text="Lương">
+               <columns>
+                  <TableColumn fx:id="hs1" prefWidth="75.0" text="Hệ số" />
+                  <TableColumn fx:id="tt1" prefWidth="75.0" text="Thành tiền" />
+               </columns>
+            </TableColumn>
+            <TableColumn prefWidth="75.0" text="Các khoản phụ cấp">
+               <columns>
+                  <TableColumn prefWidth="75.0" text="Chức vụ">
+                     <columns>
+                        <TableColumn fx:id="hs2" prefWidth="75.0" text="HS" />
+                        <TableColumn fx:id="tt2" prefWidth="75.0" text="Thành tiền" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Phụ cấp Thâm niên">
+                     <columns>
+                        <TableColumn fx:id="hs3" prefWidth="75.0" text="\%" />
+                        <TableColumn fx:id="tt3" prefWidth="75.0" text="Thành tiền" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="tongpc" prefWidth="75.0" text="Tổng PC" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="tong1" prefWidth="174.4000244140625" text="Tổng tiền lương và phụ cấp " />
+            <TableColumn prefWidth="75.0" text="Các khoản đóng">
+               <columns>
+                  <TableColumn fx:id="bhxh" prefWidth="75.0" text="BHXH(8%)" />
+                  <TableColumn fx:id="bhyt" prefWidth="75.0" text="BHYT(1,5%)" />
+                  <TableColumn fx:id="bhtn" prefWidth="75.0" text="BHTN(1%)" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="tong2" prefWidth="152.0" text="Tổng Thực nhận" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="thang" layoutX="486.0" layoutY="149.0" prefWidth="150.0" />
+      <ComboBox fx:id="nam" layoutX="693.0" layoutY="148.0" prefWidth="150.0" />
+      <Text layoutX="508.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BẢNG LƯƠNG NHÂN VIÊN:" AnchorPane.leftAnchor="508.0" AnchorPane.rightAnchor="483.0703125" AnchorPane.topAnchor="59.1015625">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
